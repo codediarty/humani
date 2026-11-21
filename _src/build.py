@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261122b"
+VER = "20261122c"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -49,9 +49,9 @@ BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "
 # list = 정가(판매가의 2배, 50% 할인 표시) · 판매가는 AIMarker 개인 토큰과 같음
 PACKS = [
     {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 25,000자", "pg": "약 10페이지"},
-    {"id": "pl", "name": "플러스", "tok": 300, "price": 19900, "list": 39800, "per": "약 66원", "who": "레포트 · 과제 여러 편", "chars": "약 75,000자", "pg": "약 30페이지"},
-    {"id": "pr", "name": "프로", "tok": 750, "price": 39900, "list": 79800, "per": "약 53원", "who": "논문 · 학위논문", "chars": "약 187,000자", "pg": "약 80페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 20% 절약"},
-    {"id": "mx", "name": "맥스", "tok": 1500, "price": 69900, "list": 139800, "per": "약 47원", "who": "논문 전체 · 여러 편", "chars": "약 375,000자", "pg": "약 200페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 30% 절약"},
+    {"id": "pl", "name": "플러스", "tok": 350, "price": 19900, "list": 39800, "per": "약 57원", "who": "레포트 · 과제 여러 편", "chars": "약 87,500자", "pg": "약 35페이지"},
+    {"id": "pr", "name": "프로", "tok": 1000, "price": 39900, "list": 79800, "per": "약 40원", "who": "논문 · 학위논문", "chars": "약 250,000자", "pg": "약 100페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 약 30% 절약"},
+    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 35원", "who": "논문 전체 · 여러 편", "chars": "약 500,000자", "pg": "약 250페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 약 39% 절약"},
 ]
 
 
@@ -379,6 +379,9 @@ def faq_html(faq):
     return '<div class="faq">' + "".join('<details><summary>%s</summary><div class="a"><p>%s</p></div></details>' % (esc(q), a) for q, a in faq) + "</div>"
 
 
+REP_LINE = "반복 변환할수록 AI 작성률은 계속 낮아집니다. 여러 번 변환하여 AI 작성 흔적을 극한까지 줄여보세요."   # 2026.11.22 대표: 요금 칸 아래 반복 변환 안내
+
+
 def pricing_cards(cta_text="구매하기"):
     out = []
     for p in PACKS:
@@ -392,7 +395,7 @@ def pricing_cards(cta_text="구매하기"):
         out.append('<div class="%s rv">%s<h3>%s</h3><p class="who">%s</p><p class="tk">%s토큰</p>%s<p class="pr">%s</p><p class="per">토큰당 %s · 부가세 포함</p>%s<ul>%s</ul>%s</div>' % (
             cls, tag, p["name"], p["who"], "{:,}".format(p["tok"]), lp, won(p["price"]), p["per"], ('<span class="sv">%s</span>' % p["save"]) if p.get("save") else "",
             "".join("<li>%s%s</li>" % (ico("check"), f) for f in feats), btn))
-    return '<div class="price">' + "".join(out) + "</div>" + P.pay_section(ico)
+    return '<div class="price">' + "".join(out) + "</div>" + '<p class="price-rep">%s</p>' % REP_LINE + P.pay_section(ico)   # 2026.11.22 대표(AIMarker 13.31 과 같게)
 
 
 def cta_band(h="제출하기 전, 30초면 확인합니다", p="지금 쓴 글의 AI 작성률부터 무료로 확인하세요. 가입도, 카드 등록도 필요 없습니다."):
@@ -479,7 +482,7 @@ def build_pricing():
     body += P.pricing_detail(ico)
     body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">결제 · 토큰 자주 묻는 질문</h2>%s</div></section>' % faq_html(P.PRICE_FAQ)
     body += cta_band("먼저 무료로 검사해 보세요", "AI 작성률이 높게 나온 문장만 휴머나이징하면 토큰을 아낄 수 있습니다.")
-    page("pricing/", "AI 휴머나이징 가격 · 토큰 충전 50% | Humani", "AI 휴머나이징 가격 안내. 정가의 50% 가격으로 라이트 100토큰 9,900원부터 맥스 1,500토큰 69,900원까지, 월 구독 없이 한 번 충전합니다. 검사는 무료 · 휴머나이징 1,000자 4토큰.",
+    page("pricing/", "AI 휴머나이징 가격 · 토큰 충전 50% | Humani", "AI 휴머나이징 가격 안내. 정가의 50% 가격으로 라이트 100토큰 9,900원부터 맥스 2,000토큰 69,900원까지, 월 구독 없이 한 번 충전합니다. 검사는 무료 · 휴머나이징 1,000자 4토큰.",
          body, ld=[ld_offers(), ld_faq(P.PRICE_FAQ), ld_crumbs(trail)], priority="0.9")
 
 

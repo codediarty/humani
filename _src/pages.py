@@ -205,7 +205,7 @@ def pricing_detail(ico):
     t = "".join("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % r for r in rows)
     return ('<section class="sec-s"><div class="wrap-n"><h2 class="h2">토큰은 이렇게 빠집니다</h2><p class="sub">AI 작성률 검사는 무료, AI 휴머나이징 1,000자 4토큰(최소 2토큰). 정가 기준 1토큰은 100원이고, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다.</p>'
             '<div class="tbl-w"><table class="tbl"><thead><tr><th>글</th><th>검사</th><th>휴머나이징</th><th>합계(정가 기준)</th></tr></thead><tbody>%s</tbody></table></div>'
-            '<p class="tnote">충전 상품으로 사면 토큰당 47~99원이라 위 금액보다 훨씬 적게 듭니다. 예를 들어 프로 750토큰(39,900원)이면 학위논문 본문 8만 자를 무료로 검사하고 두 번 다듬어도 토큰이 남습니다.</p>'
+            '<p class="tnote">충전 상품으로 사면 토큰당 35~99원이라 위 금액보다 훨씬 적게 듭니다. 예를 들어 프로 1,000토큰(39,900원)이면 학위논문 본문 8만 자를 무료로 검사하고 두 번 다듬어도 토큰이 남습니다.</p>'
             '<div class="grid3" style="margin-top:28px"><div class="card"><span class="ic">%s</span><h3>월 구독 없음</h3><p>한 번 충전하고 쓴 만큼만 빠집니다. 자동 결제도 없습니다.</p></div>'
             '<div class="card"><span class="ic">%s</span><h3>5년 동안 그대로</h3><p>남은 토큰은 사라지지 않고 충전한 날부터 5년 동안 씁니다. 같은 코드에 더 충전해 이어 쓸 수 있습니다.</p></div>'
             '<div class="card"><span class="ic">%s</span><h3>1분 안에 코드</h3><p>결제가 확인되면 보통 1분 안에 이메일로 16자리 토큰 코드가 갑니다.</p></div></div></div></section>') % (t, ico("card"), ico("clock"), ico("mail"))
