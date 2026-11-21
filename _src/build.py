@@ -39,7 +39,7 @@ API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyF
 SHOP = "https://skkc.co.kr/shop_view?idx=%s&kaiec_buy=1"
 # 성균관컨설팅(아임웹) Humani 전용 상품 번호. 서버는 스크립트 속성 HM_IDX 로 같은 번호를 hm1~hm4 로 봄
 SHOP_IDX = {"lt": "158", "pl": "159", "pr": "160", "mx": "161"}   # 2026.11.21 등록
-NAVER_VERIFY = ""
+NAVER_VERIFY = "c0cbdb4c41677fd3560d0aebdc88914bcf7308cb"   # 네이버 서치어드바이저 humanai.io.kr (2026.11.21)
 GOOGLE_VERIFY = ""
 BING_VERIFY = "6CFE39150A28BBBB4694B507E2E689C0"   # Bing 웹마스터 도구 https://humanai.io.kr/ (2026.11.21)
 INDEXNOW_KEY = "3f9c2a7e5b1d4c8a9e6f0b2d7a4c1e85"
