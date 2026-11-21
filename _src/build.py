@@ -41,6 +41,7 @@ SHOP = "https://skkc.co.kr/shop_view?idx=%s&kaiec_buy=1"
 SHOP_IDX = {"lt": "158", "pl": "159", "pr": "160", "mx": "161"}   # 2026.11.21 등록
 NAVER_VERIFY = ""
 GOOGLE_VERIFY = ""
+BING_VERIFY = "6CFE39150A28BBBB4694B507E2E689C0"   # Bing 웹마스터 도구 https://humanai.io.kr/ (2026.11.21)
 INDEXNOW_KEY = "3f9c2a7e5b1d4c8a9e6f0b2d7a4c1e85"
 GOOGLE_FILES = ["google67694027f26c117c.html"]   # 서치 콘솔 https://humanai.io.kr/ (copyhuman2 계정, 2026.11.21)
 BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "ecom": "제2026-경기송탄-0622",
@@ -312,6 +313,8 @@ def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="websit
         head.append('<meta name="naver-site-verification" content="%s">' % NAVER_VERIFY)
     if GOOGLE_VERIFY:
         head.append('<meta name="google-site-verification" content="%s">' % GOOGLE_VERIFY)
+    if BING_VERIFY:
+        head.append('<meta name="msvalidate.01" content="%s">' % BING_VERIFY)
     head.append('<script>document.documentElement.className+=" js";setTimeout(function(){if(!window.HZ_SITE){var a=document.querySelectorAll(".rv");for(var i=0;i<a.length;i++)a[i].className+=" in"}},3000)</script>')
     head.append('<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">')
     if tool:
