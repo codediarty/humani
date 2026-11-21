@@ -13,7 +13,7 @@ TOOL_TPL = """<div class="hz12" id="hz">
     <div class="hz12-in" id="hzIn">
       <div class="hz12-drop" id="hzDrop">
         <label class="k-sr" for="hzText">검사할 글</label>
-        <textarea id="hzText" maxlength="50000" spellcheck="false" placeholder="AI로 쓴 글이나 과제 · 논문 · 자기소개서를 붙여 넣으세요"></textarea>
+        <textarea id="hzText" maxlength="200000" spellcheck="false" placeholder="AI로 쓴 글이나 과제 · 논문 · 자기소개서를 붙여 넣으세요"></textarea>
         <div class="hz12-empty" id="hzEmpty">
           <button type="button" class="hz12-up" id="hzPick">{ico_upload}<span>파일 올리기</span></button>
           <p class="dnd">또는 파일을 여기로 끌어다 놓으세요</p>
@@ -26,13 +26,13 @@ TOOL_TPL = """<div class="hz12" id="hz">
       <div class="hz12-bar">
         <div class="hz12-file" id="hzFileChip" hidden></div>
         <div class="hz12-ex" id="hzEx" role="group" aria-label="예시 글로 해 보기"><span>예시</span><button type="button" data-ex="thesis">논문</button><button type="button" data-ex="journal">학술지</button><button type="button" data-ex="report">대학 과제</button><button type="button" data-ex="grad">대학원 과제</button><button type="button" data-ex="essay">자기소개서</button></div>
-        <span class="hz12-cnt"><b id="hzCount">0</b>자<span class="lim" id="hzLimit"> / 무료 검사 5만 자까지</span></span>
+        <span class="hz12-cnt"><b id="hzCount">0</b>자<span class="lim" id="hzLimit"> / 무료 검사 20만 자까지</span></span>
       </div>
     </div>
     <div class="hz12-sum" id="hzSum" hidden></div>
     <div class="hz12-go" id="hzGo">
       <button class="k-btn k-btn-p k-btn-lg hz12-run" type="button" id="hzCheck">{ico_search}<span id="hzChkL">AI 작성률 무료 검사</span><em class="hz7-pill" id="hzChkTag" hidden></em></button>
-      <button class="k-btn k-btn-l k-btn-lg hz12-run2" type="button" id="hzPro" hidden>{ico_pen}<span>휴머나이징</span><em class="hz7-pill" id="hzProTag"></em></button>
+      <button class="k-btn k-btn-l k-btn-lg hz12-run2" type="button" id="hzPro" hidden>{ico_pen}<span>휴머나이징<small>AI 작성률 낮추기</small></span><em class="hz7-pill" id="hzProTag"></em></button>
       <p class="hz12-note" id="hzNote">{ico_lock}<span>가입 없이 무료 · 글과 파일은 저장하지 않습니다</span></p>
       <div class="hz7-pass hz12-pass" id="hzPass" aria-live="polite"></div>
     </div>
@@ -80,15 +80,15 @@ TOOL_TPL = """<div class="hz12" id="hz">
 # 메인화면에는 특정 검사기 이름(상표)을 적지 않습니다(2026.11.21 대표 지시). 'AI 탐지기'처럼 일반 표현으로.
 HOME = {
     "title": "AI 휴머나이저 · AI 작성률 낮추기 · AI 휴머나이징 | Humani(휴머나이)",
-    "desc": "AI 작성률은 낮추고 원문의 의미는 그대로. Humani(휴머나이)는 AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸는 한국어 AI 휴머나이저입니다. 5만 자 무료 검사.",
-    "eyebrow": "<b>무료</b> 한국어 AI 휴머나이저 · 가입 없이 5만 자 검사",
+    "desc": "AI 작성률은 낮추고 원문의 의미는 그대로. Humani(휴머나이)는 AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸는 한국어 AI 휴머나이저입니다. 20만 자 무료 검사.",
+    "eyebrow": "<b>무료</b> 한국어 AI 휴머나이저 · 가입 없이 20만 자 검사",
     "h1": "AI 작성률은 낮추고,<br>원문의 의미는 그대로.",
     "lead": "AI&nbsp;탐지기가 감지하는 문장 패턴을 정밀 분석합니다. AI&nbsp;작성&nbsp;흔적이 발견된 문장을 집중적으로 변환하고, 원문의&nbsp;의미와 핵심&nbsp;내용은 유지합니다. 변환&nbsp;전후 AI&nbsp;작성률까지 직접 비교해 보세요.",
     "pts": ["회원가입 없이 바로", "한글 · 워드 · PDF 그대로", "넣은 글은 저장하지 않음"],
     "faq": [
         ("AI 휴머나이저는 어떤 서비스인가요?", "AI가 쓴 글에서 탐지기가 잡아내는 말버릇(번역투, 판에 박힌 연결어, 내용 없는 꾸밈말, 일정한 문장 리듬)을 찾아 사람이 쓴 문장으로 바꾸는 서비스입니다. Humani(휴머나이)는 한국어만 다루는 엔진으로 바꾸고, 바꾼 뒤 AI 작성률을 같은 기준으로 다시 재서 결과를 숫자로 보여 드립니다."),
         ("AI 탐지기의 AI 작성률을 정말 낮출 수 있나요?", "AI 탐지기는 문장마다 AI가 쓴 글과 닮은 정도를 보고, 기준을 넘는 문장을 AI 작성으로 표시합니다. 휴머나이는 실제 검사 결과와 문장 단위로 대조해 맞춘 엄격한 기준으로 걸릴 만한 문장을 먼저 찾고, 그 문장을 집중적으로 고친 뒤 다시 잽니다. 예시 레포트는 AI 작성률 {EX_R_B}%에서 한 번의 휴머나이징으로 {EX_R_A}%가 됐습니다(Humani 판정 기준). 탐지기마다 모델이 달라 같은 숫자를 약속하지는 않습니다."),
-        ("어디까지 무료인가요?", "AI 작성률 검사는 가입 없이 무료이고 한 번에 5만 자까지 됩니다. 전체 AI 작성률, 판정(안전 · 고위험 · 부적합), 가장 뚜렷한 AI 문장 2개를 바로 보여 드립니다. 휴머나이징은 앞부분을 무료로 먼저 보고, 글 전체는 토큰으로 이용합니다."),
+        ("어디까지 무료인가요?", "AI 작성률 검사는 가입 없이 무료이고 한 번에 20만 자까지 됩니다. 전체 AI 작성률, 판정(안전 · 고위험 · 부적합), 가장 뚜렷한 AI 문장 2개를 바로 보여 드립니다. 휴머나이징은 앞부분을 무료로 먼저 보고, 글 전체는 토큰으로 이용합니다."),
         ("휴머나이징하면 내용이 바뀌지 않나요?", "뜻이 바뀌지 않게 만든 엔진입니다. 숫자, 이름, 인용, 전문 용어는 건드리지 않고 문장의 짜임과 말투만 바꿉니다. 출시 기준 시험(583만 자)에서 사실 · 부정 표현 보존 100%를 확인했습니다. 그래도 제출하기 전에 한 번 읽어 보시길 권합니다."),
         ("한글 · 워드 파일을 그대로 올려도 되나요?", "네. 한글(HWP · HWPX), 워드(DOCX), PDF, 텍스트 파일을 올리면 글을 꺼내 바로 검사합니다. 다듬은 글은 올린 형식 그대로 받을 수 있고, 한글 · 워드 파일은 바뀐 문단만 고쳐 원래 서식을 지킵니다."),
         ("제가 넣은 글은 저장되나요?", "저장하지 않습니다. 넣은 글과 파일은 검사와 휴머나이징에만 쓰고 서버에 남기지 않습니다. 파일에서 글을 꺼내는 일도 이용자의 브라우저 안에서 하고, 회원가입도 없습니다."),
@@ -200,19 +200,19 @@ def pay_section(ico):
 
 
 def pricing_detail(ico):
-    rows = [("자기소개서 1문항(1,500자)", "6토큰", "12토큰", "18토큰 · 약 1,800원"), ("대학 레포트(5,000자)", "20토큰", "40토큰", "60토큰 · 약 6,000원"),
-            ("논문 한 장(15,000자)", "60토큰", "120토큰", "180토큰 · 약 18,000원"), ("학위논문 본문(80,000자)", "320토큰", "640토큰", "960토큰 · 약 96,000원")]
+    rows = [("자기소개서 1문항(1,500자)", "무료", "6토큰", "6토큰 · 약 600원"), ("대학 레포트(5,000자)", "무료", "20토큰", "20토큰 · 약 2,000원"),
+            ("논문 한 장(15,000자)", "무료", "60토큰", "60토큰 · 약 6,000원"), ("학위논문 본문(80,000자)", "무료", "320토큰", "320토큰 · 약 32,000원")]
     t = "".join("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % r for r in rows)
-    return ('<section class="sec-s"><div class="wrap-n"><h2 class="h2">토큰은 이렇게 빠집니다</h2><p class="sub">AI 작성률 검사 1,000자 4토큰(최소 2토큰), AI 휴머나이징 1,000자 8토큰(최소 4토큰). 정가 기준 1토큰은 100원이고, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다.</p>'
+    return ('<section class="sec-s"><div class="wrap-n"><h2 class="h2">토큰은 이렇게 빠집니다</h2><p class="sub">AI 작성률 검사는 무료, AI 휴머나이징 1,000자 4토큰(최소 2토큰). 정가 기준 1토큰은 100원이고, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다.</p>'
             '<div class="tbl-w"><table class="tbl"><thead><tr><th>글</th><th>검사</th><th>휴머나이징</th><th>합계(정가 기준)</th></tr></thead><tbody>%s</tbody></table></div>'
-            '<p class="tnote">충전 상품으로 사면 토큰당 47~99원이라 위 금액보다 훨씬 적게 듭니다. 예를 들어 프로 750토큰(39,900원)이면 학위논문 본문 8만 자를 검사하고 다듬은 뒤에도 토큰이 남습니다.</p>'
+            '<p class="tnote">충전 상품으로 사면 토큰당 47~99원이라 위 금액보다 훨씬 적게 듭니다. 예를 들어 프로 750토큰(39,900원)이면 학위논문 본문 8만 자를 무료로 검사하고 두 번 다듬어도 토큰이 남습니다.</p>'
             '<div class="grid3" style="margin-top:28px"><div class="card"><span class="ic">%s</span><h3>월 구독 없음</h3><p>한 번 충전하고 쓴 만큼만 빠집니다. 자동 결제도 없습니다.</p></div>'
             '<div class="card"><span class="ic">%s</span><h3>5년 동안 그대로</h3><p>남은 토큰은 사라지지 않고 충전한 날부터 5년 동안 씁니다. 같은 코드에 더 충전해 이어 쓸 수 있습니다.</p></div>'
             '<div class="card"><span class="ic">%s</span><h3>1분 안에 코드</h3><p>결제가 확인되면 보통 1분 안에 이메일로 16자리 토큰 코드가 갑니다.</p></div></div></div></section>') % (t, ico("card"), ico("clock"), ico("mail"))
 
 
 PRICE_FAQ = [
-    ("토큰은 어떻게 빠지나요?", "검사나 휴머나이징을 누르면 글자 수만큼 토큰이 빠집니다. AI 작성률 검사는 1,000자에 4토큰, AI 휴머나이징은 1,000자에 8토큰이고, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다. 무료 검사(요약)는 토큰이 들지 않습니다."),
+    ("토큰은 어떻게 빠지나요?", "AI 작성률 검사는 무료이고, 휴머나이징을 누를 때만 글자 수만큼 토큰이 빠집니다. AI 휴머나이징은 1,000자에 4토큰이며, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다. 무료 검사(요약)는 토큰이 들지 않습니다."),
     ("결제하면 코드는 언제 오나요?", "결제가 확인되면 보통 1분 안에 결제할 때 적은 이메일로 16자리 토큰 코드가 갑니다. 메일의 단추를 누르면 코드가 자동으로 들어가고, 결제하러 가기 전에 넣어 둔 글을 그대로 이어서 휴머나이징합니다. 메일이 안 보이면 스팸함도 확인해 주세요."),
     ("결제할 때 무엇을 적어야 하나요?", "토큰 코드를 받을 이메일만 적으면 됩니다. 회원가입은 없고, 카드 · 토스페이 · 계좌이체 가운데 편한 방법으로 결제합니다."),
     ("카드 명세서에는 무엇으로 찍히나요?", "Humani 운영사인 성균관컨설팅으로 표시됩니다. 영수증도 성균관컨설팅 이름으로 발행됩니다."),

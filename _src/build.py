@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261121u"
+VER = "20261122a"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -48,10 +48,10 @@ BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "
        "addr": "경기도 수원시 장안구 서부로 2066 성균관대학교 브릿지팩토리(연구실)", "mail": "contact@skkc.co.kr"}
 # list = 정가(판매가의 2배, 50% 할인 표시) · 판매가는 AIMarker 개인 토큰과 같음
 PACKS = [
-    {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 8,000자", "pg": "약 5페이지"},
-    {"id": "pl", "name": "플러스", "tok": 300, "price": 19900, "list": 39800, "per": "약 66원", "who": "레포트 · 과제 여러 편", "chars": "약 25,000자", "pg": "약 15페이지"},
-    {"id": "pr", "name": "프로", "tok": 750, "price": 39900, "list": 79800, "per": "약 53원", "who": "논문 · 학위논문", "chars": "약 62,000자", "pg": "약 40페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 20% 절약"},
-    {"id": "mx", "name": "맥스", "tok": 1500, "price": 69900, "list": 139800, "per": "약 47원", "who": "논문 전체 · 여러 편", "chars": "약 125,000자", "pg": "약 100페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 30% 절약"},
+    {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 25,000자", "pg": "약 10페이지"},
+    {"id": "pl", "name": "플러스", "tok": 300, "price": 19900, "list": 39800, "per": "약 66원", "who": "레포트 · 과제 여러 편", "chars": "약 75,000자", "pg": "약 30페이지"},
+    {"id": "pr", "name": "프로", "tok": 750, "price": 39900, "list": 79800, "per": "약 53원", "who": "논문 · 학위논문", "chars": "약 187,000자", "pg": "약 80페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 20% 절약"},
+    {"id": "mx", "name": "맥스", "tok": 1500, "price": 69900, "list": 139800, "per": "약 47원", "who": "논문 전체 · 여러 편", "chars": "약 375,000자", "pg": "약 200페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 30% 절약"},
 ]
 
 
@@ -130,8 +130,8 @@ ORG = {"@type": "Organization", "@id": SITE + "/#org", "name": BRAND, "alternate
        "address": {"@type": "PostalAddress", "streetAddress": "서부로 2066 성균관대학교 브릿지팩토리", "addressLocality": "수원시 장안구", "addressRegion": "경기도", "postalCode": "16419", "addressCountry": "KR"}}
 WEBSITE = {"@type": "WebSite", "@id": SITE + "/#website", "name": BRAND, "alternateName": [BRAND_KO, BRAND_EN, BRAND + " AI 휴머나이저"], "url": SITE + "/", "inLanguage": "ko-KR", "publisher": {"@id": SITE + "/#org"}}
 APP = {"@type": "WebApplication", "@id": SITE + "/#app", "name": BRAND + " AI 휴머나이저", "alternateName": [BRAND_KO, BRAND_EN], "url": SITE + "/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web",
-       "inLanguage": "ko-KR", "description": "한국어 AI 휴머나이징 전문 서비스. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 원문의 의미는 지킨 채 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(5만 자).",
-       "featureList": ["AI 작성률 무료 검사(5만 자, 가입 없음)", "문장 단위 AI 검출 표시", "AI 휴머나이징(한국어 전용 엔진)", "한글 HWP · HWPX · 워드 DOCX · PDF 파일 지원", "말투 자동 맞춤(논문체 · 보고서체 · 자소서체)", "결과상세내역서 PDF"],
+       "inLanguage": "ko-KR", "description": "한국어 AI 휴머나이징 전문 서비스. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 원문의 의미는 지킨 채 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(20만 자).",
+       "featureList": ["AI 작성률 무료 검사(20만 자, 가입 없음)", "문장 단위 AI 검출 표시", "AI 휴머나이징(한국어 전용 엔진)", "한글 HWP · HWPX · 워드 DOCX · PDF 파일 지원", "말투 자동 맞춤(논문체 · 보고서체 · 자소서체)", "결과상세내역서 PDF"],
        "offers": {"@type": "AggregateOffer", "priceCurrency": "KRW", "lowPrice": "0", "highPrice": "69900", "offerCount": "5"}, "publisher": {"@id": SITE + "/#org"}}
 
 
@@ -434,7 +434,7 @@ def example_section(h="변환 전후 AI 작성률을<br>직접 비교해 보세�
 
 def price_section(h="월 구독 없이, 쓴 만큼만", sub="지금 모든 토큰이 정가의 50% 가격입니다. 한 번 충전하면 글자 수만큼만 빠지고, 남은 토큰은 5년 동안 사라지지 않습니다."):
     return ('<section class="sec alt" id="price"><div class="wrap">%s%s'
-            '<p class="price-note">AI 작성률 검사 1,000자 4토큰 · AI 휴머나이징 1,000자 8토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (P.sh(h, sub), pricing_cards())
+            '<p class="price-note">AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (P.sh(h, sub), pricing_cards())
 
 
 # ---------------- 홈 ----------------
@@ -479,7 +479,7 @@ def build_pricing():
     body += P.pricing_detail(ico)
     body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">결제 · 토큰 자주 묻는 질문</h2>%s</div></section>' % faq_html(P.PRICE_FAQ)
     body += cta_band("먼저 무료로 검사해 보세요", "AI 작성률이 높게 나온 문장만 휴머나이징하면 토큰을 아낄 수 있습니다.")
-    page("pricing/", "AI 휴머나이징 가격 · 토큰 충전 50% | Humani", "AI 휴머나이징 가격 안내. 정가의 50% 가격으로 라이트 100토큰 9,900원부터 맥스 1,500토큰 69,900원까지, 월 구독 없이 한 번 충전합니다. 검사 1,000자 4토큰 · 휴머나이징 8토큰.",
+    page("pricing/", "AI 휴머나이징 가격 · 토큰 충전 50% | Humani", "AI 휴머나이징 가격 안내. 정가의 50% 가격으로 라이트 100토큰 9,900원부터 맥스 1,500토큰 69,900원까지, 월 구독 없이 한 번 충전합니다. 검사는 무료 · 휴머나이징 1,000자 4토큰.",
          body, ld=[ld_offers(), ld_faq(P.PRICE_FAQ), ld_crumbs(trail)], priority="0.9")
 
 
@@ -579,12 +579,12 @@ def build_static():
 # ---------------- 검색 · AI 검색용 파일 ----------------
 def llms_txt(pages):
     L = ["# Humani (휴머나이) · Humani AI Humanizer", "",
-         "> 한국어 AI 휴머나이징 전문 서비스. AI 작성률은 낮추고, 원문의 의미는 그대로. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(5만 자).", "",
+         "> 한국어 AI 휴머나이징 전문 서비스. AI 작성률은 낮추고, 원문의 의미는 그대로. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(20만 자).", "",
          "- 사이트: %s/" % SITE, "- 이름: Humani(휴머나이), 영문 Humani AI Humanizer", "- 운영: 성균관컨설팅(사업자등록번호 272-32-01885, 통신판매업 제2026-경기송탄-0622) · 문의 contact@skkc.co.kr",
          "- 엔진: 같은 운영사 AIMarker의 검사 · 휴머나이징 엔진과 같은 버전(출시 전 교차 검증). 인간화는 생성 AI 없이 한국어 규칙 엔진(용언 사전 15,659개, 사람 글 약 10억 자)",
          "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 언제나 같은 값",
          "- 요금: " + " · ".join("%s %d토큰 %s원(정가 %s원)" % (p["name"], p["tok"], "{:,}".format(p["price"]), "{:,}".format(p["list"])) for p in PACKS) + " · 월 구독 없음, 남은 토큰 5년 유지",
-         "- 토큰 단가: AI 작성률 검사 1,000자 4토큰(최소 2) · AI 휴머나이징 1,000자 8토큰(최소 4) · 무료 검사(요약) 0토큰",
+         "- 토큰 단가: AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰(최소 2) · 무료 검사(요약) 0토큰",
          "- 결제: 운영사 성균관컨설팅 결제 페이지(skkc.co.kr)에서 회원가입 없이 이메일만 적고 결제, 보통 1분 안에 16자리 토큰 코드 메일",
          "- 실측 예시(%s, Humani 판정 기준, 한 번의 휴머나이징): %s" % (EX["EX_DATE"], EX["EX_LIST"]),
          "- 상표: 카피킬러, GPT킬러 등은 각 권리자의 상표이며 Humani는 해당 서비스와 제휴 관계가 없습니다", "", "## 페이지", ""]
