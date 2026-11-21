@@ -35,10 +35,10 @@ TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
 VER = "20261121h"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
-API = os.environ.get("HM_API", "")
+API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
 SHOP = "https://skkc.co.kr/shop_view?idx=%s&kaiec_buy=1"
 # 성균관컨설팅(아임웹) Humani 전용 상품 번호. 서버는 스크립트 속성 HM_IDX 로 같은 번호를 hm1~hm4 로 봄
-SHOP_IDX = {"lt": "", "pl": "", "pr": "", "mx": ""}
+SHOP_IDX = {"lt": "158", "pl": "159", "pr": "160", "mx": "161"}   # 2026.11.21 등록
 NAVER_VERIFY = ""
 GOOGLE_VERIFY = ""
 INDEXNOW_KEY = "3f9c2a7e5b1d4c8a9e6f0b2d7a4c1e85"
@@ -142,7 +142,7 @@ def ld_offers():
             "description": "AI 작성률 검사와 AI 휴머나이징에 쓰는 토큰. 월 구독 없이 한 번 충전하고, 남은 토큰은 5년 동안 사라지지 않습니다.",
             "image": [SITE + "/assets/product/hm-pr-1x1.jpg", SITE + "/assets/img/og.png"], "category": "디지털콘텐츠 이용권",
             "offers": [{"@type": "Offer", "name": "%s %d토큰" % (p["name"], p["tok"]), "price": str(p["price"]), "priceCurrency": "KRW", "availability": "https://schema.org/InStock",
-                        "url": shop(p["id"]) or (SITE + "/pricing/"), "seller": {"@type": "Organization", "name": BIZ["name"]}} for p in PACKS]}
+                        "url": (shop(p["id"]).replace("&kaiec_buy=1", "") if shop(p["id"]) else (SITE + "/pricing/")), "seller": {"@type": "Organization", "name": BIZ["name"]}} for p in PACKS]}
 
 
 # ---------------- 예시 화면(실제 엔진 값) ----------------
