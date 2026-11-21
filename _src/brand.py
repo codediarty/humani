@@ -75,32 +75,29 @@ BASE = ("<!doctype html><html><head><meta charset='utf-8'><link rel='stylesheet'
 
 
 def og_html(robot_uri, head_uri):
+    """공유 이미지(1200x630): 밝은 바탕 · 절제된 글자 · 실측값 카드(빛 번짐 · 기울임 없음)"""
     b, a = T["before"]["rate"], T["after"]["rate"]
     return BASE % ("""<style>
-body{width:1200px;height:630px;position:relative;overflow:hidden;background:
- radial-gradient(620px 420px at 86% 30%,rgba(8,168,250,.20),transparent 62%),
- radial-gradient(520px 360px at 8% 100%,rgba(118,80,240,.10),transparent 60%),
- linear-gradient(180deg,#f7f9fe 0%,#eaf0fc 100%)}
-.br{position:absolute;left:76px;top:62px;display:flex;align-items:center;gap:14px}
-.br img{height:58px}
-.br b{display:block;font-size:40px;font-weight:850;letter-spacing:-.04em;line-height:1}
-.br small{display:block;font-size:17px;font-weight:650;color:#5b6b8f;margin-top:5px;letter-spacing:-.01em}
-h1{position:absolute;left:76px;top:168px;font-size:70px;line-height:1.14;font-weight:850;letter-spacing:-.05em;color:#0e1d44}
-.sub{position:absolute;left:78px;top:350px;font-size:25px;color:#43517a;font-weight:600;letter-spacing:-.02em}
-.visor{position:absolute;left:76px;bottom:62px;display:flex;align-items:center;gap:26px;padding:22px 30px;border-radius:26px;
- background:linear-gradient(160deg,#16306a 0%,#0c1e43 46%,#1f2a8f 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 24px 50px -24px rgba(14,29,68,.55)}
-.visor small{display:block;font-size:16px;font-weight:700;color:#9fb6e8;letter-spacing:-.01em}
-.visor b{display:block;font-size:56px;font-weight:850;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums}
-.visor .from b{color:#ff8aa8}
-.visor .to b{color:#e9fdf9;text-shadow:0 0 18px rgba(2,198,252,.85),0 0 4px rgba(2,198,252,.6)}
-.visor .ar{width:46px;height:2px;background:linear-gradient(90deg,#ff8aa8,#5fe3ff);position:relative}
-.visor .ar:after{content:"";position:absolute;right:-2px;top:-6px;border:7px solid transparent;border-left:10px solid #5fe3ff;border-right:0}
-.dom{position:absolute;right:70px;bottom:44px;font-size:24px;font-weight:800;color:#1d64f2;letter-spacing:-.01em}
-.robot{position:absolute;right:46px;top:44px;height:500px}
+body{width:1200px;height:630px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f5f8ff 0%,#eef3fc 100%);color:#101828}
+body:before{content:"";position:absolute;inset:0;background-image:linear-gradient(to right,rgba(16,24,40,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(16,24,40,.04) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 70% at 25% 30%,#000 30%,transparent 100%)}
+.br{position:absolute;left:76px;top:60px;display:flex;align-items:center;gap:14px}
+.br img{height:54px}
+.br b{display:block;font-size:36px;font-weight:750;letter-spacing:-.04em;line-height:1}
+.br small{display:block;font-size:17px;font-weight:600;color:#667085;margin-top:6px;letter-spacing:-.01em}
+h1{position:absolute;left:76px;top:164px;font-size:66px;line-height:1.16;font-weight:700;letter-spacing:-.045em}
+.sub{position:absolute;left:78px;top:340px;font-size:24px;color:#475467;font-weight:550;letter-spacing:-.02em}
+.card{position:absolute;left:76px;bottom:58px;display:flex;align-items:center;gap:28px;padding:20px 30px;border-radius:22px;background:#fff;border:1.5px solid #e4e7ec;box-shadow:0 20px 40px -18px rgba(16,24,40,.18)}
+.card small{display:block;font-size:16px;font-weight:600;color:#667085;letter-spacing:-.01em}
+.card b{display:block;font-size:46px;font-weight:700;letter-spacing:-.04em;line-height:1.1;font-variant-numeric:tabular-nums}
+.card .f b{color:#d92d20}.card .t b{color:#067647}
+.card .ar{width:40px;height:2px;background:#d0d5dd;position:relative}
+.card .ar:after{content:"";position:absolute;right:-1px;top:-5px;border:6px solid transparent;border-left:9px solid #d0d5dd;border-right:0}
+.dom{position:absolute;right:72px;bottom:56px;font-size:24px;font-weight:700;color:#155eef;letter-spacing:-.01em}
+.robot{position:absolute;right:60px;top:56px;height:460px}
 </style>""", """<div class="br"><img src="%s" alt=""><div><b>Humani</b><small>한국어 AI 휴머나이저 · 휴머나이</small></div></div>
 <h1>AI 작성률은 낮추고,<br>원문의 의미는 그대로.</h1>
 <div class="sub">AI 작성 흔적이 있는 문장만 사람 문장으로 바꿉니다</div>
-<div class="visor"><div class="from"><small>휴머나이징 전 AI 작성률</small><b>%s%%</b></div><span class="ar"></span><div class="to"><small>한 번 휴머나이징 뒤</small><b>%s%%</b></div></div>
+<div class="card"><div class="f"><small>변환 전 AI 작성률</small><b>%s%%</b></div><span class="ar"></span><div class="t"><small>한 번 휴머나이징 뒤</small><b>%s%%</b></div></div>
 <img class="robot" src="%s" alt="">
 <div class="dom">humanai.io.kr</div>""" % (head_uri, b, a, robot_uri))
 

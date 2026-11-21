@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261121t"
+VER = "20261121u"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -99,10 +99,10 @@ def header(path):
     nav = "".join('<a href="/%s"%s>%s</a>' % (p, ' aria-current="page"' if path == p else "", t) for p, t in NAV)
     mnav = "".join('<a href="/%s">%s</a>' % (p, t) for p, t in NAV)
     return ('<header class="hd" id="hd"><div class="wrap hd-in">%s<nav class="nav" aria-label="주요 메뉴">%s</nav>'
-            '<div class="hd-r"><a class="btn btn-g btn-s" href="/pricing/">%s토큰 충전</a><a class="btn btn-p btn-s" href="/#tool" data-tool>%s<span class="hl">무료 AI 작성률 검사</span><span class="hs">무료 검사</span></a>'
+            '<div class="hd-r"><a class="btn btn-g btn-s hd-tk" href="/pricing/">토큰 충전</a><a class="btn btn-p btn-s" href="/#tool" data-tool><span class="hl">무료 AI 작성률 검사</span><span class="hs">무료 검사</span></a>'
             '<button class="menu-btn" id="menuBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav">%s</button></div></div></header>'
             '<nav class="mnav" id="mnav" aria-label="모바일 메뉴">%s<a href="/results/">실제 측정 결과</a><a href="/about/">회사 소개</a></nav>') % (
-        logo(), nav, ico("zap"), ico("search"), ico("menu"), mnav)
+        logo(), nav, ico("menu"), mnav)
 
 
 def footer(tm=False):
@@ -292,11 +292,17 @@ def demo_card():
 
 
 def compare_block():
+    """변환 전후 나란히(첫 예시는 미리 그려 둠: 스크립트 없이도 · 검색 엔진에도 보이게). 탭을 누르면 site.js 가 바꿔 넣음"""
     tabs = "".join('<button type="button" role="tab" aria-selected="%s">%s</button>' % ("true" if i == 0 else "false", s["label"]) for i, s in enumerate(DS))
+    S = DS[0]
+    bc = "good" if "안전" in S["before"]["band"] else "bad"
+    ac = "good" if "안전" in S["after"]["band"] else "bad"
+    foot = '<span>AI로 검출된 문장 <b>%s개 → %s개</b></span><span>바꾼 곳 <b>%s곳</b></span><span>숫자 · 이름 · 인용 <b>그대로</b></span>' % (S["before"].get("n", "-"), S["after"].get("n", "-"), S["changes"])
     return ('<div class="cmp-tabs" role="tablist" aria-label="예시 글 종류">%s</div><div class="cmp" id="cmp">'
-            '<div class="cmp-col"><div class="cmp-h"><span>휴머나이징 전</span><span class="pill l bad"></span></div><div class="cmp-t l"></div></div>'
-            '<div class="cmp-col"><div class="cmp-h"><span>휴머나이징 후</span><span class="pill r good"></span></div><div class="cmp-t r"></div></div></div>'
-            '<div class="cmp-foot"></div><p class="center mnote">%s</p>') % (tabs, esc(DEMO["measured"]))
+            '<div class="cmp-col"><div class="cmp-h"><span>변환 전</span><span class="pill l %s">AI 작성률 %s%% · %s</span></div><div class="cmp-t l">%s</div></div>'
+            '<div class="cmp-col"><div class="cmp-h"><span>변환 후</span><span class="pill r %s">AI 작성률 %s%% · %s</span></div><div class="cmp-t r">%s</div></div></div>'
+            '<div class="cmp-foot">%s</div><p class="center mnote">%s</p>') % (
+        tabs, bc, S["before"]["rate"], esc(S["before"]["band"]), S["src"], ac, S["after"]["rate"], esc(S["after"]["band"]), S["dst"], foot, esc(DEMO["measured"]))
 
 
 # ---------------- 페이지 틀 ----------------
@@ -412,25 +418,18 @@ def visor():
 
 def hero_with_tool(eyebrow, h1, lead, pts=None, cls="hero", ex="#example"):
     pts = pts or ["회원가입 없이 바로", "한글 · 워드 · PDF 그대로", "넣은 글은 저장하지 않음"]
-    return ('<section class="%s" id="top"><div class="wrap"><div class="hero-top">'
-            '<div class="hero-side hero-l">%s</div>'
-            '<div class="hero-copy"><p class="hero-pill">%s</p><h1 class="h1">%s</h1><p class="lead">%s</p>'
-            '<div class="hero-cta"><a class="btn btn-p btn-l" href="#tool" data-tool>%s무료로 AI 작성률 검사</a><a class="btn btn-g btn-l" href="%s">변환 전후 예시 보기</a></div>'
+    return ('<section class="%s" id="top"><div class="wrap"><div class="hero-copy">'
+            '<p class="hero-pill">%s</p><h1 class="h1">%s</h1><p class="lead">%s</p>'
+            '<div class="hero-cta"><a class="btn btn-p btn-l" href="#tool" data-tool>무료로 AI 작성률 검사</a><a class="btn btn-g btn-l" href="%s">변환 전후 예시 보기</a></div>'
             '<ul class="hero-pts">%s</ul></div>'
-            '<div class="hero-side hero-r"><div class="hero-bot">%s<p class="bot-chip">%s원문의 의미 · 숫자 · 인용 그대로</p></div></div>'
-            '</div><div id="tool" class="tool-w">%s</div></div></section>') % (
-        cls, visor(), eyebrow, h1, lead, ico("search"), ex, "".join("<li>%s%s</li>" % (ico("check"), t) for t in pts),
-        robot_img(300, "bot-img", "Humani 마스코트 로봇이 검사를 마친 문서를 들고 있는 모습", lazy=False, prio=(cls.find("home") >= 0)), ico("check"), tool_html())
+            '<div id="tool" class="tool-w">%s</div></div></section>') % (
+        cls, eyebrow, h1, lead, ex, "".join("<li>%s%s</li>" % (ico("check"), t) for t in pts), tool_html())
 
 
 def example_section(h="변환 전후 AI 작성률을<br>직접 비교해 보세요", sub="네 편 모두 Humani 엔진에 그대로 넣어 잰 실제 값입니다. 보라색은 AI 작성 흔적이 발견된 문장, 초록색은 사람 문장으로 바꾼 곳입니다.", cls="sec"):
-    items = "".join(('<button type="button" class="exi" role="tab" data-demo-pick="%d" aria-selected="%s"><span class="exi-t"><b>%s</b><small>%s</small></span>'
-                     '<span class="exi-r"><s>%s%%</s><span class="exi-ar" aria-hidden="true"></span><b>%s%%</b></span>'
-                     '<span class="exi-n">AI 검출 문장 %s개 → %s개 · 바꾼 곳 %s곳</span></button>') % (
-        i, "true" if i == 0 else "false", esc(d["label"]), esc(d["file"]), d["before"]["rate"], d["after"]["rate"], d["before"].get("n", "-"), d["after"].get("n", "-"), d["changes"]) for i, d in enumerate(DS))
-    return ('<section class="%s" id="example"><div class="wrap">%s<div class="ex-grid"><div class="ex-main">%s</div>'
-            '<div class="ex-side"><div class="ex-list" role="tablist" aria-label="예시 글">%s</div><a class="txt-link" href="/results/">실제 측정 결과 전체 보기 %s</a></div></div></div></section>') % (
-        cls, P.sh(h, sub), demo_card(), items, ico("arrow"))
+    return ('<section class="%s" id="example"><div class="wrap">%s<div class="hx">%s</div>'
+            '<p class="ex-more"><a class="txt-link" href="/results/">실제 측정 결과 전체 보기 %s</a></p></div></section>') % (
+        cls, P.sh(h, sub), compare_block(), ico("arrow"))
 
 
 def price_section(h="월 구독 없이, 쓴 만큼만", sub="지금 모든 토큰이 정가의 50% 가격입니다. 한 번 충전하면 글자 수만큼만 빠지고, 남은 토큰은 5년 동안 사라지지 않습니다."):
@@ -439,6 +438,7 @@ def price_section(h="월 구독 없이, 쓴 만큼만", sub="지금 모든 토�
 
 
 # ---------------- 홈 ----------------
+
 def faq_block(faq, h="궁금한 점, 먼저 답해 드립니다", more=True):
     return ('<section class="sec" id="faq"><div class="wrap faq-g">%s<div>%s%s</div></div></section>') % (
         P.sh(h, "검사, 휴머나이징, 결제와 토큰에 대해 가장 많이 받는 질문입니다."), faq_html(faq),

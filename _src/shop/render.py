@@ -54,88 +54,67 @@ BASE = ("<!doctype html><html><head><meta charset='utf-8'><link rel='stylesheet'
         "*{box-sizing:border-box;margin:0;padding:0}html,body{font-family:'Pretendard Variable',Pretendard,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.02em;color:#0e1d44;word-break:keep-all}"
         "%%s</style></head><body>%%s</body></html>") % FONT
 
-# 2026.11.21 새 로고(로봇) · 사이트와 같은 색(얼굴 화면 남색 · 파랑) · 검사기 이름은 적지 않음
+# 2026.11.21 고급형: 밝은 바탕 · 절제된 글자 · 로봇 마스코트(빛 번짐 · 기울임 같은 장식 없음) · 검사기 이름은 적지 않음
 THUMB_CSS = """
-body{width:1200px;height:1200px;position:relative;overflow:hidden;background:#eef2fb}
-.hero{position:absolute;left:0;top:0;width:1200px;height:800px;overflow:hidden;
- background:radial-gradient(520px 420px at 82% 32%,rgba(8,168,250,.42),transparent 66%),
- radial-gradient(120% 90% at 18% 0%,rgba(52,98,196,.55) 0%,transparent 55%),
- linear-gradient(165deg,#132b62 0%,#0c1e43 52%,#1b2788 100%)}
-.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(255,255,255,.045) 1px,transparent 1px);background-size:100% 40px}
-.brand{position:absolute;left:80px;top:66px;display:flex;align-items:center;gap:14px;z-index:2}
-.brand img{height:76px}
-.brand b{display:block;font-size:50px;font-weight:860;letter-spacing:-.04em;color:#fff;line-height:1}
-.brand small{display:block;font-size:20px;font-weight:650;color:#a9bdf0;margin-top:6px;letter-spacing:-.01em}
-.badge{position:absolute;right:80px;top:80px;height:58px;padding:0 28px;border-radius:29px;display:flex;align-items:center;font-size:28px;font-weight:850;z-index:4;letter-spacing:-.02em}
-.badge.best{background:linear-gradient(180deg,#fcd34d,#fbbf24);color:#1a1205;box-shadow:0 10px 24px -8px rgba(251,191,36,.7)}
-.badge.top{background:#fff;color:#0e1d44;box-shadow:0 10px 24px -10px rgba(255,255,255,.6)}
-.badge.sale{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.3);color:#fff}
-.kick{position:absolute;left:84px;top:206px;display:flex;align-items:center;gap:12px;color:#dbe6ff;font-size:31px;font-weight:750;z-index:2}
-.pills{position:absolute;left:82px;top:272px;display:flex;gap:14px;z-index:2}
-.pill{height:58px;padding:0 26px;border-radius:29px;display:flex;align-items:center;font-size:29px;font-weight:850}
-.pill.n{background:linear-gradient(180deg,#2a72ff,#1a63f2);color:#fff;box-shadow:0 10px 22px -10px rgba(26,99,242,.9)}
-.pill.o{border:2px solid rgba(255,255,255,.34);color:#fff;font-weight:750}
-.big{position:absolute;left:72px;top:342px;display:flex;align-items:flex-end;color:#fff;z-index:2}
-.big b{font-size:@BIGPX@px;font-weight:880;letter-spacing:-.065em;line-height:.9;text-shadow:0 18px 40px rgba(0,0,0,.35);font-variant-numeric:tabular-nums}
-.big span{font-size:62px;font-weight:850;margin:0 0 16px 16px}
-.robot{position:absolute;right:58px;top:150px;width:@RW@px;z-index:2;filter:drop-shadow(0 30px 40px rgba(0,0,0,.35))}
-.meter{position:absolute;right:80px;top:516px;width:330px;padding:20px 24px 18px;border-radius:26px;z-index:3;color:#cfe0ff;
- background:linear-gradient(165deg,rgba(22,48,106,.92),rgba(12,30,67,.94) 52%,rgba(27,39,136,.94));border:1.5px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 26px 50px -22px rgba(0,0,0,.7);transform:rotate(-2deg)}
-.meter .t{font-size:19px;font-weight:700;color:#a9bdf0}
-.meter .v{display:flex;align-items:baseline;gap:12px;margin:6px 0 12px}
-.meter .v s{font-size:46px;font-weight:860;color:#ff94ae;text-decoration:none}
-.meter .v i{font-style:normal;font-size:30px;color:#5fe3ff}
-.meter .v b{font-size:62px;font-weight:880;color:#f2fffd;letter-spacing:-.04em;text-shadow:0 0 22px rgba(2,198,252,.95),0 0 4px rgba(2,198,252,.7)}
-.bar{height:10px;border-radius:5px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
-.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
-.bar .w{width:@BW@%;background:repeating-linear-gradient(135deg,rgba(255,148,174,.45) 0 5px,rgba(255,148,174,.18) 5px 10px)}
-.bar .n{width:@AW@%;min-width:12px;background:#2fc2ff;box-shadow:0 0 12px rgba(8,168,250,.9)}
-.meter .c{font-size:16.5px;color:#94abdc;margin-top:10px;font-weight:650}
-.save{position:absolute;left:84px;top:634px;height:54px;padding:0 22px;border-radius:14px;border:2px solid rgba(251,191,36,.8);background:rgba(251,191,36,.1);color:#fcd34d;font-size:25px;font-weight:850;display:flex;align-items:center;z-index:2}
-.fit{position:absolute;left:86px;top:646px;color:rgba(255,255,255,.86);font-size:26px;font-weight:650;z-index:2}
-.panel{position:absolute;left:56px;right:56px;top:728px;height:416px;border-radius:40px;background:#fff;box-shadow:0 30px 60px -30px rgba(14,29,68,.45);z-index:3}
-.ttl{position:absolute;left:52px;top:44px;font-size:50px;font-weight:860;letter-spacing:-.045em;color:#0e1d44;line-height:1.2}
-.chips{position:absolute;left:52px;top:200px;display:flex;gap:12px}
-.chip{height:50px;padding:0 18px 0 12px;border-radius:25px;background:#f3f6fc;border:1.5px solid #dde4f2;display:flex;align-items:center;gap:8px;font-size:23px;font-weight:750;color:#1c2540}
-.dom{position:absolute;left:54px;bottom:44px;font-size:30px;font-weight:850;color:#1a63f2;letter-spacing:-.02em}
-.dom small{font-size:21px;font-weight:650;color:#8592b3;margin-left:12px;letter-spacing:-.01em}
-.price{position:absolute;right:52px;bottom:34px;text-align:right}
-.price del{display:block;font-size:28px;font-weight:650;color:#8592b3;text-decoration-thickness:2px}
-.price .row{display:flex;align-items:baseline;gap:16px;justify-content:flex-end}
-.price .off{font-size:50px;font-weight:880;color:#ef3a6b;letter-spacing:-.03em}
-.price b{font-size:78px;font-weight:880;letter-spacing:-.045em;color:#0e1d44}
+body{width:1200px;height:1200px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f5f8ff 0%,#eef3fc 100%)}
+body:before{content:"";position:absolute;inset:0;background-image:linear-gradient(to right,rgba(16,24,40,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(16,24,40,.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 30% 20%,#000 30%,transparent 100%)}
+.brand{position:absolute;left:80px;top:72px;display:flex;align-items:center;gap:14px}
+.brand img{height:62px}
+.brand b{display:block;font-size:42px;font-weight:750;letter-spacing:-.04em;color:#101828;line-height:1}
+.brand small{display:block;font-size:19px;font-weight:600;color:#667085;margin-top:6px;letter-spacing:-.01em}
+.badge{position:absolute;right:80px;top:84px;height:52px;padding:0 24px;border-radius:26px;display:flex;align-items:center;font-size:24px;font-weight:700;letter-spacing:-.02em}
+.badge.best{background:#155eef;color:#fff}
+.badge.top{background:#101828;color:#fff}
+.badge.sale{background:#fff;color:#344054;border:1.5px solid #d0d5dd}
+.kick{position:absolute;left:84px;top:280px;font-size:28px;font-weight:650;color:#155eef;letter-spacing:-.02em}
+.name{position:absolute;left:82px;top:322px;font-size:54px;font-weight:700;color:#101828;letter-spacing:-.04em}
+.big{position:absolute;left:72px;top:416px;display:flex;align-items:flex-end;color:#101828}
+.big b{font-size:@BIGPX@px;font-weight:700;letter-spacing:-.06em;line-height:.88;font-variant-numeric:tabular-nums}
+.big span{font-size:58px;font-weight:650;margin:0 0 14px 14px;color:#344054}
+.per{position:absolute;left:84px;top:@PERTOP@px;font-size:27px;font-weight:600;color:#5d6b82}
+.per b{color:#067647;font-weight:650;margin-left:12px}
+.robot{position:absolute;right:52px;top:214px;width:@RW@px}
+.panel{position:absolute;left:56px;right:56px;bottom:56px;height:340px;border-radius:32px;background:#fff;border:1.5px solid #e4e7ec;box-shadow:0 24px 48px -16px rgba(16,24,40,.14)}
+.ttl{position:absolute;left:52px;top:46px;font-size:40px;font-weight:700;letter-spacing:-.04em;color:#101828;line-height:1.25}
+.chips{position:absolute;left:52px;bottom:48px;display:flex;flex-direction:column;gap:10px}
+.chip{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:600;color:#344054}
+.chip svg{flex:none}
+.price{position:absolute;right:52px;bottom:40px;text-align:right}
+.price .row1{display:flex;align-items:baseline;gap:14px;justify-content:flex-end;font-size:26px;font-weight:600;color:#98a2b3}
+.price .row1 del{text-decoration-thickness:2px}
+.price .row1 em{font-style:normal;color:#d92d20;font-weight:700}
+.price b{display:block;font-size:84px;font-weight:700;letter-spacing:-.045em;color:#101828;line-height:1.05;font-variant-numeric:tabular-nums}
+.dom{position:absolute;right:52px;top:52px;font-size:22px;font-weight:650;color:#155eef;letter-spacing:-.01em}
 """
+CHECK2 = ('<svg viewBox="0 0 24 24" width="26" height="26" fill="none"><circle cx="12" cy="12" r="11" fill="#ecfdf3" stroke="#abefc6"/>'
+          '<path d="m7.6 12.2 2.9 2.9 5.9-6.1" stroke="#079455" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 
 def thumb_html(p):
     small = len(p["tok"]) > 3
-    css = (THUMB_CSS.replace("@BIGPX@", str(196 if small else 246)).replace("@RW@", str(330 if small else 360))
-           .replace("@BW@", str(max(8, min(100, B_RATE)))).replace("@AW@", str(max(3, min(100, A_RATE)))))
+    css = (THUMB_CSS.replace("@BIGPX@", str(196 if small else 232)).replace("@RW@", str(420 if small else 460))
+           .replace("@PERTOP@", str(612 if small else 642)))
     if p["badge"] == "BEST 추천":
         badge = '<div class="badge best">BEST 추천</div>'
     elif p["badge"]:
         badge = '<div class="badge top">%s</div>' % p["badge"]
     else:
         badge = '<div class="badge sale">정가의 50%</div>'
-    low = ('<div class="save">%s</div>' % p["save"]) if p["save"] else ('<div class="fit">%s</div>' % p["fit"])
-    chips = "".join('<div class="chip">%s%s</div>' % (CHECK, t) for t in ("월 구독 없음", "쓴 만큼만 차감", "5년 사용", "결제 30초"))
+    save = ('<b>%s</b>' % p["save"]) if p["save"] else ""
+    chips = "".join('<div class="chip">%s%s</div>' % (CHECK2, t) for t in ("월 구독 없이 한 번 충전", "쓴 만큼만 차감 · 5년 사용", "결제 후 1분 안에 메일로 코드"))
     body = """
-<div class="hero">
- <div class="brand"><img src="%s" alt=""><div><b>Humani</b><small>한국어 AI 휴머나이저 · 휴머나이</small></div></div>%s
- <div class="kick">%s AI 휴머나이저 토큰</div>
- <div class="pills"><div class="pill n">%s</div><div class="pill o">%s</div></div>
- <div class="big"><b>%s</b><span>토큰</span></div>
- <img class="robot" src="%s" alt="">
- <div class="meter"><div class="t">변환 전 → 후 AI 작성률</div><div class="v"><s>%d%%</s><i>→</i><b>%d%%</b></div>
-  <div class="bar"><i class="w"></i><i class="n"></i></div><div class="c">%s</div></div>
- %s
-</div>
+<div class="brand"><img src="%s" alt=""><div><b>Humani</b><small>한국어 AI 휴머나이저</small></div></div>%s
+<div class="kick">AI 휴머나이저 토큰</div>
+<div class="name">%s</div>
+<div class="big"><b>%s</b><span>토큰</span></div>
+<div class="per">%s%s</div>
+<img class="robot" src="%s" alt="">
 <div class="panel">
  <div class="ttl">AI 작성률은 낮추고,<br>원문의 의미는 그대로.</div>
+ <div class="dom">humanai.io.kr</div>
  <div class="chips">%s</div>
- <div class="dom">humanai.io.kr<small>Humani(휴머나이)</small></div>
- <div class="price"><del>정가 %s</del><div class="row"><span class="off">50%%</span><b>%s</b></div></div>
-</div>""" % (HEAD_URI, badge, SPARK, p["name"], p["per"], p["tok"], ROBOT_URI, B_RATE, A_RATE, DEMO_CAP, low, chips, p["list"], p["price"])
+ <div class="price"><div class="row1"><del>정가 %s</del><em>50%% 할인</em></div><b>%s</b></div>
+</div>""" % (HEAD_URI, badge, p["name"], p["tok"], p["per"], save, ROBOT_URI, chips, p["list"], p["price"])
     return BASE % (css, body)
 
 
@@ -150,25 +129,23 @@ GUIDE_STEPS = [
 def guide_html():
     steps = "".join('<div class="st"><div class="n">%d</div><div><h3>%s</h3><p>%s</p></div></div>' % (i + 1, h, t) for i, (h, t) in enumerate(GUIDE_STEPS))
     css = """
-body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f3f6fc}
-.top{position:absolute;left:0;top:0;width:1080px;height:430px;overflow:hidden;
- background:radial-gradient(420px 340px at 86% 40%,rgba(8,168,250,.42),transparent 66%),radial-gradient(120% 90% at 18% 0%,rgba(52,98,196,.55) 0%,transparent 55%),linear-gradient(165deg,#132b62 0%,#0c1e43 52%,#1b2788 100%)}
-.top:before{content:"";position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(255,255,255,.045) 1px,transparent 1px);background-size:100% 40px}
+body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f8fafc}
+.top{position:absolute;left:0;top:0;width:1080px;height:400px;overflow:hidden;background:linear-gradient(180deg,#f5f8ff,#eef3fc);border-bottom:1px solid #e4e7ec}
 .brand{position:absolute;left:76px;top:64px;display:flex;align-items:center;gap:14px}
-.brand img{height:66px}
-.brand b{display:block;font-size:44px;font-weight:860;letter-spacing:-.04em;color:#fff;line-height:1}
-.brand small{display:block;font-size:18px;font-weight:650;color:#a9bdf0;margin-top:6px}
-h1{position:absolute;left:76px;top:172px;font-size:80px;font-weight:880;letter-spacing:-.05em;color:#fff}
-.lead{position:absolute;left:78px;top:282px;font-size:28px;color:#cfdcff;font-weight:650}
-.robot{position:absolute;right:56px;top:40px;width:270px;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
-.list{position:absolute;left:64px;top:352px;width:952px;display:flex;flex-direction:column;gap:16px}
-.st{display:flex;gap:26px;background:#fff;border:1px solid #dde4f2;border-radius:28px;padding:24px 32px;box-shadow:0 14px 30px -20px rgba(14,29,68,.35)}
-.n{flex:none;width:60px;height:60px;border-radius:50%;background:linear-gradient(180deg,#2a72ff,#1a63f2);color:#fff;font-size:29px;font-weight:850;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px -8px rgba(26,99,242,.8)}
-h3{font-size:34px;font-weight:850;letter-spacing:-.035em;margin:6px 0 10px;color:#0e1d44}
-h3 em{font-style:normal;color:#1a63f2}
-p{font-size:23px;line-height:1.58;color:#3a4669;font-weight:550}
-.ft{position:absolute;left:78px;right:78px;bottom:40px;border-top:1px solid #dde4f2;padding-top:22px;display:flex;justify-content:space-between;align-items:flex-end;color:#69759a;font-size:22px;line-height:1.6}
-.ft b{color:#1a63f2;font-size:30px;font-weight:850}
+.brand img{height:58px}
+.brand b{display:block;font-size:40px;font-weight:750;letter-spacing:-.04em;color:#101828;line-height:1}
+.brand small{display:block;font-size:18px;font-weight:600;color:#667085;margin-top:6px}
+h1{position:absolute;left:76px;top:170px;font-size:72px;font-weight:700;letter-spacing:-.045em;color:#101828}
+.lead{position:absolute;left:78px;top:272px;font-size:27px;color:#5d6b82;font-weight:600}
+.robot{position:absolute;right:60px;top:56px;width:250px}
+.list{position:absolute;left:64px;top:440px;width:952px;display:flex;flex-direction:column;gap:16px}
+.st{display:flex;gap:24px;background:#fff;border:1.5px solid #e4e7ec;border-radius:24px;padding:24px 30px}
+.n{flex:none;width:52px;height:52px;border-radius:14px;background:#eff4ff;border:1.5px solid #d1e0ff;color:#155eef;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center}
+h3{font-size:31px;font-weight:700;letter-spacing:-.035em;margin:4px 0 8px;color:#101828}
+h3 em{font-style:normal;color:#155eef}
+p{font-size:22.5px;line-height:1.6;color:#475467;font-weight:500}
+.ft{position:absolute;left:78px;right:78px;bottom:40px;border-top:1px solid #e4e7ec;padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end;color:#667085;font-size:21px;line-height:1.6}
+.ft b{color:#155eef;font-size:28px;font-weight:700}
 """
     body = """<div class="top"><div class="brand"><img src="%s" alt=""><div><b>Humani</b><small>한국어 AI 휴머나이저 · 휴머나이</small></div></div>
 <h1>토큰 이용 안내</h1><div class="lead">월 구독 없이 한 번 충전하고, 쓴 만큼만 빠집니다</div><img class="robot" src="%s" alt=""></div>
