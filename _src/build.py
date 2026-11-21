@@ -42,6 +42,7 @@ SHOP_IDX = {"lt": "158", "pl": "159", "pr": "160", "mx": "161"}   # 2026.11.21 �
 NAVER_VERIFY = ""
 GOOGLE_VERIFY = ""
 INDEXNOW_KEY = "3f9c2a7e5b1d4c8a9e6f0b2d7a4c1e85"
+GOOGLE_FILES = ["google67694027f26c117c.html"]   # 서치 콘솔 https://humanai.io.kr/ (copyhuman2 계정, 2026.11.21)
 BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "ecom": "제2026-경기송탄-0622",
        "addr": "경기도 수원시 장안구 서부로 2066 성균관대학교 브릿지팩토리(연구실)", "mail": "contact@skkc.co.kr"}
 # list = 정가(판매가의 2배, 50% 할인 표시) · 판매가는 AIMarker 개인 토큰과 같음
@@ -577,6 +578,8 @@ def build_seo():
     open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8").write(json.dumps({"name": BRAND + " AI 휴머나이저", "short_name": BRAND, "description": TAGLINE, "start_url": "/", "display": "standalone", "background_color": "#ffffff", "theme_color": "#0b1730", "lang": "ko",
                                                                                          "icons": [{"src": "/assets/img/logo-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/assets/img/logo-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False))
     open(os.path.join(OUT, INDEXNOW_KEY + ".txt"), "w").write(INDEXNOW_KEY)
+    for gf in GOOGLE_FILES:   # 구글 서치 콘솔 소유 확인 파일(지우지 말 것)
+        open(os.path.join(OUT, gf), "w").write("google-site-verification: " + gf)
     open(os.path.join(OUT, "CNAME"), "w").write(HOST + "\n")
     open(os.path.join(OUT, ".nojekyll"), "w").write("\n")
     prods = {"shop": SHOP, "idx": {k: v for k, v in SHOP_IDX.items() if v}, "items": {p["id"]: {"name": p["name"], "tok": p["tok"], "price": p["price"], "list": p.get("list", 0)} for p in PACKS}}
