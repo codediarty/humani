@@ -603,7 +603,7 @@ def verify():
                 bad.append("측정값 자리 남음 " + rel)
             if re.search(r"한국휴머나이저|humanizer\.co\.kr", s):
                 bad.append("다른 브랜드 이름 " + rel)
-            if not f.endswith(".html"):
+            if not f.endswith(".html") or f in GOOGLE_FILES:
                 continue
             for m in re.finditer(r'href="(/[^"#?]*)', s):
                 u = m.group(1)
