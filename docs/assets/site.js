@@ -36,6 +36,8 @@
         if (k < 1) requestAnimationFrame(f); else vz.classList.add('v-done');
       })(t0);
     }, 700);
+    /* 탭이 뒤에 있어 화면 갱신(requestAnimationFrame)이 멈추면 바로 최종값으로 */
+    setTimeout(function () { if (!vz.classList.contains('v-done')) { if (vN) vN.textContent = vTo; if (vNow) vNow.style.width = Math.max(3, vTo) + '%'; vz.classList.add('v-go', 'v-done'); } }, 3400);
   }
 
   /* 예시 데이터 */
