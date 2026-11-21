@@ -77,21 +77,23 @@ TOOL_TPL = """<div class="hz12" id="hz">
 </dialog>"""
 
 # ---------------- 홈 ----------------
+# 메인화면에는 특정 검사기 이름(상표)을 적지 않습니다(2026.11.21 대표 지시). 'AI 탐지기'처럼 일반 표현으로.
 HOME = {
-    "title": "AI 휴머나이저 · AI 휴머나이징 · 카피킬러 AI 작성률 낮추기 | Humani(휴머나이)",
-    "desc": "AI 휴머나이저 Humani(휴머나이)는 카피킬러 · GPT킬러에 걸리는 AI 문장만 골라 사람 문장으로 바꾸는 한국어 AI 휴머나이징 전문 서비스입니다. 5만 자 무료 AI 작성률 검사부터 시작하세요.",
-    "eyebrow": "<b>무료</b> 가입 없이 5만 자까지 AI 작성률 검사",
-    "h1": '<span class="u">AI 작성률</span>에 걸리는 문장만<br><em>사람 문장</em>으로 바꿉니다',
-    "lead": "카피킬러 · GPT킬러가 AI로 표시할 문장을 먼저 찾아, 뜻 · 숫자 · 인용은 그대로 둔 채 <b>사람이 쓴 문장</b>으로 바꿉니다. 바꾼 뒤에는 같은 기준으로 다시 재서 AI 작성률이 얼마나 내려갔는지 숫자로 보여 드립니다.",
+    "title": "AI 휴머나이저 · AI 작성률 낮추기 · AI 휴머나이징 | Humani(휴머나이)",
+    "desc": "AI 작성률은 낮추고 원문의 의미는 그대로. Humani(휴머나이)는 AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸는 한국어 AI 휴머나이저입니다. 5만 자 무료 검사.",
+    "eyebrow": "<b>무료</b> 한국어 AI 휴머나이저 · 가입 없이 5만 자 검사",
+    "h1": "AI 작성률은 낮추고,<br>원문의 의미는 그대로.",
+    "lead": "AI 탐지기가 감지하는 문장 패턴을 정밀 분석합니다. AI 작성 흔적이 발견된 문장을 집중적으로 변환하고, 원문의 의미와 핵심 내용은 유지합니다. 변환 전후 AI 작성률까지 직접 비교해 보세요.",
+    "pts": ["회원가입 없이 바로", "한글 · 워드 · PDF 그대로", "넣은 글은 저장하지 않음"],
     "faq": [
         ("AI 휴머나이저는 어떤 서비스인가요?", "AI가 쓴 글에서 탐지기가 잡아내는 말버릇(번역투, 판에 박힌 연결어, 내용 없는 꾸밈말, 일정한 문장 리듬)을 찾아 사람이 쓴 문장으로 바꾸는 서비스입니다. Humani(휴머나이)는 한국어만 다루는 엔진으로 바꾸고, 바꾼 뒤 AI 작성률을 같은 기준으로 다시 재서 결과를 숫자로 보여 드립니다."),
-        ("카피킬러 AI 작성률을 정말 낮출 수 있나요?", "카피킬러 AI 탐지는 문장마다 AI가 쓴 글과 닮은 정도를 보고 기준을 넘는 문장을 표시합니다. 휴머나이는 실제 결과확인서와 문장 단위로 대조해 맞춘 엄격한 기준으로 걸릴 만한 문장을 먼저 찾고, 그 문장 위주로 고친 뒤 다시 잽니다. 예시 레포트는 AI 작성률 {EX_R_B}%에서 한 번의 휴머나이징으로 {EX_R_A}%가 됐습니다(Humani 판정 기준). 검사기마다 모델이 달라 같은 숫자를 약속하지는 않습니다."),
+        ("AI 탐지기의 AI 작성률을 정말 낮출 수 있나요?", "AI 탐지기는 문장마다 AI가 쓴 글과 닮은 정도를 보고, 기준을 넘는 문장을 AI 작성으로 표시합니다. 휴머나이는 실제 검사 결과와 문장 단위로 대조해 맞춘 엄격한 기준으로 걸릴 만한 문장을 먼저 찾고, 그 문장을 집중적으로 고친 뒤 다시 잽니다. 예시 레포트는 AI 작성률 {EX_R_B}%에서 한 번의 휴머나이징으로 {EX_R_A}%가 됐습니다(Humani 판정 기준). 탐지기마다 모델이 달라 같은 숫자를 약속하지는 않습니다."),
         ("어디까지 무료인가요?", "AI 작성률 검사는 가입 없이 무료이고 한 번에 5만 자까지 됩니다. 전체 AI 작성률, 판정(안전 · 고위험 · 부적합), 가장 뚜렷한 AI 문장 2개를 바로 보여 드립니다. 휴머나이징은 앞부분을 무료로 먼저 보고, 글 전체는 토큰으로 이용합니다."),
         ("휴머나이징하면 내용이 바뀌지 않나요?", "뜻이 바뀌지 않게 만든 엔진입니다. 숫자, 이름, 인용, 전문 용어는 건드리지 않고 문장의 짜임과 말투만 바꿉니다. 출시 기준 시험(583만 자)에서 사실 · 부정 표현 보존 100%를 확인했습니다. 그래도 제출하기 전에 한 번 읽어 보시길 권합니다."),
         ("한글 · 워드 파일을 그대로 올려도 되나요?", "네. 한글(HWP · HWPX), 워드(DOCX), PDF, 텍스트 파일을 올리면 글을 꺼내 바로 검사합니다. 다듬은 글은 올린 형식 그대로 받을 수 있고, 한글 · 워드 파일은 바뀐 문단만 고쳐 원래 서식을 지킵니다."),
         ("제가 넣은 글은 저장되나요?", "저장하지 않습니다. 넣은 글과 파일은 검사와 휴머나이징에만 쓰고 서버에 남기지 않습니다. 파일에서 글을 꺼내는 일도 이용자의 브라우저 안에서 하고, 회원가입도 없습니다."),
         ("결제는 어떻게 하고, 코드는 언제 오나요?", "토큰을 고르면 운영사 성균관컨설팅의 결제 페이지가 열립니다. 이메일만 적고 카드 · 토스페이 · 계좌이체로 결제하면 보통 1분 안에 16자리 토큰 코드가 메일로 오고, 메일의 단추를 누르면 하던 글 그대로 이어서 휴머나이징됩니다."),
-        ("GPT킬러나 챗GPT 탐지기에도 효과가 있나요?", "GPT킬러, 챗GPT 탐지기처럼 문장의 AI 패턴을 보는 탐지기는 비슷한 신호를 봅니다. 휴머나이는 특정 검사기 하나에 맞춘 꼼수가 아니라 AI 문장 패턴 자체를 고치므로 여러 탐지기에 함께 대비할 수 있습니다."),
+        ("여러 AI 탐지기에 함께 대비할 수 있나요?", "AI 탐지기들은 대체로 비슷한 신호를 봅니다. 번역투, 판에 박힌 연결어, 내용 없는 꾸밈말, 일정한 문장 리듬 같은 것들입니다. 휴머나이는 특정 탐지기 하나에 맞춘 꼼수가 아니라 이런 AI 문장 패턴 자체를 고치므로 여러 탐지기에 함께 대비할 수 있습니다."),
     ],
 }
 HOW_STEPS = [
@@ -101,23 +103,27 @@ HOW_STEPS = [
 ]
 
 
+def sh(h, sub="", cls=""):
+    """구역 머리: 제목은 왼쪽, 설명은 오른쪽(좁은 화면에서는 아래로)"""
+    return '<div class="hsh%s"><h2 class="h2">%s</h2>%s</div>' % ((" " + cls) if cls else "", h, ('<p class="sub">%s</p>' % sub) if sub else "")
+
+
 def trust_strip(ico):
-    items = [("db", "89억 개", "AI 문장 패턴 데이터로 만든 판별 엔진"), ("book", "15,659개", "사람 글 10억 자로 만든 한국어 용언 사전"),
-             ("shield", "100%", "숫자 · 사실 · 부정 표현 보존(583만 자 시험)"), ("mail", "1분 안", "결제하면 메일로 16자리 토큰 코드")]
-    return ('<section class="trust" aria-label="엔진 수치"><div class="wrap"><div class="trust-g">%s</div></div></section>' %
-            "".join('<div class="tr rv"><span class="tr-i">%s</span><div><b>%s</b><span>%s</span></div></div>' % (ico(i), a, b) for i, a, b in items))
+    items = [("89억 개", "AI 문장 패턴 데이터로 만든 판별 엔진"), ("15,659개", "사람 글 10억 자로 만든 한국어 용언 사전"),
+             ("100%", "숫자 · 사실 · 부정 표현 보존(583만 자 시험)"), ("1분 안", "결제하면 메일로 16자리 토큰 코드")]
+    return ('<section class="trust" aria-label="엔진 수치"><div class="wrap"><dl class="trust-g">%s</dl></div></section>' %
+            "".join('<div class="tr"><dt>%s</dt><dd>%s</dd></div>' % (a, b) for a, b in items))
 
 
-SEARCH_CHIPS = [("copykiller/", "카피킬러 AI 작성률 낮추기"), ("ai-humanizer/", "AI 휴머나이저"), ("humanizing/", "AI 휴머나이징"), ("lower-ai-rate/", "AI 작성률 낮추기"),
-                ("ai-bypass/", "AI 탐지 우회"), ("gptkiller/", "GPT킬러 낮추기"), ("lower-ai-rate/", "AI 표절률 낮추기"), ("natural/", "AI 티 안 나게"),
-                ("ai-check/", "AI 작성률 검사"), ("free/", "AI 휴머나이저 무료"), ("ai-converter/", "AI 문장 변환"), ("guide/ai-patterns/", "AI 패턴 제거"),
-                ("thesis/", "논문 AI 작성률 낮추기"), ("resume/", "자기소개서 AI 작성률 낮추기"), ("report/", "레포트 AI 탐지"), ("guide/copykiller-ai-rate-0/", "카피킬러 AI 작성률 0%"),
-                ("guide/copykiller-under-20/", "카피킬러 AI 20% 미만"), ("guide/gptkiller-tips/", "GPT킬러 안 걸리는 법"), ("guide/chatgpt-tone/", "챗GPT 티 안 나게"), ("best-ai-humanizer/", "AI 휴머나이징 사이트")]
+SEARCH_CHIPS = [("ai-humanizer/", "AI 휴머나이저"), ("humanizing/", "AI 휴머나이징"), ("lower-ai-rate/", "AI 작성률 낮추기"), ("ai-check/", "AI 작성률 검사"),
+                ("ai-bypass/", "AI 탐지 우회"), ("lower-ai-rate/", "AI 표절률 낮추기"), ("natural/", "AI 티 안 나게"), ("free/", "AI 휴머나이저 무료"),
+                ("ai-converter/", "AI 문장 변환"), ("guide/ai-patterns/", "AI 패턴 제거"), ("thesis/", "논문 AI 작성률 낮추기"), ("resume/", "자기소개서 AI 작성률 낮추기"),
+                ("report/", "레포트 AI 탐지"), ("guide/chatgpt-tone/", "챗GPT 티 안 나게"), ("best-ai-humanizer/", "AI 휴머나이징 사이트"), ("results/", "휴머나이징 실제 측정 결과")]
 
 
 def search_chips(ico):
-    return ('<section class="chips-s" aria-label="많이 찾는 검색"><div class="wrap"><p class="chips-h">%s이런 검색으로 오셨나요?</p><div class="chips">%s</div></div></section>' %
-            (ico("search"), "".join('<a href="/%s">%s</a>' % (u, t) for u, t in SEARCH_CHIPS)))
+    return ('<section class="chips-s" aria-label="많이 찾는 주제"><div class="wrap"><p class="chips-h">많이 찾는 주제</p><div class="chips">%s</div></div></section>' %
+            "".join('<a href="/%s">%s</a>' % (u, t) for u, t in SEARCH_CHIPS))
 
 
 def alarm_section(ico):
@@ -128,34 +134,35 @@ def alarm_section(ico):
             ("판에 박힌 연결어", '<span class="s ai">또한,</span> 꾸준한 운동은 스트레스 해소에도 도움이 된다. <span class="s ai">따라서</span>', "또한, 따라서, 결론적으로"),
             ("내용 없는 꾸밈말", '<span class="s ai">다양한</span> 경험을 바탕으로 <span class="s ai">효과적인</span> 해결 방안을 제시했다', "다양한, 효과적인, 체계적인"),
             ("틀에 박힌 시작과 끝", '<span class="s ai">오늘날</span> 환경 문제는 모두가 함께 풀어야 할 과제<span class="s ai">라고 할 수 있다</span>', "현대 사회에서, ~라고 할 수 있다")]
-    return ('<section class="sec dark" id="why"><div class="wrap"><p class="kick">%s제출 전에 꼭 알아야 할 것</p><h2 class="h2">학교 · 기업은 이미<br>AI 탐지기로 글을 걸러냅니다</h2>'
-            '<p class="sub">부적합 판정이 나면 해명할 기회조차 없을 수 있습니다. 내기 전에 확인하고, 걸리는 문장만 고치세요. 걸리고 나서는 늦습니다.</p>'
-            '<div class="grid3">%s</div>'
-            '<h3 class="pats-h">내 글에도 있을까요? AI 탐지기가 보는 말버릇 네 가지</h3>'
-            '<p class="pats-p">보라색이 AI 작성률을 올리는 부분입니다. 글을 붙여 넣으면 어느 문장에 남아 있는지 바로 보여 드립니다.</p>'
-            '<div class="pats">%s</div><p class="src">출처: 세계일보 2026.7.30 · 전자신문 2026.1.9(채용 서비스 공동 리포트, 2025년 제출 자기소개서) · 유니콘팩토리 2026.5.26(국내 한 교수자 평가용 서비스의 2026년 4월 검사 문서량)</p>'
-            '<div class="center" style="margin-top:30px"><a class="btn btn-p btn-l" href="#tool" data-tool>%s내 글 무료로 검사하기</a></div></div></section>') % (
-        ico("alert"),
-        "".join('<div class="stat rv"><b>%s</b><p>%s</p><cite>%s</cite></div>' % s for s in stats),
-        "".join('<div class="pat rv"><b>%sAI 작성률 ↑ %s</b><p>%s</p><span>%s</span></div>' % (ico("flag"), a, b, c) for a, b, c in pats), ico("search"))
+    return ('<section class="sec dark" id="why"><div class="wrap">%s'
+            '<div class="wst">%s</div>'
+            '<div class="pats-w"><div class="pats-hd"><h3 class="pats-h">내 글에도 있을까요? AI 탐지기가 보는 말버릇 네 가지</h3>'
+            '<p class="pats-p">보라색 부분이 AI 작성률을 올립니다. 글을 넣으면 어느 문장에 남아 있는지 바로 보여 드립니다.</p></div>'
+            '<div class="pats">%s</div></div>'
+            '<div class="why-ft"><a class="btn btn-p btn-l" href="#tool" data-tool>%s내 글 무료로 검사하기</a>'
+            '<p class="src">출처: 세계일보 2026.7.30 · 전자신문 2026.1.9(채용 서비스 공동 리포트, 2025년 제출 자기소개서) · 유니콘팩토리 2026.5.26(국내 한 교수자 평가용 서비스의 2026년 4월 검사 문서량)</p></div></div></section>') % (
+        sh("학교와 기업은 이미<br>AI 탐지기로 글을 거릅니다", "부적합 판정을 받고 나면 해명할 기회가 없을 수도 있습니다. 내기 전에 확인하고, 걸리는 문장만 고치세요."),
+        "".join('<div class="wst-i"><b>%s</b><p>%s</p><cite>%s</cite></div>' % s for s in stats),
+        "".join('<div class="pat"><b>%s</b><p>%s</p><span>%s</span></div>' % (a, b, c) for a, b, c in pats), ico("search"))
 
 
 def how_section(ico):
-    steps = "".join('<div class="step rv"><h3>%s</h3><p>%s</p></div>' % s for s in HOW_STEPS)
-    return ('<section class="sec alt" id="how"><div class="wrap"><div class="center"><p class="kick">%s이용 방법</p><h2 class="h2">가입도 설치도 없이, 세 단계</h2><p class="sub">검사는 무료로 바로 하고, 결제가 필요할 때만 성균관컨설팅 결제 페이지에서 이메일 하나로 결제합니다.</p></div>'
-            '<div class="steps">%s</div><div class="flow" aria-label="결제 흐름"><span>토큰 고르기</span>%s<span>이메일만 적고 결제</span>%s<span>메일로 16자리 코드(보통 1분 안)</span>%s<span class="k">하던 글 그대로 이어서</span></div></div></section>') % (
-        ico("zap"), steps, ico("arrow"), ico("arrow"), ico("arrow"))
+    steps = "".join('<li class="howi"><h3>%s</h3><p>%s</p></li>' % s for s in HOW_STEPS)
+    return ('<section class="sec alt" id="how"><div class="wrap">%s'
+            '<ol class="howl">%s</ol><div class="payflow" aria-label="결제 흐름"><span>토큰 고르기</span><i aria-hidden="true"></i><span>이메일만 적고 결제</span><i aria-hidden="true"></i><span>메일로 16자리 코드(보통 1분 안)</span><i aria-hidden="true"></i><span class="k">하던 글 그대로 이어서</span></div></div></section>') % (
+        sh("가입도 설치도 없이,<br>세 단계면 끝납니다", "검사는 무료로 바로 하고, 결제는 필요할 때만 성균관컨설팅 결제 페이지에서 이메일 하나로 합니다."), steps)
 
 
 def features_section(ico):
-    F = [("cpu", "한국어만 파고든 엔진", "사람 글 10억 자로 만든 용언 사전 15,659개와 활용 규칙으로 어미 · 조사까지 자연스럽게 바꿉니다. 번역기를 두 번 돌린 듯한 어색함이 남지 않습니다."),
-         ("target", "걸리는 문장 위주로", "문장마다 AI 점수를 먼저 매기고 검출된 문장 위주로 고칩니다. 멀쩡한 문장을 건드려 새 보라색 문장이 생기는 일을 막습니다."),
-         ("shield", "뜻 · 숫자 · 인용 보존", "숫자, 이름, 인용, 전문 용어는 손대지 않습니다. 출시 기준 시험 583만 자에서 사실 · 부정 표현 보존 100%, 깨진 문장 0.00%."),
+    F = [("cpu", "한국어만 파고든 엔진", "사람 글 10억 자로 만든 용언 사전 15,659개로 어미와 조사까지 자연스럽게 바꿉니다. 번역기를 두 번 돌린 듯한 어색함이 남지 않습니다."),
+         ("target", "흔적이 있는 문장을 집중적으로", "문장마다 AI 점수를 먼저 매기고 기준을 넘는 문장 위주로 고칩니다. 멀쩡한 문장을 건드려 새로 걸리는 일을 막습니다."),
+         ("shield", "의미 · 숫자 · 인용 보존", "숫자, 이름, 인용, 전문 용어는 손대지 않습니다. 출시 기준 시험 583만 자에서 사실 · 부정 표현 보존 100%, 깨진 문장 0.00%였습니다."),
          ("sliders", "말투 자동 맞춤", "논문 · 레포트는 한다체, 자기소개서 · 안내문은 습니다체처럼 원문 말투를 읽어 그대로 맞춥니다. 섞여 있던 말투도 하나로 정리합니다."),
          ("file", "파일 그대로 받기", "한글 · 워드 파일은 바뀐 문단만 고쳐 원래 서식을 지키고, PDF는 새로 조판해 드립니다. 복사해서 붙여 넣는 수고가 없습니다."),
-         ("bars", "같은 기준으로 다시 측정", "바꾸기 전과 후의 AI 작성률을 같은 기준으로 잽니다. 같은 글은 언제나 같은 값이라 전후를 정확히 비교할 수 있습니다.")]
-    cards = "".join('<div class="card rv"><span class="ic">%s</span><h3>%s</h3><p>%s</p></div>' % (ico(i), a, b) for i, a, b in F)
-    return '<section class="sec" id="features"><div class="wrap"><div class="center"><p class="kick">%s왜 휴머나이인가</p><h2 class="h2">번역기 돌리기, 혼자 고치기와는<br>결과가 다릅니다</h2></div><div class="grid3">%s</div></div></section>' % (ico("sparkle"), cards)
+         ("bars", "같은 기준으로 다시 측정", "변환 전과 후의 AI 작성률을 같은 기준으로 잽니다. 같은 글은 언제나 같은 값이라 전후를 정확히 비교할 수 있습니다.")]
+    items = "".join('<div class="ft-i"><span class="ic">%s</span><h3>%s</h3><p>%s</p></div>' % (ico(i), a, b) for i, a, b in F)
+    return '<section class="sec" id="features"><div class="wrap">%s<div class="feats">%s</div></div></section>' % (
+        sh("의미는 지키고,<br>AI 흔적만 고칩니다", "번역기를 두 번 돌리거나 혼자 고치는 것과는 결과가 다릅니다. 휴머나이는 한국어 문장을 이렇게 다룹니다."), items)
 
 
 def compare_table(ico):
@@ -167,17 +174,19 @@ def compare_table(ico):
             ("월 구독", "-", "-", "대부분 월 결제", '<span class="yes">없음, 쓴 만큼만</span>'),
             ("걸리는 시간", "몇 시간", "몇 분", "몇 분", '<span class="yes">몇 초</span>')]
     body = "".join("<tr><td>%s</td><td class=\"me\">%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (r[0], r[4], r[1], r[2], r[3]) for r in rows)   # 휴머나이 칸을 기준 바로 옆에(모바일에서 가로로 밀지 않아도 보이게)
-    return ('<section class="sec alt"><div class="wrap"><div class="center"><p class="kick">%s비교</p><h2 class="h2">AI 티를 지우는 방법, 무엇이 다를까요</h2></div>'
-            '<div class="tbl-w rv"><table class="tbl"><thead><tr><th>기준</th><th class="me">휴머나이</th><th>직접 고치기</th><th>번역기 두 번 돌리기</th><th>해외 휴머나이저</th></tr></thead><tbody>%s</tbody></table></div></div></section>') % (ico("scale"), body)
+    return ('<section class="sec alt" id="compare"><div class="wrap">%s'
+            '<div class="tbl-w"><table class="tbl"><thead><tr><th>기준</th><th class="me">휴머나이</th><th>직접 고치기</th><th>번역기 두 번 돌리기</th><th>해외 휴머나이저</th></tr></thead><tbody>%s</tbody></table></div></div></section>') % (
+        sh("AI 티를 지우는 방법,<br>결과가 이렇게 다릅니다", "직접 고치면 몇 시간이 걸리고, 번역기를 돌리면 번역투가 남습니다. 해외 휴머나이저는 한국어 어미와 조사를 다루지 못합니다."), body)
 
 
 def usecases_section(ico):
-    U = [("cap", "논문 · 학위논문", "심사 · 투고 전 AI 작성률 점검. 본 연구, 선행연구 같은 학술 표현은 지키고 AI 말버릇만 고칩니다.", "/thesis/"),
-         ("file", "과제 · 레포트", "교수님이 AI 검사로 거르는 과제, 내기 전에 낮추세요. 레포트 한 편이 몇 초면 끝납니다.", "/report/"),
-         ("brief", "자기소개서", "채용 서류의 AI 작성 의심 비율은 64%가 넘습니다. 습니다체 그대로, 내 경험이 살아 있는 문장으로.", "/resume/"),
-         ("chat", "블로그 · 마케팅 글", "AI 티가 나는 글은 독자도 먼저 알아봅니다. 사람이 쓴 듯 자연스러운 문장으로 다듬으세요.", "/natural/")]
-    cards = "".join('<a class="card uc rv" href="%s"><span class="ic">%s</span><h3>%s</h3><p>%s</p><span class="more">자세히 보기 %s</span></a>' % (u, ico(i), a, b, ico("arrow")) for i, a, b, u in U)
-    return '<section class="sec"><div class="wrap"><div class="center"><p class="kick">%s이런 글에 씁니다</p><h2 class="h2">제출하는 모든 한국어 글에</h2></div><div class="grid4">%s</div></div></section>' % (ico("layers"), cards)
+    U = [("cap", "논문 · 학위논문", "심사 · 투고 전 AI 작성률 점검. 본 연구, 선행연구 같은 학술 표현은 지키고 AI 말버릇만 고칩니다.", "/thesis/", "논문 AI 작성률 낮추기"),
+         ("file", "과제 · 레포트", "교수님이 AI 검사로 거르는 과제, 내기 전에 낮추세요. 레포트 한 편이 몇 초면 끝납니다.", "/report/", "레포트 AI 탐지 대비"),
+         ("brief", "자기소개서", "채용 서류의 AI 작성 의심 비율은 64%가 넘습니다. 습니다체 그대로, 내 경험이 살아 있는 문장으로.", "/resume/", "자기소개서 AI 작성률 낮추기"),
+         ("chat", "블로그 · 마케팅 글", "AI 티가 나는 글은 독자도 먼저 알아봅니다. 사람이 쓴 듯 자연스러운 문장으로 다듬으세요.", "/natural/", "AI 티 안 나게 쓰기")]
+    cards = "".join('<a class="uc" href="%s"><span class="ic">%s</span><h3>%s</h3><p>%s</p><span class="more">%s</span></a>' % (u, ico(i), a, b, m) for i, a, b, u, m in U)
+    return '<section class="sec" id="uses"><div class="wrap">%s<div class="ucs">%s</div></div></section>' % (
+        sh("제출하는 한국어 글이라면<br>무엇이든", "글의 종류에 맞춰 말투와 표현을 지킵니다. 용도별로 자주 묻는 내용을 따로 정리했습니다."), cards)
 
 
 def pay_section(ico):

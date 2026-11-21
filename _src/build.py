@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261121h"
+VER = "20261121r"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -72,17 +72,27 @@ def shop(pid):
     return SHOP % ix if ix else ""
 
 
-def mark_svg(uid="m"):
+def mark_svg(uid="m"):   # 예전 H 마크(쓰지 않음, 기록용)
     return ('<svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="%s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1730"/><stop offset="1" stop-color="#1b3266"/></linearGradient></defs>'
             '<rect width="40" height="40" rx="11" fill="url(#%s)"/><path d="M12.5 11v18M27.5 11v18" stroke="#fff" stroke-width="3.3" stroke-linecap="round"/><path d="M12.5 19.6q7.5 3.8 15 0" stroke="#fff" stroke-width="3.3" fill="none" stroke-linecap="round"/>'
             '<circle cx="31.6" cy="31.6" r="5.6" fill="#10b981" stroke="#0b1730" stroke-width="2"/><path d="m29.2 31.7 1.6 1.6 3.1-3.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>') % (uid, uid)
 
 
+def robot_img(w=300, cls="bot-img", alt="Humani 마스코트 로봇", lazy=True, prio=False):
+    """대표가 준 로봇 마스코트(배경 없이 딴 그림). 1x 300 · 2x 600"""
+    h = round(w * 914 / 854)
+    return ('<picture class="%s"><source type="image/webp" srcset="/assets/img/humani-robot-300.webp 1x, /assets/img/humani-robot-600.webp 2x">'
+            '<img src="/assets/img/humani-robot-300.png" srcset="/assets/img/humani-robot-600.png 2x" width="%d" height="%d" alt="%s"%s%s></picture>') % (
+        cls, w, h, alt, ' loading="lazy" decoding="async"' if lazy else "", ' fetchpriority="high"' if prio else "")
+
+
 def logo(uid="lg"):
-    return '<a class="logo" href="/" aria-label="%s 홈">%s<span>Humani<small>AI HUMANIZER</small></span></a>' % (BRAND_FULL, mark_svg(uid))
+    return ('<a class="logo" href="/" aria-label="%s 홈"><picture><source type="image/webp" srcset="/assets/img/humani-head.webp">'
+            '<img src="/assets/img/humani-head.png" width="52" height="45" alt=""></picture><span>Humani<small>휴머나이</small></span></a>') % BRAND_FULL
 
 
-NAV = [("ai-humanizer/", "AI 휴머나이저"), ("copykiller/", "카피킬러 AI 작성률"), ("gptkiller/", "GPT킬러"), ("pricing/", "요금"), ("guide/", "가이드"), ("faq/", "자주 묻는 질문")]
+# 메뉴는 'AI 휴머나이저'(휴머나이징 도구) 하나로 합침(2026.11.21 대표 지시: 여러 개면 헷갈림)
+NAV = [("humanize/", "AI 휴머나이저"), ("pricing/", "요금"), ("guide/", "가이드"), ("faq/", "자주 묻는 질문")]
 
 
 def header(path):
@@ -91,24 +101,25 @@ def header(path):
     return ('<header class="hd" id="hd"><div class="wrap hd-in">%s<nav class="nav" aria-label="주요 메뉴">%s</nav>'
             '<div class="hd-r"><a class="btn btn-g btn-s" href="/pricing/">%s토큰 충전</a><a class="btn btn-p btn-s" href="/#tool" data-tool>%s<span class="hl">무료 AI 작성률 검사</span><span class="hs">무료 검사</span></a>'
             '<button class="menu-btn" id="menuBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav">%s</button></div></div></header>'
-            '<nav class="mnav" id="mnav" aria-label="모바일 메뉴">%s<a href="/humanize/">휴머나이징 도구</a><a href="/results/">실제 측정 결과</a><a href="/about/">회사 소개</a></nav>') % (
+            '<nav class="mnav" id="mnav" aria-label="모바일 메뉴">%s<a href="/results/">실제 측정 결과</a><a href="/about/">회사 소개</a></nav>') % (
         logo(), nav, ico("zap"), ico("search"), ico("menu"), mnav)
 
 
-def footer():
+def footer(tm=False):
     cols = [
         ("서비스", [("/humanize/", "휴머나이징 도구"), ("/ai-check/", "AI 작성률 무료 검사"), ("/pricing/", "요금 · 토큰 충전"), ("/results/", "실제 측정 결과"), ("/faq/", "자주 묻는 질문")]),
-        ("많이 찾는 검색", [("/copykiller/", "카피킬러 AI 작성률 낮추기"), ("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"),
-                       ("/ai-bypass/", "AI 탐지 우회"), ("/gptkiller/", "GPT킬러 낮추기"), ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트")]),
+        ("많이 찾는 검색", [("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"), ("/copykiller/", "표절 검사 AI 작성률"),
+                       ("/ai-bypass/", "AI 탐지 우회"), ("/gptkiller/", "AI 탐지기 대비"), ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트")]),
         ("용도별", [("/thesis/", "논문 AI 작성률 낮추기"), ("/report/", "레포트 AI 탐지"), ("/resume/", "자기소개서 AI 작성률"), ("/natural/", "AI 티 안 나게"), ("/ai-converter/", "AI 문장 변환기"), ("/guide/", "휴머나이징 가이드")]),
         ("회사 · 정책", [("/about/", "회사 소개"), ("/terms/", "이용약관"), ("/privacy/", "개인정보처리방침"), ("mailto:" + BIZ["mail"], "문의 " + BIZ["mail"])]),
     ]
     c = "".join('<div><h2 class="ft-h">%s</h2><ul>%s</ul></div>' % (h, "".join('<li><a href="%s">%s</a></li>' % (u, t) for u, t in L)) for h, L in cols)
     return ('<footer class="ft"><div class="wrap"><div class="ft-top"><div>%s<p>%s.<br>AI 작성률을 검사하고, 걸리는 문장만 사람 문장으로 바꿉니다.</p><p class="ft-pay">%s결제는 운영사 성균관컨설팅 결제 페이지에서 · 넣은 글은 저장하지 않습니다</p></div>%s</div>'
             '<div class="ft-biz"><b>운영</b> %s · 대표 %s · 사업자등록번호 %s · 통신판매업 신고 %s<br>%s · %s<br>'
-            '카피킬러, GPT킬러 등은 각 권리자의 상표이며 Humani는 해당 서비스와 제휴 관계가 없습니다. AI 작성률과 판정은 Humani 판정 기준으로 계산한 값입니다.<br>© 2026 %s. All rights reserved.</div></div></footer>'
+            '%sAI 작성률과 판정은 Humani 판정 기준으로 계산한 값입니다.<br>© 2026 %s. All rights reserved.</div></div></footer>'
             '<div class="mcta" id="mcta"><a class="btn btn-p" href="/#tool" data-tool>%s무료 검사</a><a class="btn btn-g" href="/pricing/">요금 보기</a></div>') % (
-        logo("lgf"), TAGLINE, ico("lock"), c, BIZ["name"], BIZ["ceo"], BIZ["no"], BIZ["ecom"], BIZ["addr"], BIZ["mail"], BRAND_FULL, ico("search"))
+        logo("lgf"), TAGLINE, ico("lock"), c, BIZ["name"], BIZ["ceo"], BIZ["no"], BIZ["ecom"], BIZ["addr"], BIZ["mail"],
+        "카피킬러, GPT킬러 등은 각 권리자의 상표이며 Humani는 해당 서비스와 제휴 관계가 없습니다. " if tm else "", BRAND_FULL, ico("search"))
 
 
 # ---------------- 구조화 데이터 ----------------
@@ -119,7 +130,7 @@ ORG = {"@type": "Organization", "@id": SITE + "/#org", "name": BRAND, "alternate
        "address": {"@type": "PostalAddress", "streetAddress": "서부로 2066 성균관대학교 브릿지팩토리", "addressLocality": "수원시 장안구", "addressRegion": "경기도", "postalCode": "16419", "addressCountry": "KR"}}
 WEBSITE = {"@type": "WebSite", "@id": SITE + "/#website", "name": BRAND, "alternateName": [BRAND_KO, BRAND_EN, BRAND + " AI 휴머나이저"], "url": SITE + "/", "inLanguage": "ko-KR", "publisher": {"@id": SITE + "/#org"}}
 APP = {"@type": "WebApplication", "@id": SITE + "/#app", "name": BRAND + " AI 휴머나이저", "alternateName": [BRAND_KO, BRAND_EN], "url": SITE + "/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web",
-       "inLanguage": "ko-KR", "description": "한국어 AI 휴머나이징 전문 서비스. 카피킬러 · GPT킬러 같은 AI 탐지기에 걸리는 문장만 골라 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(5만 자).",
+       "inLanguage": "ko-KR", "description": "한국어 AI 휴머나이징 전문 서비스. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 원문의 의미는 지킨 채 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(5만 자).",
        "featureList": ["AI 작성률 무료 검사(5만 자, 가입 없음)", "문장 단위 AI 검출 표시", "AI 휴머나이징(한국어 전용 엔진)", "한글 HWP · HWPX · 워드 DOCX · PDF 파일 지원", "말투 자동 맞춤(논문체 · 보고서체 · 자소서체)", "결과상세내역서 PDF"],
        "offers": {"@type": "AggregateOffer", "priceCurrency": "KRW", "lowPrice": "0", "highPrice": "69900", "offerCount": "5"}, "publisher": {"@id": SITE + "/#org"}}
 
@@ -142,7 +153,7 @@ def ld_howto(name, steps):
 def ld_offers():
     return {"@type": "Product", "@id": SITE + "/pricing/#product", "name": BRAND + " AI 휴머나이징 토큰", "brand": {"@type": "Brand", "name": BRAND},
             "description": "AI 작성률 검사와 AI 휴머나이징에 쓰는 토큰. 월 구독 없이 한 번 충전하고, 남은 토큰은 5년 동안 사라지지 않습니다.",
-            "image": [SITE + "/assets/product/hm-pr-1x1.jpg", SITE + "/assets/img/og.png"], "category": "디지털콘텐츠 이용권",
+            "image": [SITE + "/assets/product/hm-pr-1x1.jpg", SITE + "/assets/img/og.jpg"], "category": "디지털콘텐츠 이용권",
             "offers": [{"@type": "Offer", "name": "%s %d토큰" % (p["name"], p["tok"]), "price": str(p["price"]), "priceCurrency": "KRW", "availability": "https://schema.org/InStock",
                         "url": (shop(p["id"]).replace("&kaiec_buy=1", "") if shop(p["id"]) else (SITE + "/pricing/")), "seller": {"@type": "Organization", "name": BIZ["name"]}} for p in PACKS]}
 
@@ -294,7 +305,7 @@ PAGES = []   # (path, title, desc, lastmod, priority)
 
 def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="website", noindex=False, priority="0.7", lastmod=TODAY, extra_head=""):
     url = SITE + "/" + path
-    ogimg = og or (SITE + "/assets/img/og.png")
+    ogimg = og or (SITE + "/assets/img/og.jpg")
     title, desc = fill(title), fill(desc)
     graph = [ORG, WEBSITE] + (ld or [])
     head = ['<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">',
@@ -306,8 +317,8 @@ def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="websit
             '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:url" content="%s">' % (esc(title), esc(desc), url),
             '<meta property="og:image" content="%s"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="%s">' % (ogimg, esc(BRAND_FULL + " · AI 작성률 검사와 휴머나이징")),
             '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s"><meta name="twitter:description" content="%s"><meta name="twitter:image" content="%s">' % (esc(title), esc(desc), ogimg),
-            '<meta name="theme-color" content="#0b1730"><meta name="format-detection" content="telephone=no">',
-            '<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">',
+            '<meta name="theme-color" content="#ffffff"><meta name="format-detection" content="telephone=no">',
+            '<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/assets/img/favicon-96.png" sizes="96x96" type="image/png"><link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">',
             '<link rel="alternate" type="application/rss+xml" title="%s 가이드" href="/rss.xml">' % BRAND]
     if NAVER_VERIFY:
         head.append('<meta name="naver-site-verification" content="%s">' % NAVER_VERIFY)
@@ -320,6 +331,8 @@ def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="websit
     if tool:
         head.append('<link rel="stylesheet" href="/assets/tool.css?v=%s">' % VER)
     head.append('<link rel="stylesheet" href="/assets/hm.css?v=%s">' % VER)
+    if path == "":
+        head.append('<link rel="preload" as="image" type="image/webp" href="/assets/img/humani-robot-300.webp" imagesrcset="/assets/img/humani-robot-300.webp 1x, /assets/img/humani-robot-600.webp 2x">')
     head.append(extra_head)
     head.append('<script type="application/ld+json">%s</script>' % json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":")))
     head.append("</head>")
@@ -330,7 +343,8 @@ def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="websit
             '<script src="/assets/am.js?v=%s" defer></script>' % VER,
             '<script src="/assets/textin.js?v=%s" defer></script>' % VER,
             '<script src="/assets/humanize.js?v=%s" defer></script>' % VER] + scripts
-    doc = "".join(head) + '<body data-root="/">' + '<a class="sr" href="#main">본문 바로가기</a>' + header(path) + '<main id="main">' + body + "</main>" + footer() + "".join(scripts) + "</body></html>"
+    tm = bool(re.search(r"카피킬러|GPT킬러", title + desc + body))   # 검사기 이름이 나오는 페이지에만 상표 안내
+    doc = "".join(head) + '<body data-root="/">' + '<a class="sr" href="#main">본문 바로가기</a>' + header(path) + '<main id="main">' + body + "</main>" + footer(tm) + "".join(scripts) + "</body></html>"
     doc = fill(doc)
     fp = os.path.join(OUT, path, "index.html") if path else os.path.join(OUT, "index.html")
     if path == "404.html":
@@ -375,45 +389,77 @@ def pricing_cards(cta_text="구매하기"):
     return '<div class="price">' + "".join(out) + "</div>" + P.pay_section(ico)
 
 
-def cta_band(h="제출 버튼을 누르기 전, 30초면 충분합니다", p="지금 가진 글의 AI 작성률부터 무료로 확인하세요. 가입도, 카드 등록도 필요 없습니다."):
-    return ('<section class="sec-s"><div class="wrap"><div class="cta rv"><h2>%s</h2><p>%s</p><div class="btns"><a class="btn btn-p btn-l" href="/#tool" data-tool>%s무료 AI 작성률 검사</a>'
-            '<a class="btn btn-g btn-l" href="/pricing/">요금 보기</a></div></div></div></section>') % (h, p, ico("search"))
+def cta_band(h="제출하기 전, 30초면 확인합니다", p="지금 쓴 글의 AI 작성률부터 무료로 확인하세요. 가입도, 카드 등록도 필요 없습니다."):
+    return ('<section class="sec-s cta-s"><div class="wrap"><div class="cta"><div class="cta-c"><h2>%s</h2><p>%s</p><div class="btns"><a class="btn btn-p btn-l" href="/#tool" data-tool>%s무료 AI 작성률 검사</a>'
+            '<a class="btn btn-w btn-l" href="/pricing/">요금 보기</a></div></div>%s</div></div></section>') % (h, p, ico("search"), robot_img(260, "cta-bot", ""))
 
 
 def crumbs_html(trail):
     return '<nav class="crumb" aria-label="현재 위치"><a href="/">홈</a>' + "".join('<span>›</span>' + ('<a href="/%s">%s</a>' % (u, esc(n)) if i < len(trail) - 1 else '<span aria-current="page">%s</span>' % esc(n)) for i, (n, u) in enumerate(trail)) + "</nav>"
 
 
-def hero_with_tool(eyebrow, h1, lead, pts=None, cls="hero"):
-    pts = pts or ["한국어 전용 엔진", "문장마다 AI 판정", "한글 · 워드 · PDF 그대로", "글은 저장하지 않음"]
-    return ('<section class="%s" id="top"><div class="wrap"><div class="hero-grid"><div id="tool" class="tool-w"><p class="eyebrow">%s</p><h1 class="h1">%s</h1><p class="lead">%s</p>'
-            '<ul class="hero-pts">%s</ul>%s</div><div class="demo-w">%s</div></div></div></section>') % (
-        cls, eyebrow, h1, lead, "".join("<li>%s%s</li>" % (ico("check"), t) for t in pts), tool_html(), demo_card())
+def visor():
+    """AI 작성률 계기판(로봇 얼굴 화면처럼 짙은 남색 유리 + 빛나는 숫자). 실제 측정값(학위논문 결론)"""
+    S = SAMPLES.get("thesis") or DEMO["samples"][0]
+    b, a = S["before"]["rate"], S["after"]["rate"]
+    ch = next((d["changes"] for d in DS if d["k"] == S["k"]), 0)
+    return ('<div class="visor" data-visor data-from="%d" data-to="%d"><p class="v-h"><span>AI 작성률</span><em>실측</em></p>'
+            '<div class="v-n"><div class="v-b"><small>변환 전</small><b>%d<i>%%</i></b></div><span class="v-ar" aria-hidden="true"></span><div class="v-a"><small>변환 후</small><b><span data-visor-n>%d</span><i>%%</i></b></div></div>'
+            '<div class="v-bar" aria-hidden="true"><i class="v-was" style="width:%d%%"></i><i class="v-now" style="width:%d%%"></i></div>'
+            '<p class="v-c">%s · 한 번 휴머나이징<br>%s → %s · 바꾼 곳 %d곳</p></div>') % (
+        b, a, b, a, b, max(3, a), esc(S["label"]), esc(S["before"]["band"]), esc(S["after"]["band"]), ch)
+
+
+def hero_with_tool(eyebrow, h1, lead, pts=None, cls="hero", ex="#example"):
+    pts = pts or ["회원가입 없이 바로", "한글 · 워드 · PDF 그대로", "넣은 글은 저장하지 않음"]
+    return ('<section class="%s" id="top"><div class="wrap"><div class="hero-top">'
+            '<div class="hero-side hero-l">%s</div>'
+            '<div class="hero-copy"><p class="hero-pill">%s</p><h1 class="h1">%s</h1><p class="lead">%s</p>'
+            '<div class="hero-cta"><a class="btn btn-p btn-l" href="#tool" data-tool>%s무료로 AI 작성률 검사</a><a class="btn btn-g btn-l" href="%s">변환 전후 예시 보기</a></div>'
+            '<ul class="hero-pts">%s</ul></div>'
+            '<div class="hero-side hero-r"><div class="hero-bot">%s<p class="bot-chip">%s원문의 의미 · 숫자 · 인용 그대로</p></div></div>'
+            '</div><div id="tool" class="tool-w">%s</div></div></section>') % (
+        cls, visor(), eyebrow, h1, lead, ico("search"), ex, "".join("<li>%s%s</li>" % (ico("check"), t) for t in pts),
+        robot_img(300, "bot-img", "Humani 마스코트 로봇이 검사를 마친 문서를 들고 있는 모습", lazy=False, prio=(cls.find("home") >= 0)), ico("check"), tool_html())
+
+
+def example_section(h="변환 전후 AI 작성률을<br>직접 비교해 보세요", sub="네 편 모두 Humani 엔진에 그대로 넣어 잰 실제 값입니다. 보라색은 AI 작성 흔적이 발견된 문장, 초록색은 사람 문장으로 바꾼 곳입니다.", cls="sec"):
+    items = "".join(('<button type="button" class="exi" role="tab" data-demo-pick="%d" aria-selected="%s"><span class="exi-t"><b>%s</b><small>%s</small></span>'
+                     '<span class="exi-r"><s>%s%%</s><span class="exi-ar" aria-hidden="true"></span><b>%s%%</b></span>'
+                     '<span class="exi-n">AI 검출 문장 %s개 → %s개 · 바꾼 곳 %s곳</span></button>') % (
+        i, "true" if i == 0 else "false", esc(d["label"]), esc(d["file"]), d["before"]["rate"], d["after"]["rate"], d["before"].get("n", "-"), d["after"].get("n", "-"), d["changes"]) for i, d in enumerate(DS))
+    return ('<section class="%s" id="example"><div class="wrap">%s<div class="ex-grid"><div class="ex-main">%s</div>'
+            '<div class="ex-side"><div class="ex-list" role="tablist" aria-label="예시 글">%s</div><a class="txt-link" href="/results/">실제 측정 결과 전체 보기 %s</a></div></div></div></section>') % (
+        cls, P.sh(h, sub), demo_card(), items, ico("arrow"))
 
 
 def price_section(h="월 구독 없이, 쓴 만큼만", sub="지금 모든 토큰이 정가의 50% 가격입니다. 한 번 충전하면 글자 수만큼만 빠지고, 남은 토큰은 5년 동안 사라지지 않습니다."):
-    return ('<section class="sec alt" id="price"><div class="wrap"><div class="center"><p class="kick">%s요금 · 정가의 50%%</p><h2 class="h2">%s</h2><p class="sub">%s</p></div>%s'
-            '<p class="price-note">AI 작성률 검사 1,000자 4토큰 · AI 휴머나이징 1,000자 8토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (ico("tag"), h, sub, pricing_cards())
+    return ('<section class="sec alt" id="price"><div class="wrap">%s%s'
+            '<p class="price-note">AI 작성률 검사 1,000자 4토큰 · AI 휴머나이징 1,000자 8토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (P.sh(h, sub), pricing_cards())
 
 
 # ---------------- 홈 ----------------
+def faq_block(faq, h="궁금한 점, 먼저 답해 드립니다", more=True):
+    return ('<section class="sec" id="faq"><div class="wrap faq-g">%s<div>%s%s</div></div></section>') % (
+        P.sh(h, "검사, 휴머나이징, 결제와 토큰에 대해 가장 많이 받는 질문입니다."), faq_html(faq),
+        ('<p class="faq-more"><a class="txt-link" href="/faq/">질문 더 보기 %s</a></p>' % ico("arrow")) if more else "")
+
+
 def build_home():
     H = P.HOME
-    body = hero_with_tool(H["eyebrow"], H["h1"], H["lead"])
+    body = hero_with_tool(H["eyebrow"], H["h1"], H["lead"], H["pts"], cls="hero home-hero")
     body += demo_json()
     body += P.trust_strip(ico)
-    body += P.search_chips(ico)
+    body += example_section()
     body += P.alarm_section(ico)
-    body += ('<section class="sec" id="example"><div class="wrap"><div class="center"><p class="kick">%s실제 엔진으로 잰 결과</p><h2 class="h2">보라색 문장이 사라질 때까지,<br>뜻은 그대로 두고 말투만 사람처럼</h2>'
-             '<p class="sub">아래 예시는 휴머나이 엔진에 그대로 넣어 잰 실제 값입니다. 보라색은 AI로 검출된 문장, 초록색은 사람 문장으로 바꾼 곳입니다.</p></div>%s'
-             '<p class="center" style="margin-top:22px"><a class="txt-link" href="/results/">실제 측정 결과 전체 보기 %s</a></p></div></section>') % (ico("eye"), compare_block(), ico("arrow"))
     body += P.how_section(ico)
     body += P.features_section(ico)
     body += P.compare_table(ico)
     body += P.usecases_section(ico)
     body += price_section()
-    body += '<section class="sec" id="faq"><div class="wrap-n"><div class="center"><p class="kick">%s자주 묻는 질문</p><h2 class="h2">궁금한 점, 먼저 답해 드립니다</h2></div>%s<p class="center" style="margin-top:20px"><a class="txt-link" href="/faq/">질문 더 보기 %s</a></p></div></section>' % (ico("chat"), faq_html(H["faq"]), ico("arrow"))
+    body += faq_block(H["faq"])
     body += cta_band()
+    body += P.search_chips(ico)
     ld = [APP, ld_faq(H["faq"]), ld_howto("AI 작성률 낮추기(Humani AI 휴머나이징)", P.HOW_STEPS)]
     page("", H["title"], H["desc"], body, ld=ld, tool=True, priority="1.0")
 
@@ -421,7 +467,7 @@ def build_home():
 def build_humanize():
     trail = [("휴머나이징 도구", "humanize/")]
     body = hero_with_tool('<b>도구</b> AI 작성률 검사 · 휴머나이징', '<span class="u">AI 휴머나이징</span> 프로그램', '글을 붙여 넣거나 파일을 올리면 AI 작성률부터 무료로 보여 드립니다. 걸리는 문장은 휴머나이징으로 사람 문장으로 바꾸고, 같은 기준으로 다시 잽니다. 메일로 받은 토큰 코드 단추를 누르면 이 화면으로 와서 하던 글을 이어서 합니다.', cls="hero lp-hero")
-    body += demo_json() + P.how_section(ico) + price_section() + cta_band()
+    body += demo_json() + example_section(cls="sec alt") + P.how_section(ico) + price_section() + cta_band()
     page("humanize/", "AI 휴머나이징 프로그램 · AI 작성률 검사 도구 | Humani", "Humani(휴머나이) AI 휴머나이징 프로그램. 글이나 한글 · 워드 · PDF 파일을 넣으면 AI 작성률과 AI로 검출된 문장을 보여 주고, 사람 문장으로 바꿔 드립니다. 가입 없이 무료 검사부터.",
          body, ld=[APP, ld_crumbs(trail), ld_howto("AI 휴머나이징 프로그램 쓰는 법", P.HOW_STEPS)], tool=True, priority="0.9")
 
@@ -453,7 +499,7 @@ def build_landings():
         body = hero_with_tool(L["eyebrow"], L["h1"], L["lead"], L.get("pts"), cls="hero lp-hero")
         body += demo_json()
         body += '<section class="sec-s"><div class="wrap-n">%s<div class="answer">%s</div><div class="prose">%s</div></div></section>' % (crumbs_html(trail), L["answer"], L["body"])
-        body += ('<section class="sec alt"><div class="wrap"><div class="center"><p class="kick">%s실제 엔진으로 잰 결과</p><h2 class="h2">%s</h2><p class="sub">보라색은 AI로 검출된 문장, 초록색은 사람 문장으로 바꾼 곳입니다.</p></div>%s</div></section>') % (ico("eye"), L.get("cmp_h") or "휴머나이징 전과 후, 직접 비교해 보세요", compare_block())
+        body += ('<section class="sec alt" id="example"><div class="wrap"><div class="center"><p class="kick">%s실제 엔진으로 잰 결과</p><h2 class="h2">%s</h2><p class="sub">보라색은 AI로 검출된 문장, 초록색은 사람 문장으로 바꾼 곳입니다.</p></div>%s</div></section>') % (ico("eye"), L.get("cmp_h") or "휴머나이징 전과 후, 직접 비교해 보세요", compare_block())
         body += P.how_section(ico)
         body += '<section class="sec"><div class="wrap-n"><h2 class="h2 center">%s 자주 묻는 질문</h2>%s<div class="rel"><h3>함께 보면 좋은 페이지</h3><div class="links">%s</div></div></div></section>' % (
             esc(L["crumb"]), faq_html(L["faq"]), "".join('<a href="/%s">%s</a>' % (u, t) for u, t in L["related"]))
@@ -478,7 +524,7 @@ def build_results():
     body = hero_with_tool(R["eyebrow"], R["h1"], R["lead"], ["지어낸 후기 · 별점 없음", "같은 글은 같은 값", "Humani 판정 기준", "누구나 다시 측정 가능"], cls="hero lp-hero")
     body += demo_json()
     body += '<section class="sec-s"><div class="wrap">%s<div class="answer">%s</div><h2 class="h2">휴머나이징 전후 AI 작성률(실제 엔진 측정값)</h2>%s</div></section>' % (crumbs_html(trail), R["answer"], results_table())
-    body += ('<section class="sec alt"><div class="wrap"><div class="center"><p class="kick">%s원문과 다듬은 글</p><h2 class="h2">어디가 어떻게 바뀌었는지 직접 보세요</h2><p class="sub">보라색은 AI로 검출된 문장, 초록색은 사람 문장으로 바꾼 곳입니다. 숫자와 이름, 인용은 그대로입니다.</p></div>%s</div></section>') % (ico("eye"), compare_block())
+    body += ('<section class="sec alt" id="example"><div class="wrap"><div class="center"><p class="kick">%s원문과 다듬은 글</p><h2 class="h2">어디가 어떻게 바뀌었는지 직접 보세요</h2><p class="sub">보라색은 AI로 검출된 문장, 초록색은 사람 문장으로 바꾼 곳입니다. 숫자와 이름, 인용은 그대로입니다.</p></div>%s</div></section>') % (ico("eye"), compare_block())
     body += ('<section class="sec-s"><div class="wrap-n prose"><h2>어떻게 쟀나요</h2><ul><li>원문을 Humani 도구에 그대로 넣어 AI 작성률을 검사했습니다(Humani 판정 기준).</li><li>같은 원문을 한 번 휴머나이징하고, 다듬은 글을 같은 기준으로 다시 검사했습니다.</li><li>사람이 손으로 고치지 않았고, 다시 시도해 좋은 값만 고르지 않았습니다. 같은 글은 언제나 같은 값이 나옵니다.</li></ul>'
              '<h2>AI 작성률 0%%에 얼마나 가까워질까</h2><p>한 번의 휴머나이징으로 대부분 안전 구간(20%% 미만)까지 내려갑니다. 보라색 문장이 남아 있으면 그 글로 한 번 더 다듬으면 0%%에 가까워집니다. 다만 0%%라는 숫자보다 중요한 것은 표시될 문장이 남지 않게 하는 것입니다. 방법은 <a href="/guide/copykiller-ai-rate-0/">카피킬러 AI 작성률 0%% 가이드</a>에 정리했습니다.</p>'
              '<h2>왜 후기 대신 측정값인가</h2><p>후기와 별점은 꾸며낼 수 있지만 측정값은 누구나 다시 재 볼 수 있습니다. 휴머나이는 지어낸 후기 · 별점 · 이용자 수를 싣지 않습니다.</p></div></section>')
@@ -514,7 +560,7 @@ def build_guides():
             crumbs_html(trail), g["cat"], esc(g["h1"]), BRAND, g["date"].replace("-", "."), max(2, len(re.sub(r"<[^>]+>", "", g["body"])) // 650), g["answer"], toc_html, g["body"], faqh, ico("search"), rel)
         art = {"@type": "Article", "headline": g["h1"], "description": g["desc"], "inLanguage": "ko-KR", "datePublished": g["date"], "dateModified": g["date"],
                "author": {"@type": "Organization", "name": BRAND + " 편집팀", "url": SITE + "/about/"}, "publisher": {"@id": SITE + "/#org"},
-               "mainEntityOfPage": SITE + "/guide/%s/" % g["slug"], "image": [SITE + "/assets/img/og.png"], "articleSection": g["cat"]}
+               "mainEntityOfPage": SITE + "/guide/%s/" % g["slug"], "image": [SITE + "/assets/img/og.jpg"], "articleSection": g["cat"]}
         ld = [art, ld_crumbs(trail)] + ([ld_faq(g["faq"])] if g.get("faq") else [])
         page("guide/%s/" % g["slug"], g["title"], g["desc"], body, ld=ld, ptype="article", priority="0.7", lastmod=g["date"],
              extra_head='<meta property="article:published_time" content="%sT09:00:00+09:00"><meta property="article:section" content="%s">' % (g["date"], esc(g["cat"])))
@@ -533,7 +579,7 @@ def build_static():
 # ---------------- 검색 · AI 검색용 파일 ----------------
 def llms_txt(pages):
     L = ["# Humani (휴머나이) · Humani AI Humanizer", "",
-         "> 한국어 AI 휴머나이징 전문 서비스. 카피킬러 · GPT킬러 같은 AI 탐지기에 걸리는 AI 문장을 문장 단위로 찾아 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(5만 자).", "",
+         "> 한국어 AI 휴머나이징 전문 서비스. AI 작성률은 낮추고, 원문의 의미는 그대로. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(5만 자).", "",
          "- 사이트: %s/" % SITE, "- 이름: Humani(휴머나이), 영문 Humani AI Humanizer", "- 운영: 성균관컨설팅(사업자등록번호 272-32-01885, 통신판매업 제2026-경기송탄-0622) · 문의 contact@skkc.co.kr",
          "- 엔진: 같은 운영사 AIMarker의 검사 · 휴머나이징 엔진과 같은 버전(출시 전 교차 검증). 인간화는 생성 AI 없이 한국어 규칙 엔진(용언 사전 15,659개, 사람 글 약 10억 자)",
          "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 언제나 같은 값",
@@ -566,7 +612,7 @@ def llms_full():
 def build_seo():
     urls = []
     for path, title, desc, lastmod, pr in PAGES:
-        img = '<image:image><image:loc>%s/assets/img/og.png</image:loc></image:image>' % SITE if path in ("", "pricing/") else ""
+        img = '<image:image><image:loc>%s/assets/img/og.jpg</image:loc></image:image>' % SITE if path in ("", "pricing/") else ""
         urls.append("<url><loc>%s/%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority>%s</url>" % (SITE, path, lastmod, "weekly" if pr >= "0.8" else "monthly", pr, img))
     open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "\n".join(urls) + "\n</urlset>\n")
     bots = ["Googlebot", "Googlebot-Image", "Yeti", "Daum", "Bingbot", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "PerplexityBot", "Perplexity-User",
@@ -578,8 +624,8 @@ def build_seo():
     items = "".join("<item><title>%s</title><link>%s/guide/%s/</link><guid>%s/guide/%s/</guid><pubDate>%s</pubDate><description>%s</description></item>" % (
         esc(g["h1"]), SITE, g["slug"], SITE, g["slug"], datetime.datetime.strptime(g["date"], "%Y-%m-%d").strftime("%a, %d %b %Y 09:00:00 +0900"), esc(g["desc"])) for g in G.GUIDES)
     open(os.path.join(OUT, "rss.xml"), "w", encoding="utf-8").write('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>%s 가이드</title><link>%s/guide/</link><description>AI 작성률 낮추기와 AI 휴머나이징 가이드</description><language>ko</language>%s</channel></rss>' % (BRAND_FULL, SITE, items))
-    open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8").write(json.dumps({"name": BRAND + " AI 휴머나이저", "short_name": BRAND, "description": TAGLINE, "start_url": "/", "display": "standalone", "background_color": "#ffffff", "theme_color": "#0b1730", "lang": "ko",
-                                                                                         "icons": [{"src": "/assets/img/logo-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/assets/img/logo-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False))
+    open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8").write(json.dumps({"name": BRAND + " AI 휴머나이저", "short_name": BRAND, "description": TAGLINE, "start_url": "/", "display": "standalone", "background_color": "#ffffff", "theme_color": "#ffffff", "lang": "ko",
+                                                                                         "icons": [{"src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"}, {"src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]}, ensure_ascii=False))
     open(os.path.join(OUT, INDEXNOW_KEY + ".txt"), "w").write(INDEXNOW_KEY)
     for gf in GOOGLE_FILES:   # 구글 서치 콘솔 소유 확인 파일(지우지 말 것)
         open(os.path.join(OUT, gf), "w").write("google-site-verification: " + gf)

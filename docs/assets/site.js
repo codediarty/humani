@@ -1,4 +1,4 @@
-/* Humani(휴머나이) 사이트 동작 1.0 (2026.11.21): 머리글 · 모바일 메뉴 · 예시 화면(전 · 후) · 비교 탭 · 나타남 · 아래 고정 단추 */
+/* Humani(휴머나이) 사이트 동작 1.1 (2026.11.21): 머리글 · 모바일 메뉴 · 첫 화면 AI 작성률 계기판 · 예시 화면(전 · 후) · 예시 글 목록 · 비교 탭 · 나타남 · 아래 고정 단추 */
 (function () {
   'use strict';
   var $ = function (s, el) { return (el || document).querySelector(s); };
@@ -22,6 +22,22 @@
     setTimeout(function () { var ta = document.getElementById('hzText'); if (ta) try { ta.focus({ preventScroll: true }); } catch (x) { ta.focus(); } }, RM ? 0 : 450);
   });
 
+  /* 첫 화면 AI 작성률 계기판: 페이지를 열면 한 번만, 변환 전 값에서 변환 후 값으로 내려감 */
+  var vz = $('[data-visor]');
+  if (vz && !RM) {
+    var vFrom = +vz.getAttribute('data-from'), vTo = +vz.getAttribute('data-to'), vN = $('[data-visor-n]', vz), vNow = $('.v-now', vz);
+    vz.classList.add('v-run'); if (vN) vN.textContent = vFrom; if (vNow) vNow.style.width = vFrom + '%';
+    setTimeout(function () {
+      var t0 = performance.now(), ms = 1500;
+      vz.classList.add('v-go');
+      (function f(now) {
+        var k = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - k, 3), v = Math.round(vFrom + (vTo - vFrom) * e);
+        if (vN) vN.textContent = v; if (vNow) vNow.style.width = Math.max(3, v) + '%';
+        if (k < 1) requestAnimationFrame(f); else vz.classList.add('v-done');
+      })(t0);
+    }, 700);
+  }
+
   /* 예시 데이터 */
   var D = null; try { D = JSON.parse(($('#hzDemoData') || {}).textContent || 'null'); } catch (e) { D = null; }
   function bandCls(b) { return /안전/.test(b) ? 'good' : 'bad'; }
@@ -37,6 +53,7 @@
   if (demo && D && D.samples && D.samples.length) {
     var doc = $('.demo-doc', demo), mFrom = $('.dm.from', demo), mTo = $('.dm.to', demo), fn = $('.demo-bar .fn span', demo), st = $('.demo-state', demo), btn = $('[data-demo-run]', demo);
     var cur = 0, timers = [], phase = 0, hover = false;
+    var picks = $$('[data-demo-pick]');   /* 예시 화면 옆 글 목록(홈 · 도구 페이지) */
     function later(f, ms) { timers.push(setTimeout(f, ms)); }
     function stop() { timers.forEach(clearTimeout); timers = []; }
     function count(el, from, to, ms, band) {
@@ -56,6 +73,7 @@
     function play(i) {
       stop(); cur = i; phase = 1; var S = D.samples[i];
       $$('.demo-tabs button', demo).forEach(function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
+      picks.forEach(function (b) { b.setAttribute('aria-selected', +b.getAttribute('data-demo-pick') === i ? 'true' : 'false'); });
       if (fn) fn.textContent = S.file;
       doc.innerHTML = S.doc; var blk = $('.ai-blk', doc), sents = $$('.s', doc);
       sents.forEach(function (x) { x.classList.add('pre'); });
@@ -90,6 +108,7 @@
       }, n * gap + (RM ? 0 : 500));
     }
     $$('.demo-tabs button', demo).forEach(function (b, j) { b.addEventListener('click', function () { play(j); }); });
+    picks.forEach(function (b) { b.addEventListener('click', function () { started = true; play(+b.getAttribute('data-demo-pick')); }); });
     if (btn) btn.addEventListener('click', function () { if (phase === 1) humanize(); else play(cur); });
     demo.addEventListener('mouseenter', function () { hover = true; });
     demo.addEventListener('mouseleave', function () { hover = false; if (phase === 3) later(function () { if (!hover) play((cur + 1) % D.samples.length); }, 2500); else if (phase === 1) later(function () { if (!hover) humanize(); }, 1500); });
