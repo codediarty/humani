@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261122f"
+VER = "20261122g"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -531,7 +531,7 @@ def build_results():
     body += demo_json()
     body += '<section class="sec-s"><div class="wrap">%s<div class="answer">%s</div><h2 class="h2">휴머나이징 전후 AI 작성률(실제 엔진 측정값)</h2>%s</div></section>' % (crumbs_html(trail), R["answer"], results_table())
     body += ('<section class="sec alt" id="example"><div class="wrap"><div class="center"><p class="kick">%s원문과 다듬은 글</p><h2 class="h2">어디가 어떻게 바뀌었는지 직접 보세요</h2><p class="sub">보라색은 AI로 검출된 문장, 초록색은 사람 문장으로 바꾼 곳입니다. 숫자와 이름, 인용은 그대로입니다.</p></div>%s</div></section>') % (ico("eye"), compare_block())
-    body += ('<section class="sec-s"><div class="wrap-n prose"><h2>어떻게 쟀나요</h2><ul><li>원문을 Humani 도구에 그대로 넣어 AI 작성률을 검사했습니다(Humani 판정 기준).</li><li>같은 원문을 한 번 휴머나이징하고, 다듬은 글을 같은 기준으로 다시 검사했습니다.</li><li>사람이 손으로 고치지 않았고, 다시 시도해 좋은 값만 고르지 않았습니다. 같은 글은 언제나 같은 값이 나옵니다.</li></ul>'
+    body += ('<section class="sec-s"><div class="wrap-n prose"><h2>어떻게 쟀나요</h2><ul><li>원문을 Humani 도구에 그대로 넣어 AI 작성률을 검사했습니다(Humani 판정 기준).</li><li>같은 원문을 한 번 휴머나이징하고, 다듬은 글을 같은 기준으로 다시 검사했습니다.</li><li>사람이 손으로 고치지 않았고, 다시 시도해 좋은 값만 고르지 않았습니다. 같은 글은 다시 검사해도 같은 값이 나옵니다.</li></ul>'
              '<h2>AI 작성률 0%%에 얼마나 가까워질까</h2><p>한 번의 휴머나이징으로 대부분 안전 구간(20%% 미만)까지 내려갑니다. 보라색 문장이 남아 있으면 그 글로 한 번 더 다듬으면 0%%에 가까워집니다. 다만 0%%라는 숫자보다 중요한 것은 표시될 문장이 남지 않게 하는 것입니다. 방법은 <a href="/guide/copykiller-ai-rate-0/">카피킬러 AI 작성률 0%% 가이드</a>에 정리했습니다.</p>'
              '<h2>왜 후기 대신 측정값인가</h2><p>후기와 별점은 꾸며낼 수 있지만 측정값은 누구나 다시 재 볼 수 있습니다. 휴머나이는 지어낸 후기 · 별점 · 이용자 수를 싣지 않습니다.</p></div></section>')
     body += '<section class="sec"><div class="wrap-n"><h2 class="h2 center">실제 측정 결과 자주 묻는 질문</h2>%s<div class="rel"><h3>함께 보면 좋은 페이지</h3><div class="links">%s</div></div></div></section>' % (
@@ -588,7 +588,7 @@ def llms_txt(pages):
          "> 한국어 AI 휴머나이징 전문 서비스. AI 작성률은 낮추고, 원문의 의미는 그대로. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(20만 자).", "",
          "- 사이트: %s/" % SITE, "- 이름: Humani(휴머나이), 영문 Humani AI Humanizer", "- 운영: 성균관컨설팅(사업자등록번호 272-32-01885, 통신판매업 제2026-경기송탄-0622) · 문의 contact@skkc.co.kr",
          "- 엔진: 같은 운영사 AIMarker의 검사 · 휴머나이징 엔진과 같은 버전(출시 전 교차 검증). 인간화는 생성 AI 없이 한국어 규칙 엔진(용언 사전 15,659개, 사람 글 약 10억 자)",
-         "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 언제나 같은 값",
+         "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 다시 검사해도 같은 값",
          "- 요금: " + " · ".join("%s %d토큰 %s원(정가 %s원)" % (p["name"], p["tok"], "{:,}".format(p["price"]), "{:,}".format(p["list"])) for p in PACKS) + " · 월 구독 없음, 남은 토큰 5년 유지",
          "- 토큰 단가: AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰(최소 2) · 무료 검사(요약) 0토큰",
          "- 결제: 운영사 성균관컨설팅 결제 페이지(skkc.co.kr)에서 회원가입 없이 이메일만 적고 결제, 보통 1분 안에 16자리 토큰 코드 메일",
