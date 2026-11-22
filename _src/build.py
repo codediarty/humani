@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261122l"
+VER = "20261122m"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -51,7 +51,7 @@ PACKS = [
     {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 25,000자", "pg": "약 10페이지"},
     {"id": "pl", "name": "플러스", "tok": 350, "price": 19900, "list": 39800, "per": "약 57원", "who": "레포트 · 과제 여러 편", "chars": "약 87,500자", "pg": "약 35페이지"},
     {"id": "pr", "name": "프로", "tok": 1000, "price": 39900, "list": 79800, "per": "약 40원", "who": "논문 · 학위논문", "chars": "약 250,000자", "pg": "약 100페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 약 30% 절약"},
-    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 35원", "who": "논문 전체 · 여러 편", "chars": "약 500,000자", "pg": "약 250페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 약 39% 절약"},
+    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 34원", "who": "논문 전체 · 여러 편", "chars": "약 500,000자", "pg": "약 250페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 약 40% 절약"},
 ]
 
 
@@ -497,7 +497,7 @@ def build_humanize():
 
 def build_pricing():
     trail = [("요금", "pricing/")]
-    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스보다 토큰당 약 30%% · 39%% 절약). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
+    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스보다 토큰당 약 30%% · 40%% 절약). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
             '<section class="sec-s"><div class="wrap">%s<p class="price-note">결제는 운영사 성균관컨설팅 결제 페이지에서 가입 없이 이메일만 적고 합니다. 결제하면 보통 1분 안에 그 이메일로 16자리 토큰 코드가 갑니다.</p></div></section>') % (crumbs_html(trail), pricing_cards())
     body += P.pricing_detail(ico)
     body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">결제 · 토큰 자주 묻는 질문</h2>%s</div></section>' % faq_html(P.PRICE_FAQ)
