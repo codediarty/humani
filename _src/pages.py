@@ -45,7 +45,7 @@ TOOL_TPL = """<div class="hz12" id="hz">
   <div class="hz7-dlg-b" id="hzBuyBody">
     <p class="hz18-k">{ico_spark}Humani 토큰 충전 · 많이 충전할수록 저렴</p>
     <h2 id="hzBuyT">AI 휴머나이징 토큰 충전</h2>
-    <p class="hz13-unit"><b>월 구독 없이 한 번 충전</b><span>반복할수록 AI 작성률은 더 낮아집니다. 남은 토큰은 5년 동안 소멸되지 않습니다.</span></p>
+    <p class="hz13-unit"><b>월 구독 없이 한 번 충전</b><span>반복할수록 AI 작성률은 더 낮아집니다. 남은 토큰은 기한 없이 쓸 수 있습니다.</span></p>
     <p class="hz12-need" id="hzBuyNeed" hidden></p>
     <form id="hzBuyForm" novalidate>
       <fieldset class="hz7-to" hidden></fieldset>
@@ -207,7 +207,7 @@ def pricing_detail(ico):
             '<div class="tbl-w"><table class="tbl"><thead><tr><th>글</th><th>검사</th><th>휴머나이징</th><th>합계(1토큰 100원 기준)</th></tr></thead><tbody>%s</tbody></table></div>'
             '<p class="tnote">충전 상품으로 사면 토큰당 35~99원이라 위 금액보다 훨씬 적게 듭니다. 예를 들어 프로 1,000토큰(39,900원)이면 학위논문 본문 8만 자를 무료로 검사하고 두 번 다듬어도 토큰이 남습니다.</p>'
             '<div class="grid3" style="margin-top:28px"><div class="card"><span class="ic">%s</span><h3>월 구독 없음</h3><p>한 번 충전하고 쓴 만큼만 빠집니다. 자동 결제도 없습니다.</p></div>'
-            '<div class="card"><span class="ic">%s</span><h3>5년 동안 그대로</h3><p>남은 토큰은 사라지지 않고 충전한 날부터 5년 동안 씁니다. 같은 코드에 더 충전해 이어 쓸 수 있습니다.</p></div>'
+            '<div class="card"><span class="ic">%s</span><h3>기한 없이 그대로</h3><p>남은 토큰은 사라지지 않고 기한 없이 씁니다. 같은 코드에 더 충전해 이어 쓸 수 있습니다.</p></div>'
             '<div class="card"><span class="ic">%s</span><h3>1분 안에 코드</h3><p>결제가 확인되면 보통 1분 안에 이메일로 16자리 토큰 코드가 갑니다.</p></div></div></div></section>') % (t, ico("card"), ico("clock"), ico("mail"))
 
 
@@ -216,7 +216,7 @@ PRICE_FAQ = [
     ("결제하면 코드는 언제 오나요?", "결제가 확인되면 보통 1분 안에 결제할 때 적은 이메일로 16자리 토큰 코드가 갑니다. 메일의 단추를 누르면 코드가 자동으로 들어가고, 결제하러 가기 전에 넣어 둔 글을 그대로 이어서 휴머나이징합니다. 메일이 안 보이면 스팸함도 확인해 주세요."),
     ("결제할 때 무엇을 적어야 하나요?", "토큰 코드를 받을 이메일만 적으면 됩니다. 회원가입은 없고, 카드 · 토스페이 · 계좌이체 가운데 편한 방법으로 결제합니다."),
     ("카드 명세서에는 무엇으로 찍히나요?", "Humani 운영사인 성균관컨설팅으로 표시됩니다. 영수증도 성균관컨설팅 이름으로 발행됩니다."),
-    ("남은 토큰은 사라지나요?", "사라지지 않습니다. 충전한 날부터 5년 동안 쓸 수 있고, 같은 코드에 더 충전해 이어서 쓸 수 있습니다."),
+    ("남은 토큰은 사라지나요?", "사라지지 않습니다. 기한 없이 쓸 수 있고, 같은 코드에 더 충전해 이어서 쓸 수 있습니다."),
     ("다른 기기에서도 쓸 수 있나요?", "네. 메일로 받은 16자리 코드를 다른 기기에서 넣으면 남은 토큰을 그대로 씁니다. 코드를 아는 사람은 누구나 쓸 수 있으니 잘 보관해 주세요."),
 ]
 MORE_FAQ = [

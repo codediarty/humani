@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261122h"
+VER = "20261122i"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -155,7 +155,7 @@ def ld_howto(name, steps):
 
 def ld_offers():
     return {"@type": "Product", "@id": SITE + "/pricing/#product", "name": BRAND + " AI 휴머나이징 토큰", "brand": {"@type": "Brand", "name": BRAND},
-            "description": "AI 작성률 검사와 AI 휴머나이징에 쓰는 토큰. 월 구독 없이 한 번 충전하고, 남은 토큰은 5년 동안 사라지지 않습니다.",
+            "description": "AI 작성률 검사와 AI 휴머나이징에 쓰는 토큰. 월 구독 없이 한 번 충전하고, 남은 토큰은 기한 없이 쓸 수 있습니다.",
             "image": [SITE + "/assets/product/hm-pr-1x1.jpg", SITE + "/assets/img/og.jpg"], "category": "디지털콘텐츠 이용권",
             "offers": [{"@type": "Offer", "name": "%s %d토큰" % (p["name"], p["tok"]), "price": str(p["price"]), "priceCurrency": "KRW", "availability": "https://schema.org/InStock",
                         "url": (shop(p["id"]).replace("&kaiec_buy=1", "") if shop(p["id"]) else (SITE + "/pricing/")), "seller": {"@type": "Organization", "name": BIZ["name"]}} for p in PACKS]}
@@ -410,7 +410,7 @@ def pricing_cards(cta_text="구매하기"):
         link = shop(p["id"])
         btn = ('<a class="btn %s" href="%s" target="_blank" rel="noopener" data-pack="%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", esc(link), p["id"], cta_text, ico("arrow"))) if link else \
               ('<a class="btn %s" href="/humanize/#buy-%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", p["id"], cta_text, ico("arrow")))
-        feats = ["AI 작성률 검사와 휴머나이징 " + p["chars"] + "(" + p["pg"] + ")", "모든 문장 AI 표시 · 판정 근거", "결과상세내역서 PDF · 파일 그대로 받기", "남은 토큰 5년 동안 유지"]
+        feats = ["AI 작성률 검사와 휴머나이징 " + p["chars"] + "(" + p["pg"] + ")", "모든 문장 AI 표시 · 판정 근거", "결과상세내역서 PDF · 파일 그대로 받기", "남은 토큰 기한 없이 사용"]
         lp = ""   # 2026.11.22: 정가 · 50% 줄은 뺌(카피휴먼처럼 프로 · 맥스만 줄 그은 금액)
         out.append('<div class="%s rv">%s<h3>%s</h3><p class="who">%s</p><p class="tk">%s토큰</p>%s<p class="pr">%s%s</p><p class="per">토큰당 %s · 부가세 포함</p>%s<ul>%s</ul>%s</div>' % (
             cls, tag, p["name"], p["who"], "{:,}".format(p["tok"]), lp, won(p["price"]), plus_strike(p), p["per"], save_badge(p),
@@ -455,7 +455,7 @@ def example_section(h="변환 전후 AI 작성률을<br>직접 비교해 보세�
         cls, P.sh(h, sub), compare_block(), ico("arrow"))
 
 
-def price_section(h="월 구독 없이, 쓴 만큼만", sub="많이 충전할수록 토큰당 가격이 낮아집니다. 한 번 충전하면 글자 수만큼만 빠지고, 남은 토큰은 5년 동안 사라지지 않습니다."):
+def price_section(h="월 구독 없이, 쓴 만큼만", sub="많이 충전할수록 토큰당 가격이 낮아집니다. 한 번 충전하면 글자 수만큼만 빠지고, 남은 토큰은 기한 없이 쓸 수 있습니다."):
     return ('<section class="sec alt" id="price"><div class="wrap">%s%s'
             '<p class="price-note">AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (P.sh(h, sub), pricing_cards())
 
@@ -497,7 +497,7 @@ def build_humanize():
 
 def build_pricing():
     trail = [("요금", "pricing/")]
-    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스보다 토큰당 약 30%% · 39%% 절약). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 5년 동안 사라지지 않습니다.</p></div></section>'
+    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스보다 토큰당 약 30%% · 39%% 절약). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
             '<section class="sec-s"><div class="wrap">%s<p class="price-note">결제는 운영사 성균관컨설팅 결제 페이지에서 가입 없이 이메일만 적고 합니다. 결제하면 보통 1분 안에 그 이메일로 16자리 토큰 코드가 갑니다.</p></div></section>') % (crumbs_html(trail), pricing_cards())
     body += P.pricing_detail(ico)
     body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">결제 · 토큰 자주 묻는 질문</h2>%s</div></section>' % faq_html(P.PRICE_FAQ)
@@ -526,7 +526,7 @@ def build_landings():
         body += P.how_section(ico)
         body += '<section class="sec"><div class="wrap-n"><h2 class="h2 center">%s 자주 묻는 질문</h2>%s<div class="rel"><h3>함께 보면 좋은 페이지</h3><div class="links">%s</div></div></div></section>' % (
             esc(L["crumb"]), faq_html(L["faq"]), "".join('<a href="/%s">%s</a>' % (u, t) for u, t in L["related"]))
-        body += price_section("필요한 만큼만 충전하세요", "많이 충전할수록 토큰당 가격이 낮아집니다. 월 구독 없이 한 번 충전하고, 남은 토큰은 5년 동안 그대로입니다.")
+        body += price_section("필요한 만큼만 충전하세요", "많이 충전할수록 토큰당 가격이 낮아집니다. 월 구독 없이 한 번 충전하고, 남은 토큰은 기한 없이 그대로입니다.")
         body += cta_band()
         page(L["path"], L["title"], L["desc"], body, ld=[APP, ld_faq(L["faq"]), ld_crumbs(trail), ld_howto(L["h1t"], P.HOW_STEPS)], tool=True, priority=L.get("prio", "0.9"))
 
@@ -606,7 +606,7 @@ def llms_txt(pages):
          "- 사이트: %s/" % SITE, "- 이름: Humani(휴머나이), 영문 Humani AI Humanizer", "- 운영: 성균관컨설팅(사업자등록번호 272-32-01885, 통신판매업 제2026-경기송탄-0622) · 문의 contact@skkc.co.kr",
          "- 엔진: 같은 운영사 AIMarker의 검사 · 휴머나이징 엔진과 같은 버전(출시 전 교차 검증). 인간화는 생성 AI 없이 한국어 규칙 엔진(용언 사전 15,659개, 사람 글 약 10억 자)",
          "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 다시 검사해도 같은 값",
-         "- 요금: " + " · ".join("%s %d토큰 %s원" % (p["name"], p["tok"], "{:,}".format(p["price"])) for p in PACKS) + " · 월 구독 없음, 남은 토큰 5년 유지",
+         "- 요금: " + " · ".join("%s %d토큰 %s원" % (p["name"], p["tok"], "{:,}".format(p["price"])) for p in PACKS) + " · 월 구독 없음, 남은 토큰 기한 없음",
          "- 토큰 단가: AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰(최소 2) · 무료 검사(요약) 0토큰",
          "- 결제: 운영사 성균관컨설팅 결제 페이지(skkc.co.kr)에서 회원가입 없이 이메일만 적고 결제, 보통 1분 안에 16자리 토큰 코드 메일",
          "- 실측 예시(%s, Humani 판정 기준, 한 번의 휴머나이징): %s" % (EX["EX_DATE"], EX["EX_LIST"]),
