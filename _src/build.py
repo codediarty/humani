@@ -32,7 +32,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261122e"
+VER = "20261122f"
 TODAY = "2026-11-21"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -105,11 +105,14 @@ def header(path):
         logo(), nav, ico("menu"), mnav)
 
 
-def footer(tm=False):
+def footer(tm=False, home=False):
+    # 11.22 대표 '카피킬러 AI 작성률 낮추기 같은 검색어도 하단에 적혀 노출되게': 첫 화면 밖 쪽의 바닥글에는 검사기 이름 검색어로(첫 화면은 그대로 일반 말)
+    ck = ("/copykiller/", "표절 검사 AI 작성률") if home else ("/copykiller/", "카피킬러 AI 작성률 낮추기")
+    gk = ("/gptkiller/", "AI 탐지기 대비") if home else ("/gptkiller/", "GPT킬러 낮추기")
     cols = [
         ("서비스", [("/humanize/", "휴머나이징 도구"), ("/ai-check/", "AI 작성률 무료 검사"), ("/pricing/", "요금 · 토큰 충전"), ("/results/", "실제 측정 결과"), ("/faq/", "자주 묻는 질문")]),
-        ("많이 찾는 검색", [("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"), ("/copykiller/", "표절 검사 AI 작성률"),
-                       ("/ai-bypass/", "AI 탐지 우회"), ("/gptkiller/", "AI 탐지기 대비"), ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트")]),
+        ("많이 찾는 검색", [("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"), ck,
+                       ("/ai-bypass/", "AI 탐지 우회"), gk, ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트")]),
         ("용도별", [("/thesis/", "논문 AI 작성률 낮추기"), ("/report/", "레포트 AI 탐지"), ("/resume/", "자기소개서 AI 작성률"), ("/natural/", "AI 티 안 나게"), ("/ai-converter/", "AI 문장 변환기"), ("/guide/", "휴머나이징 가이드")]),
         ("회사 · 정책", [("/about/", "회사 소개"), ("/terms/", "이용약관"), ("/privacy/", "개인정보처리방침"), ("mailto:" + BIZ["mail"], "문의 " + BIZ["mail"])]),
     ]
@@ -349,8 +352,8 @@ def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="websit
             '<script src="/assets/am.js?v=%s" defer></script>' % VER,
             '<script src="/assets/textin.js?v=%s" defer></script>' % VER,
             '<script src="/assets/humanize.js?v=%s" defer></script>' % VER] + scripts
-    tm = bool(re.search(r"카피킬러|GPT킬러", title + desc + body))   # 검사기 이름이 나오는 페이지에만 상표 안내
-    doc = "".join(head) + '<body data-root="/">' + '<a class="sr" href="#main">본문 바로가기</a>' + header(path) + '<main id="main">' + body + "</main>" + footer(tm) + "".join(scripts) + "</body></html>"
+    tm = bool(re.search(r"카피킬러|GPT킬러", title + desc + body)) or path != ""   # 검사기 이름이 나오는 페이지(첫 화면 밖 바닥글 포함)에 상표 안내
+    doc = "".join(head) + '<body data-root="/">' + '<a class="sr" href="#main">본문 바로가기</a>' + header(path) + '<main id="main">' + body + "</main>" + footer(tm, path == "") + "".join(scripts) + "</body></html>"
     doc = fill(doc)
     fp = os.path.join(OUT, path, "index.html") if path else os.path.join(OUT, "index.html")
     if path == "404.html":
