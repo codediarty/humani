@@ -43,7 +43,7 @@ TOOL_TPL = """<div class="hz12" id="hz">
 <dialog class="hz7-dlg hz18-dlg" id="hzBuy" aria-labelledby="hzBuyT">
   <form method="dialog" class="hz7-dlg-x"><button type="submit" aria-label="닫기">{ico_x}</button></form>
   <div class="hz7-dlg-b" id="hzBuyBody">
-    <p class="hz18-k">{ico_spark}Humani 토큰 충전 · 정가의 50%</p>
+    <p class="hz18-k">{ico_spark}Humani 토큰 충전 · 많이 충전할수록 저렴</p>
     <h2 id="hzBuyT">AI 휴머나이징 토큰 충전</h2>
     <p class="hz13-unit"><b>월 구독 없이 한 번 충전</b><span>반복할수록 AI 작성률은 더 낮아집니다. 남은 토큰은 5년 동안 소멸되지 않습니다.</span></p>
     <p class="hz12-need" id="hzBuyNeed" hidden></p>
@@ -191,7 +191,7 @@ def usecases_section(ico):
 
 def pay_section(ico):
     """결제가 쉬운 것을 보여 주는 띠(이탈을 줄이려고 요금 카드 바로 아래)"""
-    S = [("tag", "토큰 고르기", "필요한 만큼 고릅니다. 지금은 모든 토큰이 정가의 50%입니다."),
+    S = [("tag", "토큰 고르기", "필요한 만큼 고릅니다. 프로 · 맥스는 플러스보다 토큰당 약 30% · 39% 절약됩니다."),
          ("mail", "이메일 하나로 결제", "성균관컨설팅 결제 페이지에서 회원가입 없이 이메일만 적고 카드 · 토스페이 · 계좌이체로 결제합니다."),
          ("send", "1분 안에 코드 도착", "보내는 사람 'Humani' 메일로 16자리 코드가 갑니다. 메일의 단추를 누르면 코드가 들어간 채로 열립니다."),
          ("refresh", "하던 글 그대로", "결제하러 간 동안 글은 이 브라우저에 24시간 보관됩니다. 돌아오면 바로 이어서 휴머나이징합니다.")]
@@ -203,8 +203,8 @@ def pricing_detail(ico):
     rows = [("자기소개서 1문항(1,500자)", "무료", "6토큰", "6토큰 · 약 600원"), ("대학 레포트(5,000자)", "무료", "20토큰", "20토큰 · 약 2,000원"),
             ("논문 한 장(15,000자)", "무료", "60토큰", "60토큰 · 약 6,000원"), ("학위논문 본문(80,000자)", "무료", "320토큰", "320토큰 · 약 32,000원")]
     t = "".join("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % r for r in rows)
-    return ('<section class="sec-s"><div class="wrap-n"><h2 class="h2">토큰은 이렇게 빠집니다</h2><p class="sub">AI 작성률 검사는 무료, AI 휴머나이징 1,000자 4토큰(최소 2토큰). 정가 기준 1토큰은 100원이고, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다.</p>'
-            '<div class="tbl-w"><table class="tbl"><thead><tr><th>글</th><th>검사</th><th>휴머나이징</th><th>합계(정가 기준)</th></tr></thead><tbody>%s</tbody></table></div>'
+    return ('<section class="sec-s"><div class="wrap-n"><h2 class="h2">토큰은 이렇게 빠집니다</h2><p class="sub">AI 작성률 검사는 무료, AI 휴머나이징 1,000자 4토큰(최소 2토큰). 1토큰은 100원으로 셈하고, 빠질 토큰은 누르기 전에 화면에 먼저 보여 드립니다.</p>'
+            '<div class="tbl-w"><table class="tbl"><thead><tr><th>글</th><th>검사</th><th>휴머나이징</th><th>합계(1토큰 100원 기준)</th></tr></thead><tbody>%s</tbody></table></div>'
             '<p class="tnote">충전 상품으로 사면 토큰당 35~99원이라 위 금액보다 훨씬 적게 듭니다. 예를 들어 프로 1,000토큰(39,900원)이면 학위논문 본문 8만 자를 무료로 검사하고 두 번 다듬어도 토큰이 남습니다.</p>'
             '<div class="grid3" style="margin-top:28px"><div class="card"><span class="ic">%s</span><h3>월 구독 없음</h3><p>한 번 충전하고 쓴 만큼만 빠집니다. 자동 결제도 없습니다.</p></div>'
             '<div class="card"><span class="ic">%s</span><h3>5년 동안 그대로</h3><p>남은 토큰은 사라지지 않고 충전한 날부터 5년 동안 씁니다. 같은 코드에 더 충전해 이어 쓸 수 있습니다.</p></div>'

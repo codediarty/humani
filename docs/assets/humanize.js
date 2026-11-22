@@ -56,10 +56,10 @@
   var J = { HI: 85, MID: 65, SHORT: 60, SEG_AI: 20, UNFIT_RATE: 40, RISK_RATE: 20, UNFIT_SEG: 50,
     B: { unfit: ['부적합', '부적합 · 개선 필요'], risk: ['고위험', '고위험 · 수정 권고'], safe: ['안전', '안전 · AI 패턴 적음'], short: ['판단 보류', '판단 보류 · 글이 짧음'] } };
   var PRODS = [   // 13.17(10.31) 새 요금(대표): 라이트 · 플러스 · 프로(BEST 추천, 기본) · 맥스(최고 혜택) = 아임웹 96 · 97 · 98 · 99(build.py CREDITS 와 같게. 서버 products 는 결제 페이지 주소만 가져옴)
-    { id: 'lt', name: '라이트', price: 9900, list: 19800, cr: 100, base: 100, per: '99원', who: 'AI 작성률 낮추기, 미니멀하게', doc: '레포트', pg: 10 },
-    { id: 'pl', name: '플러스', price: 19900, list: 39800, cr: 350, base: 350, per: '약 57원', who: 'AI 작성률 낮추기, 합리적으로', doc: '레포트', pg: 35 },
-    { id: 'pr', name: '프로', price: 39900, list: 79800, cr: 1000, base: 1000, per: '약 40원', save: 30, badge: 'BEST 추천', best: 1, who: 'AI 작성률 낮추기, 더 효과적으로', doc: '논문', pg: 100 },
-    { id: 'mx', name: '맥스', price: 69900, list: 139800, cr: 2000, base: 2000, per: '약 35원', save: 39, badge: '최고 혜택', top: 1, who: '반복 변환으로 AI 작성률 극한까지 낮추기', doc: '논문', pg: 250 }
+    { id: 'lt', name: '라이트', price: 9900, cr: 100, base: 100, per: '99원', who: 'AI 작성률 낮추기, 미니멀하게', doc: '레포트', pg: 10 },
+    { id: 'pl', name: '플러스', price: 19900, cr: 350, base: 350, per: '약 57원', who: 'AI 작성률 낮추기, 합리적으로', doc: '레포트', pg: 35 },
+    { id: 'pr', name: '프로', price: 39900, cr: 1000, base: 1000, per: '약 40원', save: 30, badge: 'BEST 추천', best: 1, who: 'AI 작성률 낮추기, 더 효과적으로', doc: '논문', pg: 100 },
+    { id: 'mx', name: '맥스', price: 69900, cr: 2000, base: 2000, per: '약 35원', save: 39, badge: '최고 혜택', top: 1, who: '반복 변환으로 AI 작성률 극한까지 낮추기', doc: '논문', pg: 250 }
   ];   // 13.24 doc · pg = '레포트(라이트 · 플러스) · 논문(프로 · 맥스) 검사와 휴머나이징 약 몇 페이지'(대표가 정한 값. 1페이지 약 1,200자로 셈한 값보다 적거나 같음: build.py CREDITS 와 같게)
   var PG_CHARS = 1200;
   var RPT = 'AI 작성률 결과서';   // 13.30 토큰으로 받는 전체 검사의 이름(왼쪽 단추 · 무료 결과의 안내 단추). 대표: '리포트'보다 '결과서'
