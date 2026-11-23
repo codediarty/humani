@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261123i"
+VER = "20261123j"
 TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
