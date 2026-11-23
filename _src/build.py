@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261123h"
+VER = "20261123i"
 TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -49,10 +49,10 @@ BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "
        "addr": "경기도 수원시 장안구 서부로 2066 성균관대학교 브릿지팩토리(연구실)", "mail": "contact@skkc.co.kr"}
 # list = 예전 정가(2026.11.22 대표: 카피휴먼처럼 정가 · 50% 표시는 빼고 프로 · 맥스만 플러스 단가 기준 금액과 절약 배지, 값은 참고로 남김) · 판매가는 AIMarker 개인 토큰과 같음
 PACKS = [
-    {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 25,000자", "pg": "약 10페이지"},
-    {"id": "pl", "name": "플러스", "tok": 350, "price": 19900, "list": 39800, "per": "약 57원", "who": "레포트 · 과제 여러 편", "chars": "약 87,500자", "pg": "약 35페이지"},
-    {"id": "pr", "name": "프로", "tok": 1000, "price": 39900, "list": 79800, "per": "약 40원", "who": "논문 · 학위논문", "chars": "약 250,000자", "pg": "약 100페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 약 30% 절약"},
-    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 34원", "who": "논문 전체 · 여러 편", "chars": "약 500,000자", "pg": "약 250페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 약 40% 절약"},
+    {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 16,600자", "pg": "약 10페이지"},
+    {"id": "pl", "name": "플러스", "tok": 350, "price": 19900, "list": 39800, "per": "약 57원", "who": "레포트 · 과제 여러 편", "chars": "약 58,300자", "pg": "약 35페이지"},
+    {"id": "pr", "name": "프로", "tok": 1000, "price": 39900, "list": 79800, "per": "약 40원", "who": "논문 · 학위논문", "chars": "약 166,600자", "pg": "약 100페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 약 30% 절약"},
+    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 34원", "who": "논문 전체 · 여러 편", "chars": "약 333,300자", "pg": "약 250페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 약 40% 절약"},
 ]
 
 
@@ -458,7 +458,7 @@ def example_section(h="변환 전후 AI 작성률을<br>직접 비교해 보세�
 
 def price_section(h="월 구독 없이, 쓴 만큼만", sub="많이 충전할수록 토큰당 가격이 낮아집니다. 한 번 충전하면 글자 수만큼만 빠지고, 남은 토큰은 기한 없이 쓸 수 있습니다."):
     return ('<section class="sec alt" id="price"><div class="wrap">%s%s'
-            '<p class="price-note">AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (P.sh(h, sub), pricing_cards())
+            '<p class="price-note">AI 작성률 검사 무료 · AI 휴머나이징 1,000자 6토큰 · 무료 검사(요약)는 0토큰</p></div></section>') % (P.sh(h, sub), pricing_cards())
 
 
 # ---------------- 홈 ----------------
@@ -507,7 +507,7 @@ def build_pricing():
     body += MK.PRICING_MORE   # 11.23: 요금 쪽만의 구역(사이트마다 다른 글)
     body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">결제 · 토큰 자주 묻는 질문</h2>%s</div></section>' % faq_html(P.PRICE_FAQ)
     body += cta_band("먼저 무료로 검사해 보세요", "AI 작성률이 높게 나온 문장만 휴머나이징하면 토큰을 아낄 수 있습니다.")
-    page("pricing/", "AI 휴머나이징 가격 · 토큰 충전 | Humani", "AI 휴머나이징 가격 안내. 라이트 100토큰 9,900원부터 맥스 2,000토큰 69,900원까지, 월 구독 없이 한 번 충전합니다. 검사는 무료 · 휴머나이징 1,000자 4토큰.",
+    page("pricing/", "AI 휴머나이징 가격 · 토큰 충전 | Humani", "AI 휴머나이징 가격 안내. 라이트 100토큰 9,900원부터 맥스 2,000토큰 69,900원까지, 월 구독 없이 한 번 충전합니다. 검사는 무료 · 휴머나이징 1,000자 6토큰.",
          body, ld=[ld_offers(), ld_faq(P.PRICE_FAQ), ld_crumbs(trail)], priority="0.9")
 
 
@@ -614,7 +614,7 @@ def llms_txt(pages):
          "- 엔진: 같은 운영사 AIMarker의 검사 · 휴머나이징 엔진과 같은 버전(출시 전 교차 검증). 인간화는 생성 AI 없이 한국어 규칙 엔진(용언 사전 15,659개, 사람 글 약 10억 자)",
          "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 다시 검사해도 같은 값",
          "- 요금: " + " · ".join("%s %d토큰 %s원" % (p["name"], p["tok"], "{:,}".format(p["price"])) for p in PACKS) + " · 월 구독 없음, 남은 토큰 기한 없음",
-         "- 토큰 단가: AI 작성률 검사 무료 · AI 휴머나이징 1,000자 4토큰(최소 2) · 무료 검사(요약) 0토큰",
+         "- 토큰 단가: AI 작성률 검사 무료 · AI 휴머나이징 1,000자 6토큰(최소 3) · 무료 검사(요약) 0토큰",
          "- 결제: 운영사 성균관컨설팅 결제 페이지(skkc.co.kr)에서 회원가입 없이 이메일만 적고 결제, 보통 1분 안에 16자리 토큰 코드 메일",
          "- 실측 예시(%s, Humani 판정 기준, 한 번의 휴머나이징): %s" % (EX["EX_DATE"], EX["EX_LIST"]),
          "- 상표: 카피킬러, GPT킬러 등은 각 권리자의 상표이며 Humani는 해당 서비스와 제휴 관계가 없습니다", "", "## 페이지", ""]
