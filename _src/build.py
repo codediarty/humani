@@ -22,6 +22,7 @@ from icons import ICONS  # noqa: E402
 import pages as P  # noqa: E402
 import landings as LP  # noqa: E402
 import guides as G  # noqa: E402
+import more_kw as MK  # noqa: E402
 import legal as LG  # noqa: E402
 
 # ---------------- 설정 ----------------
@@ -32,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261123b"
+VER = "20261123c"
 TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -490,9 +491,12 @@ def build_home():
 def build_humanize():
     trail = [("휴머나이징 도구", "humanize/")]
     body = hero_with_tool('<b>도구</b> AI 작성률 검사 · 휴머나이징', '<span class="u">AI 휴머나이징</span> 프로그램', '글을 붙여 넣거나 파일을 올리면 AI 작성률부터 무료로 보여 드립니다. 걸리는 문장은 휴머나이징으로 사람 문장으로 바꾸고, 같은 기준으로 다시 잽니다. 메일로 받은 토큰 코드 단추를 누르면 이 화면으로 와서 하던 글을 이어서 합니다.', cls="hero lp-hero")
-    body += demo_json() + example_section(cls="sec alt") + P.how_section(ico) + price_section() + cta_band()
+    body += demo_json() + example_section(cls="sec alt") + P.how_section(ico)
+    body += '<section class="sec-s"><div class="wrap-n prose">%s</div></section>' % MK.HUMANIZE_BODY   # 11.23 3차: 도구 쪽만의 쓰는 법 · 질문
+    body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">휴머나이징 도구 자주 묻는 질문</h2>%s</div></section>' % faq_html(MK.HUMANIZE_FAQ)
+    body += price_section() + cta_band()
     page("humanize/", "AI 휴머나이징 프로그램 · AI 작성률 검사 도구 | Humani", "Humani(휴머나이) AI 휴머나이징 프로그램. 글이나 한글 · 워드 · PDF 파일을 넣으면 AI 작성률과 AI로 검출된 문장을 보여 주고, 사람 문장으로 바꿔 드립니다. 가입 없이 무료 검사부터.",
-         body, ld=[APP, ld_crumbs(trail), ld_howto("AI 휴머나이징 프로그램 쓰는 법", P.HOW_STEPS)], tool=True, priority="0.9")
+         body, ld=[APP, ld_crumbs(trail), ld_howto("AI 휴머나이징 프로그램 쓰는 법", P.HOW_STEPS), ld_faq(MK.HUMANIZE_FAQ)], tool=True, priority="0.9")
 
 
 def build_pricing():

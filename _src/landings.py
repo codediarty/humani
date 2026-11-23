@@ -295,3 +295,12 @@ RESULTS = {
             ("다른 검사기에서도 같은 숫자가 나오나요?", "검사기마다 판별 모델과 기준이 달라 숫자가 같지는 않습니다. 휴머나이는 실제 결과확인서와 대조해 맞춘 엄격한 기준으로 잽니다.")],
     "related": rel("copykiller/", "guide/copykiller-ai-rate-0/", "lower-ai-rate/", "ai-humanizer/", "best-ai-humanizer/", "pricing/", "ai-check/"),
 }
+
+
+# 11.23 3차: 검색어 쪽마다 고유 내용 더함(more_kw.py, 사례 세 가지). 기존 글은 그대로 두고 뒤에 덧붙임
+from more_kw import MORE as _MORE  # noqa: E402
+for _L in LANDINGS:
+    _m = _MORE.get(_L["path"])
+    if _m:
+        _L["body"] = _L["body"] + "\n" + _m["body"]
+        _L["faq"] = list(_L["faq"]) + list(_m["faq"])
