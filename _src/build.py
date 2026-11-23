@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261123j"
+VER = "20261123k"
 TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -387,13 +387,14 @@ REP_LINE = "반복 변환할수록 AI 작성률은 계속 낮아집니다. 여�
 
 
 PLUS_UNIT = 19900 / 350   # 2026.11.22 대표: 카피휴먼처럼 프로 · 맥스는 '플러스 단가로 샀을 때 금액'을 줄 그어 보여 줌
-PRICE_FN = "절약률은 플러스의 토큰당 가격(약 57원)과 비교한 값이고, 줄 그은 금액은 같은 토큰을 플러스 단가로 샀을 때의 금액입니다."
+LIST_PRICE = {"pr": 60000, "mx": 120000}   # 2026.11.23 22:23 대표: 프로 · 맥스 정가 60,000원 · 120,000원(아임웹 정가와 같게, 줄 그어 보여 줌)
+PRICE_FN = "절약률은 플러스의 토큰당 가격(약 57원)과 비교한 값이고, 줄 그은 금액은 정가입니다."
 
 
 def plus_strike(p):
     if not p.get("save"):
         return ""
-    return '<s title="같은 토큰을 플러스 단가로 샀을 때의 금액"><span class="sr">플러스 단가 기준 </span>%s</s>' % won(int(round(p["tok"] * PLUS_UNIT)))
+    return '<s title="정가"><span class="sr">정가 </span>%s</s>' % won(LIST_PRICE.get(p["id"]) or int(round(p["tok"] * PLUS_UNIT)))
 
 
 def save_badge(p, tag="span", cls="sv"):

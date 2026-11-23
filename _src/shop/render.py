@@ -25,8 +25,8 @@ DEMO_CAP = "실측 · %s 한 번 휴머나이징" % T.get("label", "논문")
 PACKS = [
     {"id": "lt", "name": "라이트", "tok": "100", "price": "9,900원", "list": "19,800원", "per": "토큰당 99원", "save": "", "badge": "", "fit": "짧은 과제 · 자기소개서 한두 문항"},
     {"id": "pl", "name": "플러스", "tok": "350", "price": "19,900원", "list": "39,800원", "per": "토큰당 약 57원", "save": "", "badge": "", "fit": "레포트 여러 편 · 자소서 한 세트"},
-    {"id": "pr", "name": "프로", "tok": "1,000", "price": "39,900원", "list": "79,800원", "per": "토큰당 약 40원", "save": "플러스 대비 토큰당 약 30% 절약", "plus": "56,857원", "pct": "약 30% 절약", "badge": "BEST 추천", "fit": "학기 과제 전체 · 논문 한 장(章)"},
-    {"id": "mx", "name": "맥스", "tok": "2,000", "price": "69,900원", "list": "139,800원", "per": "토큰당 약 34원", "save": "플러스 대비 토큰당 약 40% 절약", "plus": "113,714원", "pct": "약 40% 절약", "badge": "최고 혜택", "fit": "학위논문 전체 · 팀 · 여러 명"},
+    {"id": "pr", "name": "프로", "tok": "1,000", "price": "39,900원", "list": "79,800원", "per": "토큰당 약 40원", "save": "플러스 대비 토큰당 약 30% 절약", "plus": "60,000원", "pct": "약 30% 절약", "badge": "BEST 추천", "fit": "학기 과제 전체 · 논문 한 장(章)"},
+    {"id": "mx", "name": "맥스", "tok": "2,000", "price": "69,900원", "list": "139,800원", "per": "토큰당 약 34원", "save": "플러스 대비 토큰당 약 40% 절약", "plus": "120,000원", "pct": "약 40% 절약", "badge": "최고 혜택", "fit": "학위논문 전체 · 팀 · 여러 명"},
 ]
 
 
@@ -115,7 +115,7 @@ def thumb_html(p):
  <div class="chips">%s</div>
  <div class="price">%s<b>%s</b></div>
 </div>""" % (HEAD_URI, badge, p["name"], p["tok"], p["per"], save, ROBOT_URI, chips,
-       ('<div class="row1"><del>플러스 단가 기준 %s</del><em>%s</em></div>' % (p["plus"], p["pct"])) if p.get("plus") else "", p["price"])
+       ('<div class="row1"><del>정가 %s</del><em>%s</em></div>' % (p["plus"], p["pct"])) if p.get("plus") else "", p["price"])
     return BASE % (css, body)
 
 
