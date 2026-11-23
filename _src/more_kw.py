@@ -265,3 +265,12 @@ PRICING_MORE = ('<section class="sec-s"><div class="wrap-n prose"><h2>상품을 
     + "<h3>사례 2 · 학위논문</h3><p>본문을 장마다 나눠 휴머나이징하고, 남은 문장은 바뀐 글로 한 번 더 변환할 생각으로 프로를 골랐습니다.</p>"
     + "<h3>사례 3 · 글을 봐 주는 일</h3><p>여러 사람의 원고를 다듬는 일을 해서 맥스를 충전해 두고, 원고마다 걸린 문단만 넣어 씁니다.</p>"
     + "<p>어느 상품이든 남은 토큰은 기한 없이 그대로입니다. 같은 이메일로 다시 충전하면 쓰던 코드에 더해집니다.</p></div></section>")
+
+
+# ---- 11.23: 가이드 모음 쪽(/guide/) 고유 구역 ----
+GUIDE_HUB = ('<section class="sec-s"><div class="wrap-n prose"><h2>이런 분이라면 이 순서로 읽으세요</h2>'
+    "<h3>자기소개서를 준비하는 분</h3><p>" + '<a href="/guide/resume-ai/">자소서 AI 작성률 낮추는 법</a>' + "을 먼저 읽고, 문장을 고칠 때 " + '<a href="/guide/chatgpt-tone/">챗GPT 티 안 나게 쓰는 법</a>' + "을 옆에 두세요.</p>"
+    "<h3>학위논문을 내는 분</h3><p>" + '<a href="/guide/thesis-checklist/">학위논문 AI 검사 대비 체크리스트</a>' + "로 순서를 잡고, 숫자를 더 낮춰야 하면 " + '<a href="/guide/copykiller-under-20/">카피킬러 AI 20% 미만 만드는 법</a>' + "으로 이어 가세요.</p>"
+    "<h3>레포트 결과가 높게 나온 분</h3><p>" + '<a href="/guide/ai-patterns/">AI 패턴 8가지</a>' + "로 걸린 까닭을 찾고, " + '<a href="/guide/gptkiller-tips/">GPT킬러 안 걸리는 법</a>' + "을 함께 보세요.</p>"
+    "<h3>직접 썼는데 AI로 나온 분</h3><p>" + '<a href="/guide/how-ai-detectors-work/">AI 탐지기는 어떻게 AI 글을 잡을까</a>' + "를 읽고, " + '<a href="/ai-check/">무료 AI 작성률 검사</a>' + "로 어느 문장이 걸렸는지 확인하세요.</p>"
+    "<h2>가이드를 쓰는 방식</h2><p>Humani 가이드의 사례와 예문은 설명을 위해 만든 것이고, 실제 사용자 후기처럼 꾸미지 않습니다. 카피킬러 · GPT킬러 같은 이름은 검사기를 설명할 때만 쓰며, Humani 는 그 검사기들과 관계가 없습니다.</p></div></section>")

@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261123f"
+VER = "20261123g"
 TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -571,6 +571,7 @@ def build_guides():
     cards = "".join('<a class="gcard rv" href="/guide/%s/"><small>%s</small><h2>%s</h2><p>%s</p></a>' % (g["slug"], g["cat"], esc(g["h1"]), esc(g["desc"])) for g in G.GUIDES)
     body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 작성률 낮추는 법 · 휴머나이징 가이드</h1><p class="lead">카피킬러 · GPT킬러가 무엇을 보고 AI 작성률을 매기는지, 어떻게 하면 AI 티가 나지 않는 글이 되는지 정리했습니다.</p></div></section>'
             '<section class="sec-s"><div class="wrap"><div class="gcards">%s</div></div></section>') % (crumbs_html(trail0), cards)
+    body += MK.GUIDE_HUB   # 11.23: 가이드 모음 쪽만의 읽는 순서 · 쓰는 방식
     body += cta_band()
     page("guide/", "AI 작성률 낮추는 법 · 휴머나이징 가이드 | Humani", "AI 작성률 낮추는 법을 정리한 휴머나이징 가이드. 카피킬러 AI 작성률 0%와 20% 미만, GPT킬러 안 걸리는 법, AI 탐지 원리, AI 패턴 제거, 챗GPT 티 안 나게 쓰는 법까지.",
          body, ld=[ld_crumbs(trail0), {"@type": "CollectionPage", "name": BRAND + " 휴머나이징 가이드", "url": SITE + "/guide/", "inLanguage": "ko-KR"}], priority="0.8")
