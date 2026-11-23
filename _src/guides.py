@@ -100,3 +100,11 @@ GUIDES = [
 ]
 for g in GUIDES:
     g.setdefault("faq", [])
+
+
+# 11.23: 가이드 8편에 사례 세 가지와 고친 예를 더함(more_guides.py, 한국휴머나이저 가이드와 겹치던 글을 나눔). 고친 날은 mod 에 둠
+from more_guides import G as _GG  # noqa: E402
+for _g in GUIDES:
+    if _g["slug"] in _GG:
+        _g["body"] = _g["body"] + _GG[_g["slug"]]
+        _g["mod"] = "2026-11-23"

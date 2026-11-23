@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261123c"
+VER = "20261123d"
 TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -580,17 +580,18 @@ def build_guides():
         others = [o for o in G.GUIDES if o["slug"] != g["slug"]][:3]
         rel = "".join('<a class="gcard" href="/guide/%s/"><small>%s</small><h3>%s</h3><p>%s</p></a>' % (o["slug"], o["cat"], esc(o["h1"]), esc(o["desc"])) for o in others)
         faqh = ('<h2 id="faq">자주 묻는 질문</h2>' + faq_html(g["faq"])) if g.get("faq") else ""
+        gmod = g.get("mod", g["date"])   # 11.23: 고친 날
         body = ('<article><section class="ph"><div class="wrap-n">%s<p class="kick">%s</p><h1 class="h1">%s</h1><p class="meta"><span>%s 편집팀</span><span>%s</span><span>읽는 데 %d분</span></p></div></section>'
                 '<section class="sec-s"><div class="wrap-n"><div class="answer">%s</div>%s<div class="prose">%s%s</div>'
                 '<div class="cta cta-in"><h2>내 글의 AI 작성률, 지금 바로 확인하세요</h2><p>가입 없이 무료 · 문장마다 AI 검출 여부를 보여 드립니다.</p><div class="btns"><a class="btn btn-p btn-l" href="/humanize/">%s무료 AI 작성률 검사</a></div></div>'
                 '</div></section></article><section class="sec-s alt"><div class="wrap"><h2 class="h2">함께 읽으면 좋은 글</h2><div class="gcards">%s</div></div></section>') % (
-            crumbs_html(trail), g["cat"], esc(g["h1"]), BRAND, g["date"].replace("-", "."), max(2, len(re.sub(r"<[^>]+>", "", g["body"])) // 650), g["answer"], toc_html, g["body"], faqh, ico("search"), rel)
-        art = {"@type": "Article", "headline": g["h1"], "description": g["desc"], "inLanguage": "ko-KR", "datePublished": g["date"], "dateModified": g["date"],
+            crumbs_html(trail), g["cat"], esc(g["h1"]), BRAND, gmod.replace("-", "."), max(2, len(re.sub(r"<[^>]+>", "", g["body"])) // 650), g["answer"], toc_html, g["body"], faqh, ico("search"), rel)
+        art = {"@type": "Article", "headline": g["h1"], "description": g["desc"], "inLanguage": "ko-KR", "datePublished": g["date"], "dateModified": gmod,
                "author": {"@type": "Organization", "name": BRAND + " 편집팀", "url": SITE + "/about/"}, "publisher": {"@id": SITE + "/#org"},
                "mainEntityOfPage": SITE + "/guide/%s/" % g["slug"], "image": [SITE + "/assets/img/og.jpg"], "articleSection": g["cat"]}
         ld = [art, ld_crumbs(trail)] + ([ld_faq(g["faq"])] if g.get("faq") else [])
-        page("guide/%s/" % g["slug"], g["title"], g["desc"], body, ld=ld, ptype="article", priority="0.7", lastmod=g["date"],
-             extra_head='<meta property="article:published_time" content="%sT09:00:00+09:00"><meta property="article:section" content="%s">' % (g["date"], esc(g["cat"])))
+        page("guide/%s/" % g["slug"], g["title"], g["desc"], body, ld=ld, ptype="article", priority="0.7", lastmod=gmod,
+             extra_head='<meta property="article:published_time" content="%sT09:00:00+09:00"><meta property="article:modified_time" content="%sT09:00:00+09:00"><meta property="article:section" content="%s">' % (g["date"], gmod, esc(g["cat"])))
 
 
 def build_static():
