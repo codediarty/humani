@@ -32,8 +32,8 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261122m"
-TODAY = "2026-11-21"
+VER = "20261123a"
+TODAY = "2026-11-23"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
 SHOP = "https://skkc.co.kr/shop_view?idx=%s&kaiec_buy=1"
@@ -111,7 +111,7 @@ def footer(tm=False, home=False):
     gk = ("/gptkiller/", "AI 탐지기 대비") if home else ("/gptkiller/", "GPT킬러 낮추기")
     cols = [
         ("서비스", [("/humanize/", "휴머나이징 도구"), ("/ai-check/", "AI 작성률 무료 검사"), ("/pricing/", "요금 · 토큰 충전"), ("/results/", "실제 측정 결과"), ("/faq/", "자주 묻는 질문")]),
-        ("많이 찾는 검색", [("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"), ck,
+        ("많이 찾는 검색", [("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"), ("/ai-plagiarism/", "AI 표절률 낮추기"), ck,
                        ("/ai-bypass/", "AI 탐지 우회"), gk, ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트")]),
         ("용도별", [("/thesis/", "논문 AI 작성률 낮추기"), ("/report/", "레포트 AI 탐지"), ("/resume/", "자기소개서 AI 작성률"), ("/natural/", "AI 티 안 나게"), ("/ai-converter/", "AI 문장 변환기"), ("/guide/", "휴머나이징 가이드")]),
         ("회사 · 정책", [("/about/", "회사 소개"), ("/terms/", "이용약관"), ("/privacy/", "개인정보처리방침"), ("mailto:" + BIZ["mail"], "문의 " + BIZ["mail"])]),
