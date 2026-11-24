@@ -544,3 +544,30 @@ html body .hz7-dlg-b .hz19-auto .ico { margin-top: 2px; padding: 2px; border-rad
 @keyframes hz38glow{0%,100%{transform:translate(0,0) scale(1);opacity:.9}50%{transform:translate(-30px,20px) scale(1.12);opacity:.6}}
 @media (max-width:560px){.hz38{padding:18px 16px 14px}.hz38-top{gap:14px;align-items:flex-start}.hz38-doc{flex-basis:86px;height:88px;padding:11px 9px}.hz38-ln{height:5px}.hz38-tag{display:none}.hz38-tx b{font-size:15.5px}.hz38-tx p{font-size:13px}.hz38-st li{font-size:11.5px;padding:4px 8px 4px 5px}}
 @media (prefers-reduced-motion:reduce){.hz38 *,.hz38::before,.hz38 *::after{animation:none!important}.hz38-ln::after{background-color:var(--ds-blue-600,#2563eb);opacity:.7}.hz38-chk .hz38-ln::after{background-color:#c9d3e3}.hz38-chk .hz38-ln.f::after{background-color:var(--ai,#e5484d)}.hz38-beam{display:none}}
+
+/* 13.39(2026.11.24 22:15 대표 '밑에 애매하게 잘려서 한 화면에 잘 보이게 · 있어 보이게'): 넓은 화면에서 제목부터 글 칸 · 파일 올리기 · 검사 단추까지
+   노트북 한 화면(1280 × 800)에 들어오게 첫 화면의 위아래 간격만 줄임. 글 · 단추 · 순서는 그대로. 휴대폰은 예전 그대로 */
+@media (min-width: 900px) {
+  .home-hero { padding: 34px 0 64px; }
+  .home-hero .h1 { font-size: clamp(40px, 3.9vw, 54px); line-height: 1.1; margin: 16px 0 14px; }
+  .home-hero .hero-copy .lead { font-size: 17px; line-height: 1.65; max-width: 44em; margin: 0 auto 20px; }
+  .home-hero .hero-cta .btn-l { padding: 12px 22px; font-size: 16px; }
+  .home-hero .hero-pts { margin-top: 14px; }
+  .home-hero .tool-w { margin-top: 26px; }
+  .home-hero .tool-w .hz12-steps { margin-bottom: 10px; }
+  .home-hero .tool-w .hz12-drop textarea { min-height: 176px; }
+}
+@media (min-width: 900px) and (max-height: 820px) {
+  .home-hero { padding-top: 20px; }
+  .home-hero .h1 { font-size: clamp(38px, 3.6vw, 48px); margin: 12px 0 12px; }
+  .home-hero .hero-copy .lead { margin-bottom: 16px; }
+  .home-hero .hero-pts { margin-top: 10px; }
+  .home-hero .tool-w { margin-top: 20px; }
+  .home-hero .tool-w .hz12-drop textarea { min-height: 176px; }
+}
+@media (min-width: 900px) and (max-height: 780px) {
+  .home-hero .h1 { font-size: clamp(36px, 3.3vw, 44px); margin: 10px 0 10px; }
+  .home-hero .hero-copy .lead { font-size: 16.5px; line-height: 1.6; margin-bottom: 14px; }
+  .home-hero .tool-w { margin-top: 16px; }
+  .home-hero .tool-w .hz12-drop textarea { min-height: 162px; }
+}
