@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261124c"
+VER = "20261124d"
 TODAY = "2026-11-24"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -41,6 +41,7 @@ SHOP = "https://skkc.co.kr/shop_view?idx=%s&kaiec_buy=1"
 # 성균관컨설팅(아임웹) Humani 전용 상품 번호. 서버는 스크립트 속성 HM_IDX 로 같은 번호를 hm1~hm4 로 봄
 SHOP_IDX = {"lt": "158", "pl": "159", "pr": "160", "mx": "161"}   # 2026.11.21 등록
 NAVER_VERIFY = "c0cbdb4c41677fd3560d0aebdc88914bcf7308cb"   # 네이버 서치어드바이저 humanai.io.kr (2026.11.21)
+NAVER_VERIFY2 = "b8e86ca3e6f577213cc820c9bf5ad9431cc2d78e"   # 2026.11.24 22:14 대표 네이버 서치어드바이저 계정에 새로 등록한 소유확인(HTML 태그). 예전 값도 그대로 둠
 GOOGLE_VERIFY = ""
 BING_VERIFY = "6CFE39150A28BBBB4694B507E2E689C0"   # Bing 웹마스터 도구 https://humanai.io.kr/ (2026.11.21)
 INDEXNOW_KEY = "3f9c2a7e5b1d4c8a9e6f0b2d7a4c1e85"
@@ -332,6 +333,8 @@ def page(path, title, desc, body, *, ld=None, tool=False, og=None, ptype="websit
             '<link rel="alternate" type="application/rss+xml" title="%s 가이드" href="/rss.xml">' % BRAND]
     if NAVER_VERIFY:
         head.append('<meta name="naver-site-verification" content="%s">' % NAVER_VERIFY)
+    if NAVER_VERIFY2:
+        head.append('<meta name="naver-site-verification" content="%s">' % NAVER_VERIFY2)
     if GOOGLE_VERIFY:
         head.append('<meta name="google-site-verification" content="%s">' % GOOGLE_VERIFY)
     if BING_VERIFY:
