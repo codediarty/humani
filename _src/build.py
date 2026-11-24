@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261124e"
+VER = "20261124f"
 TODAY = "2026-11-24"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -52,8 +52,8 @@ BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "
 PACKS = [
     {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 16,600자", "pg": "약 10페이지"},
     {"id": "pl", "name": "플러스", "tok": 350, "price": 19900, "list": 39800, "per": "약 57원", "who": "레포트 · 과제 여러 편", "chars": "약 58,300자", "pg": "약 35페이지"},
-    {"id": "pr", "name": "프로", "tok": 1000, "price": 39900, "list": 79800, "per": "약 40원", "who": "논문 · 학위논문", "chars": "약 166,600자", "pg": "약 100페이지", "best": "BEST 추천", "save": "플러스보다 토큰당 약 30% 절약"},
-    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 34원", "who": "논문 전체 · 여러 편", "chars": "약 333,300자", "pg": "약 250페이지", "top": "최고 혜택", "save": "플러스보다 토큰당 약 40% 절약"},
+    {"id": "pr", "name": "프로", "tok": 1000, "price": 39900, "list": 79800, "per": "약 40원", "who": "논문 · 학위논문", "chars": "약 166,600자", "pg": "약 100페이지", "best": "추천 요금제", "save": "플러스 대비 이용 단가 30% 절감"},
+    {"id": "mx", "name": "맥스", "tok": 2000, "price": 69900, "list": 139800, "per": "약 34원", "who": "논문 전체 · 여러 편", "chars": "약 333,300자", "pg": "약 250페이지", "top": "최대 할인 혜택", "save": "플러스 대비 이용 단가 39% 절감"},
 ]
 
 
@@ -391,11 +391,12 @@ REP_LINE = "반복 변환할수록 AI 작성률은 계속 낮아집니다. 여�
 
 PLUS_UNIT = 19900 / 350   # 2026.11.22 대표: 카피휴먼처럼 프로 · 맥스는 '플러스 단가로 샀을 때 금액'을 줄 그어 보여 줌
 LIST_PRICE = {"pr": 60000, "mx": 120000}   # 2026.11.23 22:23 대표: 프로 · 맥스 정가 60,000원 · 120,000원(아임웹 정가와 같게, 줄 그어 보여 줌)
-PRICE_FN = "절약률은 플러스의 토큰당 가격(약 57원)과 비교한 값이고, 줄 그은 금액은 정가입니다."
+STRIKE = False   # 2026.11.24 23:09 대표: 프로 · 맥스 정가 줄 그은 금액을 보이지 않음
+PRICE_FN = "절감률은 플러스의 이용 단가(토큰당 약 57원)와 비교한 값입니다."   # 2026.11.24 23:09 대표(배지 · 혜택 문구, 취소선 가격 삭제). 예전: 절약률은 … 줄 그은 금액은 정가입니다.
 
 
 def plus_strike(p):
-    if not p.get("save"):
+    if not p.get("save") or not STRIKE:   # 2026.11.24 23:09 대표 '취소선 가격 삭제'
         return ""
     return '<s title="정가"><span class="sr">정가 </span>%s</s>' % won(LIST_PRICE.get(p["id"]) or int(round(p["tok"] * PLUS_UNIT)))
 
@@ -403,8 +404,8 @@ def plus_strike(p):
 def save_badge(p, tag="span", cls="sv"):
     if not p.get("save"):
         return ""
-    m = re.search(r"약 \d+%", p["save"])
-    return '<%s class="%s">플러스 대비 토큰당 <b>%s 절약</b></%s>' % (tag, cls, m.group(0) if m else p["save"], tag)
+    m = re.search(r"\d+%", p["save"])
+    return '<%s class="%s">플러스 대비 이용 단가 <b>%s 절감</b></%s>' % (tag, cls, m.group(0) if m else p["save"], tag)   # 2026.11.24 23:09 대표 문구(예전 '플러스 대비 토큰당 약 N% 절약')
 
 
 def pricing_cards(cta_text="구매하기"):
@@ -505,7 +506,7 @@ def build_humanize():
 
 def build_pricing():
     trail = [("요금", "pricing/")]
-    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스보다 토큰당 약 30%% · 40%% 절약). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
+    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스 대비 이용 단가 30%% · 39%% 절감). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
             '<section class="sec-s"><div class="wrap">%s<p class="price-note">결제는 운영사 성균관컨설팅 결제 페이지에서 가입 없이 이메일만 적고 합니다. 결제하면 보통 1분 안에 그 이메일로 16자리 토큰 코드가 갑니다.</p></div></section>') % (crumbs_html(trail), pricing_cards())
     body += P.pricing_detail(ico)
     body += MK.PRICING_MORE   # 11.23: 요금 쪽만의 구역(사이트마다 다른 글)
