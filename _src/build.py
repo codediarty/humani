@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261124f"
+VER = "20261124g"
 TODAY = "2026-11-24"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -391,8 +391,8 @@ REP_LINE = "반복 변환할수록 AI 작성률은 계속 낮아집니다. 여�
 
 PLUS_UNIT = 19900 / 350   # 2026.11.22 대표: 카피휴먼처럼 프로 · 맥스는 '플러스 단가로 샀을 때 금액'을 줄 그어 보여 줌
 LIST_PRICE = {"pr": 60000, "mx": 120000}   # 2026.11.23 22:23 대표: 프로 · 맥스 정가 60,000원 · 120,000원(아임웹 정가와 같게, 줄 그어 보여 줌)
-STRIKE = False   # 2026.11.24 23:09 대표: 프로 · 맥스 정가 줄 그은 금액을 보이지 않음
-PRICE_FN = "절감률은 플러스의 이용 단가(토큰당 약 57원)와 비교한 값입니다."   # 2026.11.24 23:09 대표(배지 · 혜택 문구, 취소선 가격 삭제). 예전: 절약률은 … 줄 그은 금액은 정가입니다.
+STRIKE = True   # 2026.11.24 23:09 대표 '취소선 가격 삭제'로 껐다가 23:38 대표 '프로랑 맥스는 취소선을 넣는게 좋을 것 같아 기존처럼 60,000 120,000'으로 다시 켬
+PRICE_FN = "절감률은 플러스의 이용 단가(토큰당 약 57원)와 비교한 값이고, 줄 그은 금액은 정가입니다."   # 2026.11.24 23:09 대표(배지 · 혜택 문구, 취소선 가격 삭제). 예전: 절약률은 … 줄 그은 금액은 정가입니다.
 
 
 def plus_strike(p):
