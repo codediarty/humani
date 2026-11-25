@@ -11,7 +11,8 @@ def _lp(path, crumb, title, desc, eyebrow, h1, h1t, lead, answer, body, faq, rel
 
 
 REL_ADD = {"gpt-plagiarism/": "GPT 표절률 낮추기", "wrtn-plagiarism/": "뤼튼 AI 탐지 방어 뒤 점검", "gemini-plagiarism/": "제미나이 표절률 낮추기",
-           "claude-plagiarism/": "클로드 표절률 낮추기", "all-ai-plagiarism/": "모든 AI 표절률 낮추기"}
+           "claude-plagiarism/": "클로드 표절률 낮추기", "all-ai-plagiarism/": "모든 AI 표절률 낮추기",
+           "turnitin-plagiarism/": "턴잇인 표절률 낮추기"}  # 2026.11.25 19:37 더함
 
 
 def _r(*ps, base=None):
@@ -101,18 +102,40 @@ NEW = [
         """<h2>AI마다 말투는 달라도, 검사기가 보는 것은 같습니다</h2><table><tr><th>AI</th><th>자주 보이는 모양</th><th>먼저 볼 곳</th></tr><tr><td>GPT · 챗GPT</td><td>고른 길이 문장, '~할 수 있습니다'</td><td><a href="/gpt-plagiarism/">GPT 표절률 낮추기</a></td></tr><tr><td>클로드</td><td>길고 조심스러운 문장</td><td><a href="/claude-plagiarism/">클로드 표절률 낮추기</a></td></tr><tr><td>제미나이</td><td>항목별 요약을 옮긴 문장</td><td><a href="/gemini-plagiarism/">제미나이 표절률 낮추기</a></td></tr><tr><td>뤼튼</td><td>상황별 틀에서 나온 도입 · 마무리</td><td><a href="/wrtn-plagiarism/">뤼튼 AI 탐지 방어 뒤 점검</a></td></tr><tr><td>딥시크 · 퍼플렉시티 · 코파일럿</td><td>검색 요약을 이어 붙인 문단, 번역투</td><td>요약 문단의 연결어 · 번역투</td></tr><tr><td>클로바X</td><td>매끄럽지만 같은 끝맺음이 반복됨</td><td>문단마다 같은 끝맺음</td></tr></table><p class="mnote">'자주 보이는 모양'은 흔히 보이는 경향을 설명을 위해 정리한 것으로, 모든 글에 해당하지는 않습니다.</p>
 <h2>여러 AI를 섞어 썼다면</h2><p>초안은 GPT로, 정리는 클로드로, 요약은 제미나이로 하는 경우가 많습니다. 이렇게 섞인 글은 문단마다 말투가 달라 오히려 눈에 띄기 쉽습니다. Humani는 원문 말투를 읽고 논문 · 레포트는 한다체, 자기소개서는 습니다체처럼 하나로 맞춘 뒤 걸린 문장을 다듬습니다.</p>
 <h2>어떤 AI 글이든 같은 순서로</h2><ol><li><b>무료 검사</b>: 가입 없이 20만 자까지, 걸린 문장을 바로 봅니다.</li><li><b>걸린 문장만 휴머나이징</b>: 숫자 · 이름 · 인용 · 전문 용어는 그대로 둡니다.</li><li><b>같은 기준으로 다시 검사</b>: 전후 AI 표절률을 비교합니다.</li><li><b>남은 문장만 한 번 더</b>: 반복할수록 바뀌는 곳이 줄어 토큰도 덜 듭니다.</li></ol>
-<h2>AI 표절률과 일반 표절률은 다릅니다</h2><p>AI 표절률(AI 작성률)은 AI가 쓴 것으로 보이는 문장의 비율이고, 일반 표절률은 다른 사람 글과 겹치는 정도입니다. 휴머나이징은 표현과 짜임을 바꾸므로 일반 표절률이 함께 내려가는 경우도 많지만, 인용한 부분은 출처 표시를 꼭 남겨야 합니다. 실측 예시 네 편은 한 번의 휴머나이징으로 {EX_LIST}가 됐습니다.</p>""" + TM % "ChatGPT(OpenAI), Claude(Anthropic), Gemini(Google), 뤼튼(뤼튼테크놀로지스), DeepSeek, Perplexity, Copilot(Microsoft), CLOVA X(NAVER)는 각 회사의 상표이며, Humani는 이들 회사와 제휴 관계가 없습니다.",
+<h2>AI 표절률과 일반 표절률은 다릅니다</h2><p>AI 표절률(AI 작성률)은 AI가 쓴 것으로 보이는 문장의 비율이고, 일반 표절률은 다른 사람 글과 겹치는 정도입니다. 휴머나이징은 표현과 짜임을 바꾸므로 일반 표절률이 함께 내려가는 경우도 많지만, 인용한 부분은 출처 표시를 꼭 남겨야 합니다. 턴잇인처럼 유사도와 AI 비율을 함께 보는 검사는 <a href="/turnitin-plagiarism/">턴잇인 표절률 낮추기</a>에 따로 정리했습니다. 실측 예시 네 편은 한 번의 휴머나이징으로 {EX_LIST}가 됐습니다.</p>""" + TM % "ChatGPT(OpenAI), Claude(Anthropic), Gemini(Google), 뤼튼(뤼튼테크놀로지스), DeepSeek, Perplexity, Copilot(Microsoft), CLOVA X(NAVER), Turnitin(Turnitin, LLC)은 각 회사의 상표이며, Humani는 이들 회사와 제휴 관계가 없습니다.",
         [("어떤 AI로 썼는지 몰라도 되나요?", "네. 검사기는 모델 이름이 아니라 문장에 남은 버릇을 봅니다. 글을 넣으면 어느 문장이 걸리는지 바로 보여 드립니다."),
          ("AI 이미지나 코드도 되나요?", "Humani는 한국어 글 전용입니다. 이미지와 코드는 검사하지 않습니다."),
          ("영어 AI 글도 되나요?", "한국어 전용 엔진이라 영어 글은 지원하지 않습니다. 한국어 어미와 조사까지 고치는 데 맞춰 만들었습니다."),
          ("모든 AI 글이 0%가 되나요?", "약속하지 않습니다. 결과는 글마다 다르며, 바꾼 뒤 같은 기준으로 다시 재서 남은 문장을 보여 드립니다. 남은 문장만 한 번 더 다듬으면 됩니다.")],
         None, "어떤 AI 글이든, 이렇게 바뀝니다", "0.9", ["GPT · 클로드 · 제미나이 · 뤼튼", "모델 상관없이 문장 단위로", "같은 기준으로 다시 검사", "글은 저장하지 않음"]),
+    # 6 ---------------------------------------------------------------- 턴잇인(Turnitin) · 2026.11.25 19:37 대표 '턴잇 저거 휴머나이에도 추가했어?'
+    # AIHuman /turnitin-ai/(턴잇인 AI 검사 · 감지)와 겹치지 않게 '턴잇인 표절률 낮추기 · 기준 · 한글' 쪽으로(구글 자동완성 11.25). 사실은 턴잇인 공개 안내(2026.11 확인)만.
+    _lp("turnitin-plagiarism/", "턴잇인 표절률 낮추기", "턴잇인 표절률 낮추기 · 턴잇인 표절률 기준 · Turnitin 한글 AI 검사 | Humani",
+        "턴잇인(Turnitin) 표절률이 걱정된다면 유사도와 AI 비율부터 나눠 보세요. 턴잇인 표절률 기준, 한글(HWP) 파일 제출, 한국어 글의 AI 검사 여부와 제출 전 점검 순서를 정리했습니다.",
+        "<b>턴잇인</b> · Turnitin 제출 전 점검", '<span class="u">턴잇인 표절률</span>,<br>두 숫자를 나눠서 <em>낮추세요</em>', "턴잇인 표절률 낮추기",
+        "턴잇인 보고서에서 흔히 '표절률'이라 부르는 숫자는 두 가지입니다. 다른 글과 겹친 정도인 유사도와, AI가 쓴 것으로 보이는 AI 비율입니다. 유사도는 인용과 출처로, AI 비율은 AI 버릇이 남은 문장을 고쳐서 낮춥니다. 한국어 글의 AI 버릇은 Humani에서 가입 없이 무료로 먼저 확인하세요.",
+        "<b>턴잇인 표절률을 낮추려면</b> 먼저 어떤 숫자인지 나눠 봐야 합니다. 유사도(Similarity)는 인터넷 · 논문 · 다른 제출물과 겹친 문장의 비율이라 인용 표시와 출처 정리, 내 말로 다시 쓰기로 낮추고, AI 비율은 생성 AI 버릇이 남은 문장을 내 문장으로 고쳐서 낮춥니다. 남의 글을 출처 없이 말만 바꿔 숨기는 것은 표절이니, 겹친 부분은 출처를 밝히는 것이 정석입니다.",
+        """<h2>턴잇인 '표절률'은 두 숫자입니다</h2><table><tr><th></th><th>유사도(Similarity)</th><th>AI 비율(AI writing)</th></tr><tr><td>재는 것</td><td>인터넷 · 논문 · 다른 제출물과 겹친 문장</td><td>생성 AI가 쓴 것으로 보이는 문장</td></tr><tr><td>한국어 글</td><td>검사함</td><td>공개된 지원 언어에 한국어 없음(아래 참고)</td></tr><tr><td>낮추는 방법</td><td>인용 표시 · 출처 정리 · 내 말로 다시 쓰기</td><td>AI 버릇이 남은 문장을 내 문장으로</td></tr><tr><td>보는 사람</td><td>교수님 설정에 따라 학생도 봄</td><td>보통 교수 · 관리자만 봄</td></tr></table>
+<h2>한국어 글도 턴잇인이 AI 검사를 하나요?</h2><p>2026년 11월에 확인한 턴잇인 공개 안내 기준으로, AI 글 판별은 영어 · 스페인어 · 일본어 · 아랍어 · 네덜란드어 · 독일어 · 터키어로 쓴 긴 글이 대상이고 한국어는 목록에 없습니다. 지원하지 않는 언어로 낸 글은 AI 판별을 하지 않고 '지원 언어에서만 작동한다'는 안내가 나옵니다. 유사도 검사는 한국어 글도 합니다.</p><p>다만 지원 언어는 계속 늘고 있습니다(일본어 2025년, 네덜란드어 · 독일어 · 터키어 2026년 10월). 학교에 따라 국내 AI 검사를 함께 사용하거나 교수님이 글을 읽고 판단하기도 하니, 한국어 과제도 제출 전에 AI 버릇이 남은 문장을 점검해 두는 편이 안전합니다.</p>
+<h2>턴잇인 표절률 기준은 몇 %일까</h2><p>턴잇인이 정해 둔 합격선은 없습니다. 유사도 기준은 학교 · 학과 · 교수님이 정하고, 참고 문헌 · 인용 · 짧은 일치를 빼는 보고서 설정에 따라 같은 글도 숫자가 달라집니다. AI 비율은 1~19%일 때 숫자 대신 별표(*%)로만 보여 주는데, 이 구간은 잘못 판별할 가능성이 높아서라고 턴잇인이 밝히고 있습니다.</p>
+<h2>한글(HWP) 파일로 내도 될까</h2><p>턴잇인은 한글 파일(HWP · HWPX)도 받아 유사도를 검사합니다. 다만 HWP 파일이 업로드 오류를 낼 수 있다며 워드나 PDF로 바꿔 내라고 안내하는 학교도 있습니다. 글자를 선택할 수 없는 스캔 PDF는 검사되지 않습니다. Humani는 한글 · 워드 · PDF를 그대로 올려 검사하고, 다듬은 글은 올린 형식 그대로 받을 수 있습니다(한글 · 워드는 원래 서식 유지).</p>
+<h2>상황별로 먼저 할 일</h2><table><tr><th>상황</th><th>먼저 할 일</th></tr><tr><td>국내 대학 한국어 레포트를 턴잇인으로 제출</td><td>인용 · 출처를 정리해 유사도에 대비하고, AI 버릇은 Humani 무료 검사로 점검</td></tr><tr><td>한국어 학위논문 초안</td><td>학교 유사도 기준과 제외 설정을 확인하고, 장마다 AI 패턴이 남은 문장을 점검</td></tr><tr><td>영어 과제 · 영어 논문</td><td>AI 판별 대상 언어입니다. 턴잇인은 2025년 8월부터 우회 도구로 바꾼 영어 글도 찾는다고 밝혔으니, 처음부터 직접 쓰고 초안 기록을 남겨 두세요(Humani는 한국어 전용)</td></tr><tr><td>한국어로 쓰고 AI로 영어 번역</td><td>번역한 글도 AI 판별 대상이 될 수 있습니다. 학교의 AI 번역 사용 규정부터 확인하세요</td></tr></table>
+<h2>턴잇인 제출 전, 이 순서로</h2><ol><li><b>인용 정리</b>: 옮겨 온 문장에 따옴표와 출처를 붙이고 참고 문헌 형식을 맞춥니다. 유사도를 낮추는 정석입니다.</li><li><b>AI 버릇 점검</b>: 한국어 글은 Humani 무료 검사(가입 없이 20만 자까지)로 AI 패턴이 남은 문장을 봅니다.</li><li><b>걸린 문장만 다듬기</b>: 숫자 · 이름 · 인용은 그대로 두고, 고른 길이 문장 · 틀에 박힌 연결어 · 번역투만 고칩니다.</li><li><b>같은 기준으로 다시 확인</b>하고, 파일 형식은 학교 안내에 맞춰 냅니다.</li></ol>
+<h2>한 문장 고쳐 보기</h2><table><tr><th>AI 버릇이 남은 문장</th><th>내 문장으로 고친 예</th></tr><tr><td>본 연구는 이러한 문제를 해결하기 위해 다양한 방안을 제시하고자 한다.</td><td>이 연구는 학교 밖 청소년의 상담 공백을 줄일 방법 세 가지를 제안한다.</td></tr><tr><td>결론적으로, 지속적인 관심과 체계적인 지원이 필요하다고 할 수 있다.</td><td>지원이 끊기지 않으려면 예산을 3년 단위로 잡아야 한다.</td></tr></table><p class="mnote">표의 문장은 설명을 위해 만든 예입니다. Humani 판정 기준(턴잇인 결과가 아님)으로 잰 실측 예시 논문 결론은 {EX_T_B}%에서 한 번의 휴머나이징으로 {EX_T_A}%가 됐습니다. 검사기마다 기준이 달라 숫자는 같지 않으니, 같은 도구 안에서 전후를 비교하세요.</p>""" + TM % "Turnitin(턴잇인)은 Turnitin, LLC의 상표이며, Humani는 해당 회사와 제휴 관계가 없습니다. 지원 언어 등은 2026년 11월 공개 안내 기준이며 바뀔 수 있고, 이 글은 특정 검사 결과를 약속하지 않습니다.",
+        [("턴잇인 표절률, 말만 바꾸면 내려가나요?", "다른 사람 글을 출처 없이 말만 바꿔 쓰는 것은 표절입니다. 옮겨 온 내용은 인용 표시와 출처를 붙이고, 내 생각은 내 문장으로 쓰는 것이 유사도를 낮추는 정석입니다. Humani는 내 글에 남은 AI 버릇을 다듬는 도구입니다."),
+         ("한국어로 쓴 과제도 턴잇인이 AI를 잡나요?", "2026년 11월에 확인한 턴잇인 공개 안내에는 AI 판별 지원 언어에 한국어가 없고, 지원 언어가 아니면 AI 판별을 하지 않습니다. 다만 지원 언어가 늘고 있고 학교가 다른 AI 검사를 함께 사용할 수 있으니 학교 안내를 확인하세요."),
+         ("턴잇인 AI 비율이 *%로 나왔어요.", "AI 비율이 1~19%일 때는 잘못 판별할 가능성을 줄이려고 숫자와 문장 표시 없이 별표로만 보여 줍니다."),
+         ("턴잇인에 한글 파일을 내도 되나요?", "HWP · HWPX 파일도 받습니다. 학교에 따라 업로드 오류를 줄이려고 워드나 PDF로 바꿔 내라고 안내하기도 하니 과제 안내를 따르세요."),
+         ("Humani 결과와 턴잇인 결과가 같나요?", "판별 모델과 기준이 달라 같지 않습니다. Humani는 한국어 글에서 어느 문장을 고칠지 찾는 점검 도구로 사용하세요."),
+         ("영어 과제도 Humani로 다듬을 수 있나요?", "Humani는 한국어 전용 엔진이라 영어 글은 지원하지 않습니다.")],
+        None, "제출 전에 다듬은 문장, 이렇게 바뀝니다", "0.9", ["유사도와 AI 비율을 나눠서", "한글 · 워드 · PDF 그대로", "같은 기준으로 다시 검사", "글은 저장하지 않음"]),
 ]
 
 RELATED = {
-    "gpt-plagiarism/": ["all-ai-plagiarism/", "wrtn-plagiarism/", "gemini-plagiarism/", "claude-plagiarism/", "guide/chatgpt-tone/", "gptkiller/", "ai-plagiarism/", "results/"],
+    "gpt-plagiarism/": ["all-ai-plagiarism/", "wrtn-plagiarism/", "gemini-plagiarism/", "claude-plagiarism/", "guide/chatgpt-tone/", "gptkiller/", "ai-plagiarism/", "results/", "turnitin-plagiarism/"],
     "wrtn-plagiarism/": ["gpt-plagiarism/", "all-ai-plagiarism/", "gemini-plagiarism/", "claude-plagiarism/", "resume/", "natural/", "ai-check/"],
     "gemini-plagiarism/": ["gpt-plagiarism/", "claude-plagiarism/", "wrtn-plagiarism/", "all-ai-plagiarism/", "report/", "ai-converter/", "results/"],
     "claude-plagiarism/": ["gpt-plagiarism/", "gemini-plagiarism/", "wrtn-plagiarism/", "all-ai-plagiarism/", "thesis/", "guide/ai-patterns/", "results/"],
-    "all-ai-plagiarism/": ["gpt-plagiarism/", "claude-plagiarism/", "gemini-plagiarism/", "wrtn-plagiarism/", "ai-plagiarism/", "lower-ai-rate/", "results/"],
+    "all-ai-plagiarism/": ["gpt-plagiarism/", "claude-plagiarism/", "gemini-plagiarism/", "wrtn-plagiarism/", "ai-plagiarism/", "lower-ai-rate/", "results/", "turnitin-plagiarism/"],
+    "turnitin-plagiarism/": ["all-ai-plagiarism/", "gpt-plagiarism/", "ai-plagiarism/", "ai-check/", "report/", "thesis/", "results/"],
 }
