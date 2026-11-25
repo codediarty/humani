@@ -660,3 +660,23 @@ html.hz42-on,html.hz42-on body{overflow:hidden}
 .pk ul{padding:16px 0 0;margin:14px 0 20px;gap:8px}
 .pk .sv,.pk.best .sv{display:inline-block;line-height:20px;padding-top:4px;padding-bottom:4px}
 .pk .sv-ph{visibility:hidden}
+
+/* 2026.11.25 18:32 대표 '메인화면이 밋밋 · 흰 바탕에 어울리는 고급스럽고 비싸 보이는 것': 제목 뒤 정밀 다이얼(시계 베젤 같은 눈금 고리 · 점 고리 · 가는 원).
+   눈금 고리와 점 고리는 서로 반대로 아주 천천히 돌고, 빛 한 줄기(파랑 → 보라)가 테를 따라 돎. 뒤에는 빛 번짐 세 개가 천천히 움직임. 아래(검사 도구 쪽)로 갈수록 흐려짐 */
+.hm-lux{position:absolute;inset:0;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 420px,transparent 760px);mask-image:linear-gradient(180deg,#000 0,#000 420px,transparent 760px)}
+.hm-dial{position:absolute;left:50%;top:-290px;width:1060px;height:1060px;margin-left:-530px;max-width:none}
+.hm-dial g{transform-origin:500px 500px}
+.hm-dial .d1{animation:hmSpin 300s linear infinite}
+.hm-dial .d2{animation:hmSpin 420s linear infinite reverse}
+.hm-dial .d3{animation:hmSpin 18s linear infinite}
+.hm-dial .d4{animation:hmSpin 26s linear infinite reverse}
+.hm-glow{position:absolute;left:50%;border-radius:50%;will-change:transform}
+.hm-glow.g1{top:-200px;width:760px;height:560px;margin-left:-640px;background:radial-gradient(closest-side,rgba(29,99,237,.17),rgba(29,99,237,0));animation:hmDrift1 19s ease-in-out infinite alternate}
+.hm-glow.g2{top:-160px;width:680px;height:520px;margin-left:-20px;background:radial-gradient(closest-side,rgba(124,58,237,.13),rgba(124,58,237,0));animation:hmDrift2 23s ease-in-out infinite alternate}
+.hm-glow.g3{top:60px;width:620px;height:380px;margin-left:-320px;background:radial-gradient(closest-side,rgba(14,165,233,.11),rgba(14,165,233,0));animation:hmDrift3 27s ease-in-out infinite alternate}
+@keyframes hmSpin{to{transform:rotate(360deg)}}
+@keyframes hmDrift1{to{transform:translate(90px,40px) scale(1.08)}}
+@keyframes hmDrift2{to{transform:translate(-110px,50px) scale(1.1)}}
+@keyframes hmDrift3{to{transform:translate(60px,-40px) scale(.94)}}
+@media (max-width:760px){.hm-dial{top:-120px;width:560px;height:560px;margin-left:-280px}.hm-lux{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 360px,transparent 640px);mask-image:linear-gradient(180deg,#000 0,#000 360px,transparent 640px)}}
+@media (prefers-reduced-motion:reduce){.hm-dial g,.hm-glow{animation:none}}
