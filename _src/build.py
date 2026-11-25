@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261125b"
+VER = "20261125c"
 TODAY = "2026-11-24"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -47,7 +47,7 @@ BING_VERIFY = "6CFE39150A28BBBB4694B507E2E689C0"   # Bing 웹마스터 도구 ht
 INDEXNOW_KEY = "3f9c2a7e5b1d4c8a9e6f0b2d7a4c1e85"
 GOOGLE_FILES = ["google67694027f26c117c.html"]   # 서치 콘솔 https://humanai.io.kr/ (copyhuman2 계정, 2026.11.21)
 BIZ = {"name": "성균관컨설팅", "ceo": "이채연", "no": "272-32-01885", "ecom": "제2026-경기송탄-0622",
-       "addr": "경기도 수원시 장안구 서부로 2066 성균관대학교 브릿지팩토리(연구실)", "mail": "contact@skkc.co.kr"}
+       "addr": "경기도 수원시 장안구 서부로 2066 성균관대학교 브릿지팩토리(연구실)", "mail": "token@humanai.io.kr"}
 # list = 예전 정가(2026.11.22 대표: 카피휴먼처럼 정가 · 50% 표시는 빼고 프로 · 맥스만 플러스 단가 기준 금액과 절약 배지, 값은 참고로 남김) · 판매가는 AIMarker 개인 토큰과 같음
 PACKS = [
     {"id": "lt", "name": "라이트", "tok": 100, "price": 9900, "list": 19800, "per": "99원", "who": "자기소개서 · 짧은 과제", "chars": "약 16,600자", "pg": "약 10페이지"},
@@ -615,7 +615,7 @@ def build_static():
 def llms_txt(pages):
     L = ["# Humani (휴머나이) · Humani AI Humanizer", "",
          "> 한국어 AI 휴머나이징 전문 서비스. AI 작성률은 낮추고, 원문의 의미는 그대로. AI 탐지기가 감지하는 문장 패턴을 분석해 AI 작성 흔적이 있는 문장만 사람 문장으로 바꾸고, 같은 기준으로 AI 작성률을 다시 잽니다. AI 작성률 검사는 가입 없이 무료(20만 자).", "",
-         "- 사이트: %s/" % SITE, "- 이름: Humani(휴머나이), 영문 Humani AI Humanizer", "- 운영: 성균관컨설팅(사업자등록번호 272-32-01885, 통신판매업 제2026-경기송탄-0622) · 문의 contact@skkc.co.kr",
+         "- 사이트: %s/" % SITE, "- 이름: Humani(휴머나이), 영문 Humani AI Humanizer", "- 운영: 성균관컨설팅(사업자등록번호 272-32-01885, 통신판매업 제2026-경기송탄-0622) · 문의 token@humanai.io.kr",
          "- 엔진: 같은 운영사 AIMarker의 검사 · 휴머나이징 엔진과 같은 버전(출시 전 교차 검증). 인간화는 생성 AI 없이 한국어 규칙 엔진(용언 사전 15,659개, 사람 글 약 10억 자)",
          "- 판정 기준(Humani 판정 기준): AI 작성률 20% 미만 안전 · 20~40% 고위험 · 40% 이상 부적합. 같은 글은 다시 검사해도 같은 값",
          "- 요금: " + " · ".join("%s %d토큰 %s원" % (p["name"], p["tok"], "{:,}".format(p["price"])) for p in PACKS) + " · 월 구독 없음, 남은 토큰 기한 없음",
