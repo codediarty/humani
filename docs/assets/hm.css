@@ -648,3 +648,15 @@ html.hz42-on,html.hz42-on body{overflow:hidden}
 /* 2026.11.25 문의 주소가 사이트 주소(token@…)로 길어져 320px 휴대폰에서 소개 · 약관 표가 옆으로 넘치지 않게: 긴 주소는 칸 안에서 줄바꿈 */
 .prose th,.prose td{overflow-wrap:anywhere}
 .ft li,.ft-biz{overflow-wrap:anywhere}
+
+/* 2026.11.25 18:21 대표(요금 화면 '아래가 잘려서 밸런스가 안 맞음'): 첫 화면에 네 칸이 단추까지 들어오게 요금 쪽 머리 · 여백을 줄이고,
+   절감 배지가 없는 칸(라이트 · 플러스)도 같은 높이를 비워 네 칸의 구분선 · 목록 · 단추 줄을 맞춤 */
+.ph.ph-price{padding:30px 0 20px}
+.ph.ph-price .h1{margin:4px 0 10px}
+.ph.ph-price .lead{margin-bottom:6px}
+.sec-s.sec-price{padding-top:40px}
+.pk{padding:24px 22px 22px}
+.pk .who{margin:0 0 14px}
+.pk ul{padding:16px 0 0;margin:14px 0 20px;gap:8px}
+.pk .sv,.pk.best .sv{display:inline-block;line-height:20px;padding-top:4px;padding-bottom:4px}
+.pk .sv-ph{visibility:hidden}

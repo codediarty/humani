@@ -33,7 +33,7 @@ BRAND_KO = "휴머나이"
 BRAND_FULL = "Humani(휴머나이)"
 BRAND_EN = "Humani AI Humanizer"
 TAGLINE = "한국어 AI 휴머나이징 전문 서비스"
-VER = "20261125d"
+VER = "20261125f"
 TODAY = "2026-11-24"
 # Humani 배포(AIMarker 서버 프로젝트, 엔진과 같은 버전). 비어 있으면 AIMarker 배포 주소(am.js 기본값)를 씀
 API = os.environ.get("HM_API", "https://script.google.com/macros/s/AKfycbwz6qZyFtTdlU9NT35b0kFxRSVgpSC1AdYyzd_5oB_9wvV7qgk3foWEftud5VoV5aZqXA/exec")
@@ -414,12 +414,15 @@ def pricing_cards(cta_text="구매하기"):
         cls = "pk best" if p.get("best") else ("pk top" if p.get("top") else "pk")
         tag = '<span class="tg">%s</span>' % p["best"] if p.get("best") else ('<span class="tg top">%s</span>' % p["top"] if p.get("top") else "")
         link = shop(p["id"])
-        btn = ('<a class="btn %s" href="%s" target="_blank" rel="noopener" data-pack="%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", esc(link), p["id"], cta_text, ico("arrow"))) if link else \
-              ('<a class="btn %s" href="/humanize/#buy-%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", p["id"], cta_text, ico("arrow")))
+        # 2026.11.25 18:21 대표 'AIMarker · 카피휴먼처럼 누르면 다시 고르는 충전 창(성균관컨설팅 운영 · 안전결제 안내)을 먼저': 충전 창으로.
+        # 도구가 있는 쪽은 humanize.js [data-buy] 가 그 자리에서 창, 요금 쪽 등은 첫 화면 #buy-칸 으로 가서 창. 예전(바로 결제 페이지 새 창) 줄은 아래 주석
+        # btn = ('<a class="btn %s" href="%s" target="_blank" rel="noopener" data-pack="%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", esc(link), p["id"], cta_text, ico("arrow"))) if link else \
+        # ('<a class="btn %s" href="/humanize/#buy-%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", p["id"], cta_text, ico("arrow")))
+        btn = '<a class="btn %s" href="/#buy-%s" data-buy="%s" data-pack="%s">%s %s</a>' % ("btn-p" if p.get("best") else "btn-d", p["id"], p["id"], p["id"], cta_text, ico("arrow"))
         feats = ["AI 작성률 검사와 휴머나이징 " + p["chars"] + "(" + p["pg"] + ")", "모든 문장 AI 표시 · 판정 근거", "결과상세내역서 PDF · 파일 그대로 받기", "내 문서 AI 작성률 낮추기"]
         lp = ""   # 2026.11.22: 정가 · 50% 줄은 뺌(카피휴먼처럼 프로 · 맥스만 줄 그은 금액)
         out.append('<div class="%s rv">%s<h3>%s</h3><p class="who">%s</p><p class="tk">%s토큰</p>%s<p class="pr">%s%s</p><p class="per">토큰당 %s · 부가세 포함</p>%s<ul>%s</ul>%s</div>' % (
-            cls, tag, p["name"], p["who"], "{:,}".format(p["tok"]), lp, won(p["price"]), plus_strike(p), p["per"], save_badge(p),
+            cls, tag, p["name"], p["who"], "{:,}".format(p["tok"]), lp, won(p["price"]), plus_strike(p), p["per"], save_badge(p) or '<span class="sv sv-ph" aria-hidden="true">&nbsp;</span>',   # 2026.11.25: 절감 배지가 없는 칸도 같은 높이를 비워 네 칸의 구분선 · 목록을 맞춤
             "".join("<li>%s%s</li>" % (ico("check"), f) for f in feats), btn))
     return '<div class="price">' + "".join(out) + "</div>" + '<p class="price-rep">%s</p>' % REP_LINE + '<p class="price-fn">%s</p>' % PRICE_FN + P.pay_section(ico)   # 2026.11.22 대표(AIMarker 13.31 과 같게)
 
@@ -506,8 +509,8 @@ def build_humanize():
 
 def build_pricing():
     trail = [("요금", "pricing/")]
-    body = ('<section class="ph"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스 대비 이용 단가 30%% · 39%% 절감). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
-            '<section class="sec-s"><div class="wrap">%s<p class="price-note">결제는 운영사 성균관컨설팅 결제 페이지에서 가입 없이 이메일만 적고 합니다. 결제하면 보통 1분 안에 그 이메일로 16자리 토큰 코드가 갑니다.</p></div></section>') % (crumbs_html(trail), pricing_cards())
+    body = ('<section class="ph ph-price"><div class="wrap">%s<h1 class="h1">AI 휴머나이징 가격 · 토큰 충전</h1><p class="lead">많이 충전할수록 토큰당 가격이 낮아집니다(프로 · 맥스는 플러스 대비 이용 단가 30%% · 39%% 절감). 월 구독 없이 한 번 충전하고 쓴 만큼만, 남은 토큰은 기한 없이 쓸 수 있습니다.</p></div></section>'
+            '<section class="sec-s sec-price"><div class="wrap">%s<p class="price-note">결제는 운영사 성균관컨설팅 결제 페이지에서 가입 없이 이메일만 적고 합니다. 결제하면 보통 1분 안에 그 이메일로 16자리 토큰 코드가 갑니다.</p></div></section>') % (crumbs_html(trail), pricing_cards())
     body += P.pricing_detail(ico)
     body += MK.PRICING_MORE   # 11.23: 요금 쪽만의 구역(사이트마다 다른 글)
     body += '<section class="sec alt"><div class="wrap-n"><h2 class="h2 center">결제 · 토큰 자주 묻는 질문</h2>%s</div></section>' % faq_html(P.PRICE_FAQ)
