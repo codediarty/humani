@@ -12,7 +12,8 @@ def _lp(path, crumb, title, desc, eyebrow, h1, h1t, lead, answer, body, faq, rel
 
 REL_ADD = {"gpt-plagiarism/": "GPT 표절률 낮추기", "wrtn-plagiarism/": "뤼튼 AI 탐지 방어 뒤 점검", "gemini-plagiarism/": "제미나이 표절률 낮추기",
            "claude-plagiarism/": "클로드 표절률 낮추기", "all-ai-plagiarism/": "모든 AI 표절률 낮추기",
-           "turnitin-plagiarism/": "턴잇인 표절률 낮추기"}  # 2026.11.25 19:37 더함
+           "turnitin-plagiarism/": "턴잇인 표절률 낮추기",
+           "ai-detector/": "AI 탐지기 추천"}  # 2026.11.25 20:48 더함  # 2026.11.25 19:37 더함
 
 
 def _r(*ps, base=None):
@@ -129,6 +130,25 @@ NEW = [
          ("Humani 결과와 턴잇인 결과가 같나요?", "판별 모델과 기준이 달라 같지 않습니다. Humani는 한국어 글에서 어느 문장을 고칠지 찾는 점검 도구로 사용하세요."),
          ("영어 과제도 Humani로 다듬을 수 있나요?", "Humani는 한국어 전용 엔진이라 영어 글은 지원하지 않습니다.")],
         None, "제출 전에 다듬은 문장, 이렇게 바뀝니다", "0.9", ["유사도와 AI 비율을 나눠서", "한글 · 워드 · PDF 그대로", "같은 기준으로 다시 검사", "글은 저장하지 않음"]),
+    # 7 ---------------------------------------------------------------- AI 탐지기 · 2026.11.25 20:48 대표 'AI 탐지기 이것도 넣을 수 있으면 넣어줘 키워드로 검색되게끔'
+    # 구글 자동완성(11.25): ai 탐지기 → 안 걸리는 법 · 무료 · 우회 · 정확도 · 추천 · 원리, 한국어 ai 탐지기 무료 · 추천. AIHuman /ai-detector/(원리 · 오탐)와 겹치지 않게 '추천 · 무료 · 한국어 비교'로.
+    # 표의 사실은 각 회사 공개 안내(2026.11 확인)만: GPTZero 지원 언어(한국어 포함, 무료 월 1만 단어) · Copyleaks 30개 언어(한국어 포함, 언어 자동 인식) · Turnitin(한국어 없음) · GPT킬러(무하유, 문단 단위, 국내 대학 도입)
+    _lp("ai-detector/", "AI 탐지기 추천", "AI 탐지기 추천 · AI 탐지기 무료 · 한국어 AI 탐지기 비교 | Humani",
+        "AI 탐지기를 무료로 쓸 곳과 고르는 기준을 찾는다면. GPT킬러 · 턴잇인 · GPTZero · Copyleaks 같은 대표 AI 탐지기의 한국어 지원과 차이, 한국어 글에 맞는 탐지기 고르는 법을 정리했습니다. Humani 무료 검사부터.",
+        "<b>AI 탐지기</b> · 추천 · 무료 · 한국어", '<span class="u">AI 탐지기</span>, 한국어 글이면<br><em>고르는 기준</em>이 다릅니다', "AI 탐지기 추천",
+        "AI 탐지기는 많지만 한국어 글을 제대로 읽는 곳은 많지 않습니다. 대표 탐지기의 한국어 지원과 차이를 한눈에 보고, 내 글은 Humani에서 가입 없이 무료로 먼저 재 보세요.",
+        "<b>AI 탐지기를 고를 때는</b> 정확도 숫자보다 네 가지를 먼저 보세요. 한국어 글을 판별하는지, 어느 문장이 걸렸는지 보여 주는지, 넣은 글을 저장하지 않는지, 그리고 제출처가 실제로 쓰는 검사기가 무엇인지입니다. 탐지기마다 배운 언어와 기준이 달라 같은 글도 숫자가 다르게 나오므로, 제출 전에는 한국어를 읽는 도구로 걸린 문장을 확인하고 같은 기준으로 전후를 비교하는 것이 가장 확실합니다.",
+        """<h2>대표 AI 탐지기 한눈에</h2><table><tr><th>AI 탐지기</th><th>한국어 글</th><th>알아 둘 점</th></tr><tr><td>GPT킬러(무하유)</td><td>한국어 데이터로 만듦</td><td>카피킬러를 운영해 온 회사가 만든 탐지기로, 문서를 문단 단위로 나눠 생성 AI로 썼을 확률을 봅니다. 국내 대학 · 기관이 도입해 사용합니다.</td></tr><tr><td>턴잇인(Turnitin)</td><td>AI 판별 지원 언어에 한국어 없음</td><td>영어 · 스페인어 · 일본어 등을 판별하고, AI 결과는 보통 교수 · 관리자가 봅니다. 자세한 내용은 <a href="/turnitin-plagiarism/">턴잇인 표절률 낮추기</a>에 정리했습니다.</td></tr><tr><td>GPTZero</td><td>지원 언어에 한국어 포함</td><td>영어와 20개 넘는 언어를 판별하고, 무료로 한 달 1만 단어까지 써 볼 수 있습니다.</td></tr><tr><td>Copyleaks</td><td>지원 언어 30개에 한국어 포함</td><td>글의 언어를 스스로 알아보고 판별합니다.</td></tr><tr><td>Humani</td><td>한국어 전용</td><td>가입 없이 20만 자까지 무료로 검사하고, 걸린 문장을 문장마다 보여 준 뒤 그 문장만 사람 문장으로 바꿉니다.</td></tr></table><p class="mnote">지원 언어와 무료 범위는 각 서비스의 공개 안내를 2026년 11월에 확인한 것이며 바뀔 수 있습니다. 정확도는 회사마다 자체 시험으로 밝히는 경우가 많아 표에 넣지 않았습니다.</p>
+<h2>AI 탐지기마다 결과가 다른 이유</h2><ul><li><b>배운 언어가 다릅니다</b>: 영어 글로 주로 배운 탐지기는 한국어 어미 · 조사를 다르게 읽어 결과가 흔들리기 쉽습니다.</li><li><b>재는 단위가 다릅니다</b>: 문장마다 재는 곳, 문단마다 재는 곳, 글 전체에 숫자 하나를 주는 곳이 있습니다.</li><li><b>기준선이 다릅니다</b>: 같은 점수라도 어디부터 AI로 표시할지 정하는 선이 서로 다릅니다.</li><li><b>짧은 글은 흔들립니다</b>: 판단할 근거가 적어 몇 문장만 바뀌어도 숫자가 크게 움직입니다.</li></ul>
+<h2>AI 탐지기 추천 기준, 이 순서로 보세요</h2><ol><li><b>제출처가 쓰는 검사기</b>를 먼저 확인합니다. 결국 그 결과가 기준이 됩니다.</li><li><b>한국어 판별 여부</b>: 한국어 과제 · 논문 · 자기소개서라면 한국어를 판별하는 도구가 맞습니다.</li><li><b>문장 단위 표시</b>: 어디를 고칠지 알려 주는지 봅니다.</li><li><b>저장 여부</b>: 과제와 자기소개서에는 개인 정보가 많으니 넣은 글을 저장하지 않는 곳을 고릅니다.</li><li><b>무료 범위</b>: 글 한 편을 다 넣어 볼 수 있는지 확인합니다.</li></ol>
+<h2>AI 탐지기 안 걸리는 법이 궁금하다면</h2><p>탐지기는 문장이 얼마나 예측하기 쉬운지, 문장 길이와 짜임이 얼마나 고른지를 봅니다. 그래서 글 전체를 다시 쓰기보다 걸린 문장의 버릇(고른 길이, 틀에 박힌 연결어, 빈 꾸밈말, 번역투)을 고치는 편이 빠르고 뜻도 덜 바뀝니다. 자세한 방법은 <a href="/ai-bypass/">AI 탐지 우회</a>와 <a href="/lower-ai-rate/">AI 작성률 낮추기</a>에 정리했습니다.</p>
+<h2>한 문장 고쳐 보기</h2><table><tr><th>탐지기에 걸리기 쉬운 문장</th><th>사람 문장으로 고친 예</th></tr><tr><td>이러한 변화는 다양한 분야에서 중요한 시사점을 제공한다고 볼 수 있다.</td><td>이 변화로 동네 병원 예약이 전화에서 앱으로 옮겨 갔다.</td></tr><tr><td>따라서 지속적인 노력과 체계적인 관리가 필요하다.</td><td>그래서 매주 금요일마다 재고를 다시 세기로 했다.</td></tr></table><p class="mnote">표의 문장은 설명을 위해 만든 예입니다. Humani 판정 기준(다른 탐지기 결과가 아님)으로 잰 실측 예시 논문 결론은 {EX_T_B}%에서 한 번의 휴머나이징으로 {EX_T_A}%가 됐습니다.</p>""" + TM % "GPT킬러 · 카피킬러(무하유), Turnitin(Turnitin, LLC), GPTZero, Copyleaks는 각 회사의 상표이며, Humani는 이들 회사와 제휴 관계가 없습니다. 이 글은 공개된 안내를 바탕으로 한 비교이며 특정 검사 결과를 약속하지 않습니다.",
+        [("AI 탐지기를 무료로 쓸 수 있는 곳이 있나요?", "Humani는 가입 없이 한 번에 20만 자까지 무료로 검사합니다. GPTZero도 무료로 한 달 1만 단어까지 써 볼 수 있습니다(2026년 11월 공개 안내 기준). 무료 범위는 서비스마다 바뀔 수 있으니 쓰기 전에 확인하세요."),
+         ("한국어 글에는 어떤 AI 탐지기가 맞나요?", "한국어 글을 판별한다고 밝힌 탐지기를 고르세요. 다만 가장 중요한 기준은 제출처가 실제로 쓰는 검사기입니다. Humani는 한국어 전용이라 제출 전에 어느 문장을 고칠지 찾는 데 맞습니다."),
+         ("AI 탐지기 정확도는 믿을 만한가요?", "회사가 밝히는 정확도는 대개 자체 시험 결과입니다. 짧은 글이나 보고서체로 딱딱하게 쓴 글은 사람이 써도 AI로 나올 수 있으니, 숫자 하나보다 걸린 문장을 보고 같은 도구로 전후를 비교하세요."),
+         ("탐지기마다 숫자가 다른데 무엇을 믿어야 하나요?", "판별 모델과 기준선이 달라 숫자가 다른 것이 자연스럽습니다. 최종 기준은 제출처 검사기이고, 다른 도구는 고칠 문장을 찾는 참고로 쓰는 것이 좋습니다."),
+         ("AI 탐지기에 넣은 글이 저장되나요?", "서비스마다 다르니 이용 안내를 확인하세요. Humani는 넣은 글을 검사와 변환에만 사용하고 저장하지 않습니다.")],
+        None, "탐지기에 걸린 문장, 이렇게 바뀝니다", "0.9", ["한국어 전용 탐지", "가입 없이 20만 자 무료", "문장마다 걸린 곳 표시", "글은 저장하지 않음"]),
 ]
 
 RELATED = {
@@ -136,6 +156,7 @@ RELATED = {
     "wrtn-plagiarism/": ["gpt-plagiarism/", "all-ai-plagiarism/", "gemini-plagiarism/", "claude-plagiarism/", "resume/", "natural/", "ai-check/"],
     "gemini-plagiarism/": ["gpt-plagiarism/", "claude-plagiarism/", "wrtn-plagiarism/", "all-ai-plagiarism/", "report/", "ai-converter/", "results/"],
     "claude-plagiarism/": ["gpt-plagiarism/", "gemini-plagiarism/", "wrtn-plagiarism/", "all-ai-plagiarism/", "thesis/", "guide/ai-patterns/", "results/"],
-    "all-ai-plagiarism/": ["gpt-plagiarism/", "claude-plagiarism/", "gemini-plagiarism/", "wrtn-plagiarism/", "ai-plagiarism/", "lower-ai-rate/", "results/", "turnitin-plagiarism/"],
-    "turnitin-plagiarism/": ["all-ai-plagiarism/", "gpt-plagiarism/", "ai-plagiarism/", "ai-check/", "report/", "thesis/", "results/"],
+    "all-ai-plagiarism/": ["gpt-plagiarism/", "claude-plagiarism/", "gemini-plagiarism/", "wrtn-plagiarism/", "ai-plagiarism/", "lower-ai-rate/", "results/", "turnitin-plagiarism/", "ai-detector/"],
+    "turnitin-plagiarism/": ["all-ai-plagiarism/", "gpt-plagiarism/", "ai-plagiarism/", "ai-check/", "report/", "thesis/", "results/", "ai-detector/"],
+    "ai-detector/": ["ai-check/", "ai-bypass/", "lower-ai-rate/", "turnitin-plagiarism/", "gptkiller/", "guide/how-ai-detectors-work/", "all-ai-plagiarism/", "results/"],
 }
