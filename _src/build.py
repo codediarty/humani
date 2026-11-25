@@ -114,8 +114,10 @@ def footer(tm=False, home=False):
     cols = [
         ("서비스", [("/humanize/", "휴머나이징 도구"), ("/ai-check/", "AI 작성률 무료 검사"), ("/pricing/", "요금 · 토큰 충전"), ("/results/", "실제 측정 결과"), ("/faq/", "자주 묻는 질문")]),
         ("많이 찾는 검색", [("/ai-humanizer/", "AI 휴머나이저"), ("/humanizing/", "AI 휴머나이징"), ("/lower-ai-rate/", "AI 작성률 낮추기"), ("/ai-plagiarism/", "AI 표절률 낮추기"), ck,
-                       ("/ai-bypass/", "AI 탐지 우회"), gk, ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트")]),
-        ("용도별", [("/thesis/", "논문 AI 작성률 낮추기"), ("/report/", "레포트 AI 탐지"), ("/resume/", "자기소개서 AI 작성률"), ("/natural/", "AI 티 안 나게"), ("/ai-converter/", "AI 문장 변환기"), ("/guide/", "휴머나이징 가이드")]),
+                       ("/ai-bypass/", "AI 탐지 우회"), gk, ("/free/", "AI 휴머나이저 무료"), ("/best-ai-humanizer/", "AI 휴머나이징 사이트"),
+                       ("/gpt-plagiarism/", "GPT 표절률 낮추기"), ("/all-ai-plagiarism/", "모든 AI 표절률 낮추기")]),   # 2026.11.25 새 검색 쪽
+        ("용도별", [("/thesis/", "논문 AI 작성률 낮추기"), ("/report/", "레포트 AI 탐지"), ("/resume/", "자기소개서 AI 작성률"), ("/natural/", "AI 티 안 나게"), ("/ai-converter/", "AI 문장 변환기"), ("/guide/", "휴머나이징 가이드"),
+                 ("/claude-plagiarism/", "클로드 표절률 낮추기"), ("/gemini-plagiarism/", "제미나이 표절률 낮추기"), ("/wrtn-plagiarism/", "뤼튼 AI 탐지 방어")]),   # 2026.11.25 새 검색 쪽(바닥글 칸 수는 그대로)
         ("회사 · 정책", [("/about/", "회사 소개"), ("/terms/", "이용약관"), ("/privacy/", "개인정보처리방침"), ("mailto:" + BIZ["mail"], "문의 " + BIZ["mail"])]),
     ]
     c = "".join('<div><h2 class="ft-h">%s</h2><ul>%s</ul></div>' % (h, "".join('<li><a href="%s">%s</a></li>' % (u, t) for u, t in L)) for h, L in cols)

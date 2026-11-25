@@ -304,3 +304,10 @@ for _L in LANDINGS:
     if _m:
         _L["body"] = _L["body"] + "\n" + _m["body"]
         _L["faq"] = list(_L["faq"]) + list(_m["faq"])
+
+# 2026.11.25 대표 '모든 AI 의 AI 표절률 … 페이지 더 만들어 노출', '기존 쪽과 겹치지 않으면서'(kw1125.py). 기존 쪽은 그대로, 뒤에 더함
+import kw1125 as _K  # noqa: E402
+REL.update(_K.REL_ADD)
+for _N in _K.NEW:
+    _N["related"] = [(p, REL[p]) for p in _K.RELATED[_N["path"]]]
+    LANDINGS.append(_N)

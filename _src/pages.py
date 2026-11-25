@@ -118,7 +118,8 @@ def trust_strip(ico):
 SEARCH_CHIPS = [("ai-humanizer/", "AI 휴머나이저"), ("humanizing/", "AI 휴머나이징"), ("lower-ai-rate/", "AI 작성률 낮추기"), ("ai-check/", "AI 작성률 검사"),
                 ("ai-bypass/", "AI 탐지 우회"), ("lower-ai-rate/", "AI 표절률 낮추기"), ("natural/", "AI 티 안 나게"), ("free/", "AI 휴머나이저 무료"),
                 ("ai-converter/", "AI 문장 변환"), ("guide/ai-patterns/", "AI 패턴 제거"), ("thesis/", "논문 AI 작성률 낮추기"), ("resume/", "자기소개서 AI 작성률 낮추기"),
-                ("report/", "레포트 AI 탐지"), ("guide/chatgpt-tone/", "챗GPT 티 안 나게"), ("best-ai-humanizer/", "AI 휴머나이징 사이트"), ("results/", "휴머나이징 실제 측정 결과")]
+                ("report/", "레포트 AI 탐지"), ("guide/chatgpt-tone/", "챗GPT 티 안 나게"), ("best-ai-humanizer/", "AI 휴머나이징 사이트"), ("results/", "휴머나이징 실제 측정 결과"),
+                ("gpt-plagiarism/", "GPT 표절률 낮추기"), ("claude-plagiarism/", "클로드 표절률"), ("gemini-plagiarism/", "제미나이 표절률"), ("wrtn-plagiarism/", "뤼튼 AI 탐지 방어"), ("all-ai-plagiarism/", "모든 AI 표절률 낮추기")]   # 2026.11.25 새 검색 쪽
 
 
 def search_chips(ico):
